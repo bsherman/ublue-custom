@@ -25,45 +25,105 @@ distrobox-ubuntu:
   
 setup-flatpaks:
   echo 'Setting up your flatpaks...'
-  flatpak install -y --user \\
-  com.discordapp.Discord \\
-  com.mastermindzh.tidal-hifi \\
-  com.microsoft.Edge \\
-  com.plexamp.Plexamp \\
-  com.slack.Slack \\
-  com.todoist.Todoist \\
-  com.visualstudio.code \\
-  im.riot.Riot \\
-  no.mifi.losslesscut \\
-  org.standardnotes.standardnotes \\
-  tv.plex.PlexDesktop \\
-  us.zoom.Zoom  
+  flatpak install -y --system \\
+  com.seafile.Client \\
+  com.simplenote.Simplenote \\
+  nl.hjdskes.gcolor3 \\
+  org.gimp.GIMP \\
+  com.ktechpit.whatsie \\
+  org.signal.Signal \\
+  us.zoom.Zoom
   
 setup-pwa:
   echo 'Giving browser permission to create PWAs (Progressive Web Apps)'
   # Add for your favorite chromium-based browser
-  flatpak override --user --filesystem=~/.local/share/applications --filesystem=~/.local/share/icons com.microsoft.Edge
+  flatpak override --system --filesystem=~/.local/share/applications --filesystem=~/.local/share/icons com.brave.Browser
 
-setup-gaming:
-  echo 'Setting up gaming experience ... lock and load.'
-  flatpak install -y --user \\
-  com.discordapp.Discord \\
-  com.feaneron.Boatswain \\
+setup-gaming-educational:
+  echo 'Setting up educational gaming experience ...'
+  flatpak install -y --system \\
+  org.kde.ktouch \\
+  org.kde.kturtle \\
+  edu.mit.Scratch \\
+  com.tux4kids.tuxmath \\
+  com.tux4kids.tuxtype \\
+  org.tuxpaint.Tuxpaint
+
+setup-gaming-light:
+  echo 'Setting up light gaming experience ...'
+  flatpak install -y --system \\
+  net.sourceforge.lgames.LTris \\
+  org.frozen_bubble.frozen-bubble \\
+  org.gnome.Aisleriot \\
+  org.gnome.Crosswords \\
+  org.gnome.Mines \\
+  org.gweled.Gweled
+
+setup-gaming-linux:
+  echo 'Setting up linux gaming experience ...'
+  flatpak install -y --system \\
+  io.github.retux_game.retux \\
+  net.sourceforge.ExtremeTuxRacer \\
+  net.supertuxkart.SuperTuxKart \\
+  org.supertuxproject.SuperTux \\
+  org.armagetronad.ArmagetronAdvanced \\
+  party.supertux.supertuxparty
+
+setup-gaming-minecraft:
+  echo 'Setting up minecraft gaming experience ...'
+  flatpak install -y --system \\
+  io.mrarm.mcpelauncher \\
+  org.prismlauncher.PrismLauncher
+
+setup-gaming-serious:
+  echo 'Setting up serious gaming experience ... lock and load.'
+  flatpak install -y --system \\
   org.freedesktop.Platform.VulkanLayer.MangoHud//22.08 \\
-  org.freedesktop.Platform.VulkanLayer.OBSVkCapture//22.08 \\
   org.freedesktop.Platform.VulkanLayer.vkBasalt//22.08 \\
+  com.github.Matoking.protontricks \\
   com.heroicgameslauncher.hgl \\
-  com.obsproject.Studio \\
-  com.obsproject.Studio.Plugin.OBSVkCapture \\
-  com.obsproject.Studio.Plugin.Gstreamer \\
   com.usebottles.bottles \\
   com.valvesoftware.Steam \\
   com.valvesoftware.Steam.Utility.gamescope \\
-  net.davidotek.pupgui2
-  flatpak override com.usebottles.bottles --user --filesystem=xdg-data/applications 
-  flatpak override --user --env=MANGOHUD=1 com.valvesoftware.Steam 
-  flatpak override --user --env=MANGOHUD=1 com.heroicgameslauncher.hgl 
- 
+  com.valvesoftware.Steam.CompatibilityTool.Boxtron \\
+  com.valvesoftware.Steam.CompatibilityTool.Proton \\
+  com.valvesoftware.Steam.CompatibilityTool.Proton-Exp \\
+  com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+  flatpak override com.usebottles.bottles --system --filesystem=xdg-data/applications
+  flatpak override --system --env=MANGOHUD=1 com.valvesoftware.Steam
+  flatpak override --system --env=MANGOHUD=1 com.heroicgameslauncher.hgl
+
+setup-media-flatpaks:
+  echo 'Setting up creative media flatpaks...'
+  flatpak install -y --system \\
+  org.audacityteam.Audacity \\
+  org.inkscape.Inkscape \\
+  org.kde.kdenlive \\
+  org.kde.krita \\
+  org.freedesktop.Platform.VulkanLayer.OBSVkCapture//22.08 \\
+  com.obsproject.Studio \\
+  com.obsproject.Studio.Plugin.OBSVkCapture \\
+  com.obsproject.Studio.Plugin.Gstreamer
+
+setup-other-flatpaks:
+  echo 'Setting up misc other flatpaks...'
+  flatpak install -y --system \\
+  com.belmoussaoui.Obfuscate \\
+  com.discordapp.Discord \\
+  com.google.Chrome \\
+  com.microsoft.Edge \\
+  com.skype.Client \\
+  com.slack.Slack \\
+  com.visualstudio.code \\
+  de.haeckerfelix.Fragments \\
+  org.flameshot.Flameshot \\
+  org.gnome.Firmware \\
+  org.gnome.seahorse.Application \\
+  org.telegram.desktop \\
+  org.wezfurlong.wezterm \\
+  re.sonny.Junction \\
+  tech.feliciano.pocket-casts
+
 update:
   rpm-ostree update
   flatpak update -y

@@ -14,10 +14,10 @@ This is a Fedora Silverblue image customized how I want, based on the great work
 Warning: This is an experimental feature and should not be used in production (yet), however it's pretty close)
 
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:latest
-    
+
 We build date tags as well, so if you want to rebase to a particular day's release:
   
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:20230207
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:20230206
 
 The `latest` tag will automatically point to the latest build. 
 
@@ -26,16 +26,39 @@ The `latest` tag will automatically point to the latest build.
 - Start with a base Fedora Silverblue 37 image
 - Removes Firefox from the base image
 - Adds the following packages to the base image:
-  - distrobox and gnome-tweaks
+  - distrobox
+  - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
+  - gnome-tweaks
+  - gnome shell extensions (appindicator, dash-to-dock, gsconnect)
+  - gsconnect (dependancies)
+  - just
+  - ratbagd (for Piper mouse management)
+  - shotwell (the flatpak version crashes accessing USB)
+  - tailscale
+  - wireguard-tools
 - Sets automatic staging of updates for the system
 - Sets flatpaks to update twice a day
-- Everything else (desktop, artwork, etc) remains stock so you can use this as a good starting image
+- Copies udev rules from [ublue-os/udev-rules](https://github.com/ublue-os/udev-rules)
+- Everything else (desktop, artwork, etc) remains stock
 
 ## Applications
 
-- All applications installed per user instead of system wide, similar to openSUSE MicroOS, they are not on the base image. Thanks for the inspiration Team Green!
-- Mozilla Firefox, Mozilla Thunderbird, Extension Manager, Libreoffice, DejaDup, FontDownloader, Flatseal, and the Celluloid Media Player
-- Core GNOME Applications installed from Flathub
+- Unlike the [ublue base image](https://github.com/ublue-os/base), flatpak applications are installed system wide, but are they are still not on the base image, as they install to /var.
+- Also unlike the [ublue base image](https://github.com/ublue-os/base), the "first run script" only executes for the default user which first logs into the system. We still use that process to customize flatpak refs and install default apps, but it only needs to run once as we install those apps to system.
+- Custom apps installed:
+  - Mozilla Firefox
+  - Brave Browser
+  - Geary
+  - DejaDup
+  - Extension Manager
+  - Flatseal
+  - Font Downloader
+  - Libreoffice
+  - Piper (mouse manager)
+  - Rhythmbox Media Player (music)
+  - Sound Recorder
+  - and the Celluloid Media Player (video)
+- Core GNOME Applications are installed from Flathub:
   - GNOME Calculator, Calendar, Characters, Connections, Contacts, Evince, Firmware, Logs, Maps, NautilusPreviewer, TextEditor, Weather, baobab, clocks, eog, and font-viewer
 
 ## Further Customization
@@ -52,9 +75,15 @@ After that run the following commands:
   - `just distrobox-debian`
   - `just distrobox-opensuse`
   - `just distrobox-ubuntu`
-- `just setup-flatpaks` - Install a selection of flatpaks, use this section to add your own apps
-- `just setup-gaming` - Install Steam, Heroic Game Launcher, OBS Studio, Discord, Boatswain, Bottles, and ProtonUp-Qt. MangoHud is installed and enabled by default, hit right Shift-F12 to toggle
-- `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
+  - `just setup-flatpaks` - Install a selection of flatpaks (in my case, usually on parents' laptops but not kids')
+  - `just setup-media-flatpaks` - Install Audacity, Inkscape, Kdenlive, Krita, and OBS
+  - `just setup-other-flatpaks` - Install misc stuff mostly used only by me amongst my family
+  - `just setup-gaming-educational` - Install kid friendly drawing, math, programming, and typing games
+  - `just setup-gaming-light` - Install simple games like crosswords, solitaire(cards), mines, bejeweled/tetris clones
+  - `just setup-gaming-linux` - Install Linux/Tux games plus a Tron/lightcycle game
+  - `just setup-gaming-minecraft` - Install PrismLauncher (Minecraft for Java) and Bedrock Edition launcher
+  - `just setup-gaming-serious` - Install Steam, Heroic Game Launcher, Bottles, and community builds of Proton. MangoHud is installed and enabled by default, hit right Shift-F12 to toggle
+  - `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
 
 Check the [just website](https://just.systems) for tips on modifying and adding your own recipes. 
   

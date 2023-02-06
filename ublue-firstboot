@@ -20,7 +20,7 @@ fi
 echo "3"
 
 echo "# Enabling Flathub Repository"
-/usr/bin/flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+/usr/bin/flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Adding Flathub Repo Failed"
@@ -29,8 +29,9 @@ fi
 echo "5"
 
 echo "# Replacing Fedora Flatpaks with Flathub Ones (this may take a while)"
-/usr/bin/flatpak install --user --noninteractive org.gnome.Platform//43
-/usr/bin/flatpak install --user --noninteractive --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+/usr/bin/flatpak remove --noninteractive org.gnome.Extensions
+/usr/bin/flatpak install --system --noninteractive org.gnome.Platform//43
+/usr/bin/flatpak install --system --noninteractive --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Replacing Fedora Flatpaks Failed"
@@ -38,11 +39,11 @@ if [ "$?" != 0 ] ; then
 fi
 echo "20"
 
-echo "Removing all preinstalled Flatpaks"
-/usr/bin/flatpak remove --system --noninteractive --all ||:
+echo "Removing preinstalled Fedora platform Flatpak"
+/usr/bin/flatpak remove --system --noninteractive org.fedoraproject.Platform ||:
 if [ "$?" != 0 ] ; then
         zenity --error \
-          --text="Removing all preinstalled flatpaks failed"
+          --text="Removing preinstalled Fedora platform Flatpak failed"
         exit 1
 fi
 
@@ -56,7 +57,7 @@ fi
 echo "25"
 
 echo "# Installing Firefox"
-/usr/bin/flatpak install --user --noninteractive flathub org.mozilla.firefox
+/usr/bin/flatpak install --system --noninteractive flathub org.mozilla.firefox
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Firefox Failed"
@@ -64,17 +65,35 @@ if [ "$?" != 0 ] ; then
 fi
 echo "30"
 
-echo "# Installing Thunderbird"
-/usr/bin/flatpak install --user --noninteractive flathub org.mozilla.Thunderbird
+echo "# Installing Brave Browser"
+/usr/bin/flatpak install --system --noninteractive flathub com.brave.Browser
 if [ "$?" != 0 ] ; then
         zenity --error \
-          --text="Installing Thunderbird Failed"
+          --text="Installing Brave Browser Failed"
+        exit 1
+fi
+echo "35"
+
+echo "# Installing Geary"
+/usr/bin/flatpak install --system --noninteractive flathub org.gnome.Geary
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing Geary Failed"
         exit 1
 fi
 echo "40"
 
+echo "# Installing DejaDup"
+/usr/bin/flatpak install --system --noninteractive flathub org.gnome.DejaDup
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing DejaDup Failed"
+        exit 1
+fi
+echo "45"
+
 echo "# Installing Extension Manager"
-/usr/bin/flatpak install --user --noninteractive flathub com.mattjakeman.ExtensionManager
+/usr/bin/flatpak install --system --noninteractive flathub com.mattjakeman.ExtensionManager
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Extension Manager Failed"
@@ -82,26 +101,44 @@ if [ "$?" != 0 ] ; then
 fi
 echo "50"
 
+echo "# Installing Piper"
+/usr/bin/flatpak install --system --noninteractive flathub org.freedesktop.Piper
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing Piper Failed"
+        exit 1
+fi
+echo "55"
+
 echo "# Installing LibreOffice"
-/usr/bin/flatpak install --user --noninteractive flathub org.libreoffice.LibreOffice
+/usr/bin/flatpak install --system --noninteractive flathub org.libreoffice.LibreOffice
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing LibreOffice Failed"
         exit 1
 fi
-echo "70"
+echo "65"
 
-echo "# Installing DejaDup Backup"
-/usr/bin/flatpak install --user --noninteractive flathub org.gnome.DejaDup
+echo "# Installing Sound Recorder"
+/usr/bin/flatpak install --system --noninteractive flathub org.gnome.SoundRecorder
 if [ "$?" != 0 ] ; then
         zenity --error \
-          --text="Installing DejaDup Failed"
+          --text="Installing Sound Recorder Failed"
+        exit 1
+fi
+echo "75"
+
+echo "# Installing RhythmBox Media Player"
+/usr/bin/flatpak install --system --noninteractive flathub org.gnome.RhythmBox3
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing Rhythmbox Failed"
         exit 1
 fi
 echo "80"
 
 echo "# Installing Font Downloader"
-/usr/bin/flatpak install --user --noninteractive flathub org.gustavoperedo.FontDownloader
+/usr/bin/flatpak install --system --noninteractive flathub org.gustavoperedo.FontDownloader
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing FontDownloader Failed"
@@ -110,7 +147,7 @@ fi
 echo "85"
 
 echo "# Installing Flatseal"
-/usr/bin/flatpak install --user --noninteractive flathub com.github.tchx84.Flatseal
+/usr/bin/flatpak install --system --noninteractive flathub com.github.tchx84.Flatseal
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Flatseal Failed"
@@ -119,7 +156,7 @@ fi
 echo "90"
 
 echo "# Installing Celluloid Media Player"
-/usr/bin/flatpak install --user --noninteractive flathub io.github.celluloid_player.Celluloid
+/usr/bin/flatpak install --system --noninteractive flathub io.github.celluloid_player.Celluloid
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Celluloid Failed"
@@ -134,7 +171,7 @@ cp -n /etc/justfile "$HOME"/.justfile
 
 ) | 
      
-   zenity --progress --title="uBlue Desktop Firstboot" --percentage=0 --auto-close --no-cancel --width=300
+   zenity --progress --title="uBlue (bsherman) Desktop Firstboot" --percentage=0 --auto-close --no-cancel --width=300
 
 if [ "$?" != 0 ] ; then
         zenity --error \
