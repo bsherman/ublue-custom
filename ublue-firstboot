@@ -129,7 +129,7 @@ fi
 echo "75"
 
 echo "# Installing RhythmBox Media Player"
-/usr/bin/flatpak install --system --noninteractive flathub org.gnome.RhythmBox3
+/usr/bin/flatpak install --system --noninteractive flathub org.gnome.Rhythmbox3
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Rhythmbox Failed"
