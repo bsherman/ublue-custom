@@ -7,6 +7,15 @@ bios:
 changelogs:
   rpm-ostree db diff --changelogs
 
+enable-akmods-custom-secure-boot:
+  sudo mokutil --import /etc/pki/akmods/certs/akmods-custom.der
+
+enable-nvidia-drivers:
+  rpm-ostree kargs \
+    --append=rd.driver.blacklist=nouveau \
+    --append=modprobe.blacklist=nouveau \
+    --append=nvidia-drm.modeset=1
+
 distrobox-boxkit:
   echo 'Creating Boxkit distrobox ...'
   distrobox create --image ghcr.io/ublue-os/boxkit -n boxkit -Y
@@ -18,7 +27,7 @@ distrobox-debian:
 distrobox-opensuse:
   echo 'Creating openSUSE distrobox ...'
   distrobox create --image quay.io/toolbx-images/opensuse-toolbox:tumbleweed -n opensuse -Y
- 
+
 distrobox-ubuntu:
   echo 'Creating Ubuntu distrobox ...'
   distrobox create --image quay.io/toolbx-images/ubuntu-toolbox:22.04 -n ubuntu -Y

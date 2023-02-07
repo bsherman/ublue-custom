@@ -29,7 +29,8 @@ The `latest` tag will automatically point to the latest build.
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
   - gnome-tweaks
   - gnome shell extensions (appindicator, dash-to-dock, gsconnect)
-  - gsconnect (dependancies)
+  - gsconnect (plus dependancies)
+  - inotify-tools
   - just
   - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
@@ -69,11 +70,15 @@ After that run the following commands:
 - `just` - Show all tasks, more will be added in the future
 - `just bios` - Reboot into the system bios (Useful for dualbooting)
 - `just changelogs` - Show the changelogs of the pending update
+- `just enable-akmods-custom-secure-boot` - use mokutil to import akmods-custom key for SecureBoot loading of nvidia/xpadneo drivers (must follow steps after reboot to import the key)
+- `just enable-nvidia-drivers` - set kernel boot args to enable nvidia drivers (needs a reboot)
+- `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
 - Set up distroboxes for the following images:
   - `just distrobox-boxkit`
   - `just distrobox-debian`
   - `just distrobox-opensuse`
   - `just distrobox-ubuntu`
+- Install various flatpak collections:
   - `just setup-flatpaks` - Install a selection of flatpaks (in my case, usually on parents' laptops but not kids')
   - `just setup-media-flatpaks` - Install Audacity, Inkscape, Kdenlive, Krita, and OBS
   - `just setup-other-flatpaks` - Install misc stuff mostly used only by me amongst my family
@@ -82,7 +87,6 @@ After that run the following commands:
   - `just setup-gaming-linux` - Install Linux/Tux games plus a Tron/lightcycle game
   - `just setup-gaming-minecraft` - Install PrismLauncher (Minecraft for Java) and Bedrock Edition launcher
   - `just setup-gaming-serious` - Install Steam, Heroic Game Launcher, Bottles, and community builds of Proton. MangoHud is installed and enabled by default, hit right Shift-F12 to toggle
-  - `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
 
 Check the [just website](https://just.systems) for tips on modifying and adding your own recipes. 
   
