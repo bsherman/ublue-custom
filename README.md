@@ -60,6 +60,7 @@ The `latest` tag will automatically point to the latest build.
   - and the Celluloid Media Player (video)
 - Core GNOME Applications are installed from Flathub:
   - GNOME Calculator, Calendar, Characters, Connections, Contacts, Evince, Firmware, Logs, Maps, NautilusPreviewer, TextEditor, Weather, baobab, clocks, eog, and font-viewer
+- Lightly-tested scripts for easily enabling/disabling LUKS auto-unlock using TPM2.
 
 ## Further Customization
 
@@ -88,8 +89,7 @@ After that run the following commands:
   - `just setup-gaming-minecraft` - Install PrismLauncher (Minecraft for Java) and Bedrock Edition launcher
   - `just setup-gaming-serious` - Install Steam, Heroic Game Launcher, Bottles, and community builds of Proton. MangoHud is installed and enabled by default, hit right Shift-F12 to toggle
 
-Check the [just website](https://just.systems) for tips on modifying and adding your own recipes. 
-  
+Check the [just website](https://just.systems) for tips on modifying and adding your own recipes.
   
 ## Verification
 

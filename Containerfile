@@ -4,6 +4,7 @@ FROM ghcr.io/bsherman/silverblue-kmods:${FEDORA_MAJOR_VERSION}
 
 COPY etc /etc
 
+COPY luks-*-tpm2-autounlock /usr/bin
 COPY ublue-firstboot /usr/bin
 
 COPY --from=ghcr.io/ublue-os/udev-rules etc/udev/rules.d/* /etc/udev/rules.d

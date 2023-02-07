@@ -47,11 +47,11 @@ setup-pwa:
   echo 'Giving browser permission to create PWAs (Progressive Web Apps)'
   # Add for your favorite chromium-based browser
   flatpak override --system --filesystem=~/.local/share/applications --filesystem=~/.local/share/icons com.brave.Browser
+  flatpak override --system --filesystem=~/.local/share/applications --filesystem=~/.local/share/icons com.microsoft.Edge
 
 setup-gaming-educational:
   echo 'Setting up educational gaming experience ...'
   flatpak install -y --system \\
-  org.kde.ktouch \\
   org.kde.kturtle \\
   edu.mit.Scratch \\
   com.tux4kids.tuxmath \\
@@ -65,8 +65,7 @@ setup-gaming-light:
   org.frozen_bubble.frozen-bubble \\
   org.gnome.Aisleriot \\
   org.gnome.Crosswords \\
-  org.gnome.Mines \\
-  org.gweled.Gweled
+  org.gnome.Mines
 
 setup-gaming-linux:
   echo 'Setting up linux gaming experience ...'
@@ -81,6 +80,8 @@ setup-gaming-linux:
 setup-gaming-minecraft:
   echo 'Setting up minecraft gaming experience ...'
   flatpak install -y --system \\
+  com.lunarclient.LunarClient \\
+  com.mojang.Minecraft \\
   io.mrarm.mcpelauncher \\
   org.prismlauncher.PrismLauncher
 
