@@ -2,8 +2,7 @@
 
 [![build-ublue](https://github.com/bsherman/silverblue-custom/actions/workflows/build.yml/badge.svg)](https://github.com/bsherman/silverblue-custom/actions/workflows/build.yml)
 
-A custom Fedora Silverblue image which is mostly stock, plus the few things that are needed to make
-life good on my family's laptops.
+A custom Fedora Silverblue image which is mostly stock, plus the few things that are needed to make life good on my family's laptops.
 
 ## What is this?
 
@@ -23,7 +22,7 @@ The `latest` tag will automatically point to the latest build.
 
 ## Features
 
-- Start with a base Fedora Silverblue 37 image
+- Uses my [silverblue-kmods image](https://github.com/bsherman/silverblue-kmods) as a base (stock Silverblue, plus nvidia and xpadneo drivers are included)
 - Removes Firefox from the base image
 - Adds the following packages to the base image:
   - distrobox
