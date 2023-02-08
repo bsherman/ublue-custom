@@ -1,5 +1,8 @@
 name: build-ublue
 on:
+  workflow_dispatch:
+    branches:
+      - main
   pull_request:
     branches:
       - main
