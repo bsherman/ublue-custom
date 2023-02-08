@@ -46,7 +46,7 @@ name='gnome-terminal'
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
 home=['<Super>e']
 
-[org/gnome/settings-daemon/plugins/plugins/power]
+[org/gnome/settings-daemon/plugins/power]
 ambient-enabled=false
 
 [org/gnome/software]
