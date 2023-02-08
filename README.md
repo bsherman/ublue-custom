@@ -38,6 +38,8 @@ The `latest` tag will automatically point to the latest build.
   - wireguard-tools
 - Sets automatic staging of updates for the system
 - Sets flatpaks to update twice a day
+- Sets faster timeout on systemd waiting for shutdown
+- Sets some a few custom gnome settings (see etc/dconf)
 - Copies udev rules from [ublue-os/udev-rules](https://github.com/ublue-os/udev-rules)
 - Everything else (desktop, artwork, etc) remains stock
 
