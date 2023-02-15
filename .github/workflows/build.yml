@@ -7,7 +7,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '50 20 * * *'  # 8:50pm everyday
+    - cron: '45 06 * * *' # 6:45am UTC everyday
   push:
     branches:
       - main
