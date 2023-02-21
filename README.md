@@ -1,28 +1,32 @@
-# silverblue-custom
+# ublue-custom
 
-[![build-ublue](https://github.com/bsherman/silverblue-custom/actions/workflows/build.yml/badge.svg)](https://github.com/bsherman/silverblue-custom/actions/workflows/build.yml)
+[![build-ublue](https://github.com/bsherman/ublue-custom/actions/workflows/build.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build.yml)
 
-A custom Fedora Silverblue image which is mostly stock, plus the few things that are needed to make life good on my family's laptops.
+Custom Fedora immutable desktop images which are mostly stock, plus the few things that are needed to make life good on my family's laptops.
 
 ## What is this?
 
-This is a Fedora Silverblue image customized how I want, based on the great work by [team ublue os](https://github.com/ublue-os).
+These images are customized how I want, based on the great work by [team ublue os](https://github.com/ublue-os).
 
 ## Usage
 
 Warning: This is an experimental feature and should not be used in production (yet), however it's pretty close)
 
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:latest
 
 We build date tags as well, so if you want to rebase to a particular day's release:
   
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:20230206
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:20230220
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:20230220
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:20230220
 
 The `latest` tag will automatically point to the latest build. 
 
 ## Features
 
-- Uses my [silverblue-kmods image](https://github.com/bsherman/silverblue-kmods) as a base (stock Silverblue, plus nvidia and xpadneo drivers are included)
+- Uses my [ublue-kmods images](https://github.com/bsherman/ublue-kmods) as a base (stock Silverblue/Kinoite/etc, plus nvidia, xone, and xpadneo drivers included)
 - Removes Firefox from the base image
 - Adds the following packages to the base image:
   - distrobox
@@ -98,3 +102,5 @@ Check the [just website](https://just.systems) for tips on modifying and adding 
 These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the following command:
 
     cosign verify --key cosign.pub ghcr.io/bsherman/silverblue-custom
+    cosign verify --key cosign.pub ghcr.io/bsherman/kinoite-custom
+    cosign verify --key cosign.pub ghcr.io/bsherman/vauxite-custom
