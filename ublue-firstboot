@@ -5,6 +5,8 @@ if test -e "$HOME"/.config/ublue/firstboot-done; then
     exit 0
 fi
 
+VARIANT_ID=$(/usr/bin/grep ^VARIANT_ID /etc/os-release | /usr/bin/cut -f2 -d=)
+
 (
 echo "# Waiting for Internet connection"
 until /usr/bin/ping -q -c 1 flathub.org; do sleep 1; done
@@ -28,6 +30,7 @@ if [ "$?" != 0 ] ; then
 fi
 echo "5"
 
+if [[ "$VARIANT_ID" == "silverblue" ]]; then
 echo "# Replacing Fedora Flatpaks with Flathub Ones (this may take a while)"
 /usr/bin/flatpak remove --noninteractive org.gnome.Extensions
 /usr/bin/flatpak install --system --noninteractive org.gnome.Platform//43
@@ -38,6 +41,7 @@ if [ "$?" != 0 ] ; then
         exit 1
 fi
 echo "20"
+fi
 
 echo "Removing preinstalled Fedora platform Flatpak"
 /usr/bin/flatpak remove --system --noninteractive org.fedoraproject.Platform ||:
@@ -56,20 +60,22 @@ if [ "$?" != 0 ] ; then
 fi
 echo "25"
 
-echo "# Installing Firefox"
-/usr/bin/flatpak install --system --noninteractive flathub org.mozilla.firefox
+if [[ "$VARIANT_ID" == "silverblue" ]]; then
+
+echo "# Installing Extension Manager"
+/usr/bin/flatpak install --system --noninteractive flathub com.mattjakeman.ExtensionManager
 if [ "$?" != 0 ] ; then
         zenity --error \
-          --text="Installing Firefox Failed"
+          --text="Installing Extension Manager Failed"
         exit 1
 fi
 echo "30"
 
-echo "# Installing Brave Browser"
-/usr/bin/flatpak install --system --noninteractive flathub com.brave.Browser
+echo "# Installing Font Downloader"
+/usr/bin/flatpak install --system --noninteractive flathub org.gustavoperedo.FontDownloader
 if [ "$?" != 0 ] ; then
         zenity --error \
-          --text="Installing Brave Browser Failed"
+          --text="Installing FontDownloader Failed"
         exit 1
 fi
 echo "35"
@@ -81,52 +87,7 @@ if [ "$?" != 0 ] ; then
           --text="Installing Geary Failed"
         exit 1
 fi
-echo "40"
-
-echo "# Installing DejaDup"
-/usr/bin/flatpak install --system --noninteractive flathub org.gnome.DejaDup
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Installing DejaDup Failed"
-        exit 1
-fi
-echo "45"
-
-echo "# Installing Extension Manager"
-/usr/bin/flatpak install --system --noninteractive flathub com.mattjakeman.ExtensionManager
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Installing Extension Manager Failed"
-        exit 1
-fi
-echo "50"
-
-echo "# Installing Piper"
-/usr/bin/flatpak install --system --noninteractive flathub org.freedesktop.Piper
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Installing Piper Failed"
-        exit 1
-fi
-echo "55"
-
-echo "# Installing LibreOffice"
-/usr/bin/flatpak install --system --noninteractive flathub org.libreoffice.LibreOffice
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Installing LibreOffice Failed"
-        exit 1
-fi
-echo "65"
-
-echo "# Installing Sound Recorder"
-/usr/bin/flatpak install --system --noninteractive flathub org.gnome.SoundRecorder
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Installing Sound Recorder Failed"
-        exit 1
-fi
-echo "75"
+echo "35"
 
 echo "# Installing RhythmBox Media Player"
 /usr/bin/flatpak install --system --noninteractive flathub org.gnome.Rhythmbox3
@@ -135,22 +96,69 @@ if [ "$?" != 0 ] ; then
           --text="Installing Rhythmbox Failed"
         exit 1
 fi
-echo "80"
+echo "40"
 
-echo "# Installing Font Downloader"
-/usr/bin/flatpak install --system --noninteractive flathub org.gustavoperedo.FontDownloader
+echo "# Installing Sound Recorder"
+/usr/bin/flatpak install --system --noninteractive flathub org.gnome.SoundRecorder
 if [ "$?" != 0 ] ; then
         zenity --error \
-          --text="Installing FontDownloader Failed"
+          --text="Installing Sound Recorder Failed"
         exit 1
 fi
-echo "85"
+echo "45"
+
+fi
+
+echo "# Installing Firefox"
+/usr/bin/flatpak install --system --noninteractive flathub org.mozilla.firefox
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing Firefox Failed"
+        exit 1
+fi
+echo "50"
+
+echo "# Installing Brave Browser"
+/usr/bin/flatpak install --system --noninteractive flathub com.brave.Browser
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing Brave Browser Failed"
+        exit 1
+fi
+echo "55"
+
+echo "# Installing DejaDup"
+/usr/bin/flatpak install --system --noninteractive flathub org.gnome.DejaDup
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing DejaDup Failed"
+        exit 1
+fi
+echo "60"
+
+echo "# Installing Piper"
+/usr/bin/flatpak install --system --noninteractive flathub org.freedesktop.Piper
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing Piper Failed"
+        exit 1
+fi
+echo "65"
 
 echo "# Installing Flatseal"
 /usr/bin/flatpak install --system --noninteractive flathub com.github.tchx84.Flatseal
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Flatseal Failed"
+        exit 1
+fi
+echo "70"
+
+echo "# Installing LibreOffice"
+/usr/bin/flatpak install --system --noninteractive flathub org.libreoffice.LibreOffice
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing LibreOffice Failed"
         exit 1
 fi
 echo "90"

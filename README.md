@@ -31,40 +31,44 @@ The `latest` tag will automatically point to the latest build.
 - Adds the following packages to the base image:
   - distrobox
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
-  - gnome-tweaks
-  - gnome shell extensions (appindicator, dash-to-dock, gsconnect)
-  - gsconnect (plus dependancies)
   - inotify-tools
   - just
   - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
   - tailscale
   - wireguard-tools
+  - Only on Silverblue: Gnome specific packages
+    - gnome-tweaks
+    - gnome shell extensions (appindicator, dash-to-dock, gsconnect)
+    - gsconnect (plus dependancies)
+  - On Kinoite and Vauxite:
+    - zenity (used in ublue-firstboot script, available by default in Silverblue)
 - Sets automatic staging of updates for the system
 - Sets flatpaks to update twice a day
 - Sets faster timeout on systemd waiting for shutdown
 - Sets some a few custom gnome settings (see etc/dconf)
-- Copies udev rules from [ublue-os/udev-rules](https://github.com/ublue-os/udev-rules)
+- Copies udev rules from [ublue-os/udev-rules](https://github.com/ublue-os/udev-rules) (alternative to steam-devices package)
 - Everything else (desktop, artwork, etc) remains stock
 
 ## Applications
 
 - Unlike the [ublue base image](https://github.com/ublue-os/base), flatpak applications are installed system wide, but are they are still not on the base image, as they install to /var.
 - Also unlike the [ublue base image](https://github.com/ublue-os/base), the "first run script" only executes for the default user which first logs into the system. We still use that process to customize flatpak refs and install default apps, but it only needs to run once as we install those apps to system.
-- Custom apps installed:
+- Custom apps installed on all images:
   - Mozilla Firefox
   - Brave Browser
-  - Geary
   - DejaDup
-  - Extension Manager
   - Flatseal
-  - Font Downloader
   - Libreoffice
   - Piper (mouse manager)
+  - and the Celluloid Media Player (video)
+- Custom apps installed only on Silverblue (Gnome):
+  - Extension Manager
+  - Font Downloader
+  - Geary
   - Rhythmbox Media Player (music)
   - Sound Recorder
-  - and the Celluloid Media Player (video)
-- Core GNOME Applications are installed from Flathub:
+- Core GNOME Applications are installed from Flathub (only on Silverblue image):
   - GNOME Calculator, Calendar, Characters, Connections, Contacts, Evince, Firmware, Logs, Maps, NautilusPreviewer, TextEditor, Weather, baobab, clocks, eog, and font-viewer
 - Lightly-tested scripts for easily enabling/disabling LUKS auto-unlock using TPM2.
 
@@ -77,7 +81,8 @@ After that run the following commands:
 - `just` - Show all tasks, more will be added in the future
 - `just bios` - Reboot into the system bios (Useful for dualbooting)
 - `just changelogs` - Show the changelogs of the pending update
-- `just enable-akmods-custom-secure-boot` - use mokutil to import akmods-custom key for SecureBoot loading of nvidia/xpadneo drivers (must follow steps after reboot to import the key)
+- `just enable-secure-boot-akmods-custom` - use mokutil to import akmods-custom key for SecureBoot loading of xone/xpadneo drivers (must follow steps after reboot to import the key)
+- `just enable-secure-boot-akmods-nvidia` - use mokutil to import akmods-custom key for SecureBoot loading of nvidia drivers (must follow steps after reboot to import the key)
 - `just enable-nvidia-drivers` - set kernel boot args to enable nvidia drivers (needs a reboot)
 - `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
 - Set up distroboxes for the following images:
@@ -93,13 +98,15 @@ After that run the following commands:
   - `just setup-gaming-light` - Install simple games like crosswords, solitaire(cards), mines, bejeweled/tetris clones
   - `just setup-gaming-linux` - Install Linux/Tux games plus a Tron/lightcycle game
   - `just setup-gaming-minecraft` - Install PrismLauncher (Minecraft for Java) and Bedrock Edition launcher
-  - `just setup-gaming-serious` - Install Steam, Heroic Game Launcher, Bottles, and community builds of Proton. MangoHud is installed and enabled by default, hit right Shift-F12 to toggle
+  - `just setup-gaming-serious` - Install Steam, Heroic Game Launcher, Bottles, and community builds of Proton.
+  - `just setup-flatpak-overrides-gaming` - Enable MangoHud by default (hit right Shift-F12 to toggle), and enable Bottles to create apps
+  - `just setup-flatpak-overrides-pwa` - Enable Chromium browsers to create apps
 
 Check the [just website](https://just.systems) for tips on modifying and adding your own recipes.
   
 ## Verification
 
-These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the following command:
+These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the appropriate command:
 
     cosign verify --key cosign.pub ghcr.io/bsherman/silverblue-custom
     cosign verify --key cosign.pub ghcr.io/bsherman/kinoite-custom

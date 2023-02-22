@@ -7,8 +7,11 @@ bios:
 changelogs:
   rpm-ostree db diff --changelogs
 
-enable-akmods-custom-secure-boot:
+enable-secure-boot-akmods-custom:
   sudo mokutil --import /etc/pki/akmods/certs/akmods-custom.der
+
+enable-secure-boot-akmods-nvidia:
+  sudo mokutil --import /etc/pki/akmods/certs/akmods-nvidia.der
 
 enable-nvidia-drivers:
   rpm-ostree kargs \
@@ -43,7 +46,7 @@ setup-flatpaks:
   org.signal.Signal \\
   us.zoom.Zoom
   
-setup-pwa:
+setup-flatpak-overrides-pwa:
   echo 'Giving browser permission to create PWAs (Progressive Web Apps)'
   # Add for your favorite chromium-based browser
   flatpak override --system --filesystem=~/.local/share/applications --filesystem=~/.local/share/icons com.brave.Browser
@@ -99,6 +102,8 @@ setup-gaming-serious:
   com.valvesoftware.Steam.CompatibilityTool.Proton \\
   com.valvesoftware.Steam.CompatibilityTool.Proton-Exp \\
   com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+
+setup-flatpak-overrides-gaming:
   flatpak override com.usebottles.bottles --system --filesystem=xdg-data/applications
   flatpak override --system --env=MANGOHUD=1 com.valvesoftware.Steam
   flatpak override --system --env=MANGOHUD=1 com.heroicgameslauncher.hgl
