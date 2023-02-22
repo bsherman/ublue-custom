@@ -179,7 +179,7 @@ cp -n /etc/justfile "$HOME"/.justfile
 
 ) | 
      
-   zenity --progress --title="uBlue (bsherman) Desktop Firstboot" --percentage=0 --auto-close --no-cancel --width=300
+   zenity --progress --title="ublue-custom ($VARIANT_ID) Desktop Firstboot" --percentage=0 --auto-close --no-cancel --width=350
 
 if [ "$?" != 0 ] ; then
         zenity --error \
