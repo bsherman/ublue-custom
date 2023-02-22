@@ -71,7 +71,8 @@ The `latest` tag will automatically point to the latest build.
 - Core GNOME Applications are installed from Flathub (only on Silverblue image):
   - GNOME Calculator, Calendar, Characters, Connections, Contacts, Evince, Firmware, Logs, Maps, NautilusPreviewer, TextEditor, Weather, baobab, clocks, eog, and font-viewer
 - Lightly-tested scripts for easily enabling/disabling LUKS auto-unlock using TPM2.
-
+  - `luks-enable-tpm2-autounlock` - backup `/etc/crypttab` and `systemd-cryptenroll`s TPM2 for unlock; requires existing LUKS2 password
+  - `luks-disable-tpm2-autounlock` - restores the backup of `/etc/crypttab` and safely `systemd-cryptenroll` wipes TPM2 unlock slot
 ## Further Customization
 
 The `just` task runner is included for further customization after first boot.
