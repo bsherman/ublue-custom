@@ -8,6 +8,10 @@ Custom Fedora immutable desktop images which are mostly stock, plus the few thin
 
 These images are customized how I want, based on the great work by [team ublue os](https://github.com/ublue-os).
 
+
+#### NOTE: this project is not formally affiliated with [ublue-os](https://github.com/ublue-os/) and is not supported by their team.
+
+
 ## Usage
 
 Warning: This is an experimental feature and should not be used in production (yet), however it's pretty close)
