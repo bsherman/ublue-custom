@@ -31,6 +31,7 @@ nautilus-gsconnect"; \
         libratbag-ratbagd \
         libretls \
         openssl \
+        powertop \
         shotwell \
         tailscale \
         wireguard-tools && \

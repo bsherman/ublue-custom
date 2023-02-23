@@ -37,6 +37,7 @@ The `latest` tag will automatically point to the latest build.
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
   - inotify-tools
   - just
+  - powertop
   - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
   - tailscale
