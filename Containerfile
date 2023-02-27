@@ -9,7 +9,7 @@ COPY etc /etc
 COPY luks-*-tpm2-autounlock /usr/bin
 COPY ublue-firstboot /usr/bin
 
-COPY --from=ghcr.io/ublue-os/udev-rules etc/udev/rules.d/* /etc/udev/rules.d
+COPY --from=ghcr.io/ublue-os/udev-rules:latest /ublue-os-udev-rules /
 
 ARG IMAGE_NAME="${IMAGE_NAME:-silverblue-kmods}"
 
