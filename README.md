@@ -31,7 +31,8 @@ The `latest` tag will automatically point to the latest build.
 ## Features
 
 - Uses my [ublue-kmods images](https://github.com/bsherman/ublue-kmods) as a base (stock Silverblue/Kinoite/etc, plus nvidia, xone, and xpadneo drivers included)
-- Removes Firefox from the base image
+- Removes from the base image:
+  - firefox
 - Adds the following packages to the base image:
   - distrobox
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
@@ -52,7 +53,6 @@ The `latest` tag will automatically point to the latest build.
 - Sets flatpaks to update twice a day
 - Sets faster timeout on systemd waiting for shutdown
 - Sets some a few custom gnome settings (see etc/dconf)
-- Copies udev rules from [ublue-os/udev-rules](https://github.com/ublue-os/udev-rules) (alternative to steam-devices package)
 - Everything else (desktop, artwork, etc) remains stock
 
 ## Applications
