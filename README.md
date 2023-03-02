@@ -16,21 +16,29 @@ These images are customized how I want, based on the great work by [team ublue o
 
 Warning: This is an experimental feature and should not be used in production (yet), however it's pretty close)
 
+    # pick any one of these
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:latest
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:latest
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:latest
 
 We build date tags as well, so if you want to rebase to a particular day's release:
   
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:20230220
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:20230220
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:20230220
+    # pick any one of these
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:20230302
 
 The `latest` tag will automatically point to the latest build. 
 
 ## Features
 
-- Uses my [ublue-kmods images](https://github.com/bsherman/ublue-kmods) as a base (stock Silverblue/Kinoite/etc, plus nvidia, xone, and xpadneo drivers included)
+- Uses my [ublue-kmods images](https://github.com/bsherman/ublue-kmods) as a base (mostly stock Silverblue/Kinoite/Vauxite)
 - Removes from the base image:
   - firefox
 - Adds the following packages to the base image:
@@ -115,5 +123,8 @@ Check the [just website](https://just.systems) for tips on modifying and adding 
 These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the appropriate command:
 
     cosign verify --key cosign.pub ghcr.io/bsherman/silverblue-custom
+    cosign verify --key cosign.pub ghcr.io/bsherman/silverblue-nvidia-custom
     cosign verify --key cosign.pub ghcr.io/bsherman/kinoite-custom
+    cosign verify --key cosign.pub ghcr.io/bsherman/kinoite-nvidia-custom
     cosign verify --key cosign.pub ghcr.io/bsherman/vauxite-custom
+    cosign verify --key cosign.pub ghcr.io/bsherman/vauxite-nvidia-custom
