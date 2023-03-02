@@ -51,7 +51,6 @@ The `latest` tag will automatically point to the latest build.
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
   - [virt-manager](https://virt-manager.org/) (for managing VMs)
-  - [webapp-manager](https://github.com/linuxmint/webapp-manager) (makes "apps" out of webapps; thanks to Linux Mint)
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
   - Only on Silverblue: Gnome specific packages
     - gnome-tweaks
