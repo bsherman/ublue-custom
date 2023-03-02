@@ -49,9 +49,10 @@ The `latest` tag will automatically point to the latest build.
   - powertop
   - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
-  - tailscale
-  - virt-manager (libvirtd, qmeu-kvm and friends)
-  - wireguard-tools
+  - [tailscale](https://tailscale.com/) (for VPN)
+  - [virt-manager](https://virt-manager.org/) (for managing VMs)
+  - [webapp-manager](https://github.com/linuxmint/webapp-manager) (makes "apps" out of webapps; thanks to Linux Mint)
+  - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
   - Only on Silverblue: Gnome specific packages
     - gnome-tweaks
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect)

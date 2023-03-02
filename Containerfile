@@ -21,6 +21,7 @@ nautilus-gsconnect"; \
     else DE_PKGS="zenity"; \
     fi; \
     rpm-ostree override remove firefox firefox-langpacks && \
+    wget https://copr.fedorainfracloud.org/coprs/kylegospo/webapp-manager/repo/fedora-37/kylegospo-webapp-manager-fedora-37.repo -O /etc/yum.repos.d/kylegospo-webapp-manager-fedora-37.repo && \
     rpm-ostree install ${DE_PKGS} \
         distrobox \
         evolution \
@@ -33,7 +34,10 @@ nautilus-gsconnect"; \
         shotwell \
         tailscale \
         virt-manager \
+        webapp-manager \
         wireguard-tools && \
+    rm -f /etc/yum.repos.d/_copr_kylegospo-gnome-vrr.repo && \
+    rm -f /var/lib/freeipmi/ipckey && \
     rm -f /var/lib/unbound/root.key && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=30s/' /etc/systemd/user.conf && \
