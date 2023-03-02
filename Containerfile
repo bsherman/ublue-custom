@@ -32,7 +32,9 @@ nautilus-gsconnect"; \
         powertop \
         shotwell \
         tailscale \
+        virt-manager \
         wireguard-tools && \
+    rm -f /var/lib/unbound/root.key && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=30s/' /etc/systemd/user.conf && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=30s/' /etc/systemd/system.conf && \

@@ -50,6 +50,7 @@ The `latest` tag will automatically point to the latest build.
   - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
   - tailscale
+  - virt-manager (libvirtd, qmeu-kvm and friends)
   - wireguard-tools
   - Only on Silverblue: Gnome specific packages
     - gnome-tweaks
