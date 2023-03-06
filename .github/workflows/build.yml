@@ -4,7 +4,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '40 21 * * *' # 9:40pm UTC everyday
+    - cron: '30 22 * * *' # 10:30pm UTC everyday (35 minutes after ublue-kmods builds)
   push:
     branches:
       - main
