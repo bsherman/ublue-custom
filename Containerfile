@@ -20,6 +20,7 @@ nautilus-gsconnect"; \
     else DE_PKGS="zenity"; \
     fi; \
     rpm-ostree override remove firefox firefox-langpacks && \
+    mkdir -p /var/lib/alternatives && \
     rpm-ostree install --idempotent \
         ${DE_PKGS} \
         evolution \
@@ -38,4 +39,8 @@ nautilus-gsconnect"; \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
     systemctl enable tailscaled && \
-    ostree container commit
+    mv /var/lib/alternatives /staged-alternatives && \
+    ostree container commit && \
+    mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \
+    mkdir -p /tmp /var/tmp && \
+    chmod 1777 /tmp /var/tmp
