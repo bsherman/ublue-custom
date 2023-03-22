@@ -1,0 +1,57 @@
+{
+    "all": {
+        "include": {
+            "all": [
+                "evolution",
+                "inotify-tools",
+                "libratbag-ratbagd",
+                "libretls",
+                "libvirt-client",
+                "libvirt-daemon-kvm",
+                "powertop",
+                "shotwell",
+                "tailscale",
+                "virt-install",
+                "wireguard-tools"
+            ],
+            "kinoite": [
+		"zenity"
+            ],
+            "silverblue": [
+                "gnome-shell-extension-appindicator",
+                "gnome-shell-extension-dash-to-dock",
+                "gnome-shell-extension-blur-my-shell",
+                "gnome-shell-extension-gsconnect",
+                "nautilus-gsconnect"
+            ],
+            "vauxite": [
+		"zenity"
+            ]
+        },
+        "exclude": {
+            "all": [
+                "firefox",
+                "firefox-langpacks"
+            ],
+            "silverblue": [
+                "gnome-tour"
+            ]
+        }
+    },
+    "37": {
+        "include": {
+            "all": []
+        },
+        "exclude": {
+            "all": []
+        }
+    },
+    "38": {
+        "include": {
+            "all": []
+        },
+        "exclude": {
+            "all": []
+        }
+    }
+}

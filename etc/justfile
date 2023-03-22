@@ -27,6 +27,10 @@ distrobox-debian:
   echo 'Creating Debian distrobox ...'
   distrobox create --image quay.io/toolbx-images/debian-toolbox:unstable -n debian -Y
 
+distrobox-fedora:
+  echo 'Creating Fedora distrobox ...'
+  distrobox create --image registry.fedoraproject.org/fedora-toolbox:37 -n fedora -Y
+
 distrobox-opensuse:
   echo 'Creating openSUSE distrobox ...'
   distrobox create --image quay.io/toolbx-images/opensuse-toolbox:tumbleweed -n opensuse -Y
@@ -83,7 +87,6 @@ setup-gaming-linux:
 setup-gaming-minecraft:
   echo 'Setting up minecraft gaming experience ...'
   flatpak install -y --system \\
-  com.lunarclient.LunarClient \\
   com.mojang.Minecraft \\
   io.mrarm.mcpelauncher \\
   org.prismlauncher.PrismLauncher

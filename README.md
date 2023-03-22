@@ -9,7 +9,6 @@ Custom Fedora immutable desktop images which are mostly stock, plus the few thin
 These images are customized how I want, based on the great work by [team ublue os](https://github.com/ublue-os).
 
 Based on:
-- my [ublue-kmods images](https://github.com/bsherman/ublue-kmods) images with xbox controller kernel modules
 - [ublue-os/main](https://github.com/ublue-os/main) for good foundations
   - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), just, nvtop, openssl, pipewire-codec-aptx, vim
   - sets automatic staging of updates to system
@@ -34,10 +33,11 @@ In addition to the packages/config provided by base images, this image:
   - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
-  - [virt-manager](https://virt-manager.org/) (for managing VMs)
+  - [libvirtd/virsh](https://libvirt.org/) and [virt-install](https://virt-manager.org/) (for installing/running VMs)
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
+  - xpadneo/xone xbox controller drivers from [ublue-kmods images](https://github.com/bsherman/ublue-kmods)
   - Only on Silverblue: Gnome specific packages
-    - gnome shell extensions (appindicator, dash-to-dock, gsconnect)
+    - gnome shell extensions (appindicator, blur-my-shell, dash-to-dock, gsconnect)
     - gsconnect (plus dependancies)
   - On Kinoite and Vauxite:
     - zenity (used in ublue-firstboot script, available by default in Silverblue)
@@ -67,6 +67,7 @@ In addition to the packages/config provided by base images, this image:
 - Lightly-tested scripts for easily enabling/disabling LUKS auto-unlock using TPM2.
   - `luks-enable-tpm2-autounlock` - backup `/etc/crypttab` and `systemd-cryptenroll`s TPM2 for unlock; requires existing LUKS2 password
   - `luks-disable-tpm2-autounlock` - restores the backup of `/etc/crypttab` and safely `systemd-cryptenroll` wipes TPM2 unlock slot
+
 ## Further Customization
 
 A `just` task runner default config is included for further customization after first boot.
@@ -83,6 +84,7 @@ After that run the following commands:
 - Set up distroboxes for the following images:
   - `just distrobox-boxkit`
   - `just distrobox-debian`
+  - `just distrobox-fedora`
   - `just distrobox-opensuse`
   - `just distrobox-ubuntu`
 - Install various flatpak collections:
@@ -105,12 +107,12 @@ Check the [just website](https://just.systems) for tips on modifying and adding 
 Warning: This is an experimental feature and should not be used in production (yet), however it's pretty close)
 
     # pick any one of these
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:37
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:37
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:37
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:37
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:37
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:37
 
 We build date tags as well, so if you want to rebase to a particular day's release:
   
@@ -122,7 +124,7 @@ We build date tags as well, so if you want to rebase to a particular day's relea
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:20230302
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:20230302
 
-The `latest` tag will automatically point to the latest build.
+The `latest` tag will automatically point to the latest stable build, but I suggest using version 37, 38, etc as they become available to avoid surprise upgrades.
 
 ## Verification
 
