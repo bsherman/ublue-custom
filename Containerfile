@@ -10,6 +10,8 @@ ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
 COPY etc /etc
 COPY usr /usr
 
+COPY --from=docker.io/bketelsen/vanilla-os:v0.0.12 /usr/share/backgrounds/vanilla /usr/share/backgrounds/vanilla
+COPY --from=docker.io/bketelsen/vanilla-os:v0.0.12 /usr/share/gnome-background-properties/vanilla.xml /usr/share/gnome-background-properties/vanilla.xml
 
 ADD packages.json /tmp/packages.json
 ADD build.sh /tmp/build.sh
