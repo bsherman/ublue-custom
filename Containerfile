@@ -10,8 +10,6 @@ ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
 COPY etc /etc
 COPY usr /usr
 
-COPY --from=docker.io/bketelsen/vanilla-os:v0.0.12 /usr/share/backgrounds/vanilla /usr/share/backgrounds/vanilla
-COPY --from=docker.io/bketelsen/vanilla-os:v0.0.12 /usr/share/gnome-background-properties/vanilla.xml /usr/share/gnome-background-properties/vanilla.xml
 
 COPY --from=docker.io/bketelsen/fleek:latest /app/fleek /usr/bin/fleek
 COPY --from=docker.io/bketelsen/fleek:latest /app/fleek.1.gz /usr/share/man/man1/fleek.1.gz
