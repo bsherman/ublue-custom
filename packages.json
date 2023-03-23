@@ -2,14 +2,19 @@
     "all": {
         "include": {
             "all": [
+                "appimagelauncher",
                 "evolution",
+                "fira-code-fonts",
+                "firacode-nerd-fonts",
                 "inotify-tools",
                 "libratbag-ratbagd",
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
+                "moby-compose",
                 "powertop",
                 "shotwell",
+                "starship",
                 "tailscale",
                 "virt-install",
                 "virt-manager",

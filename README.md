@@ -27,11 +27,15 @@ In addition to the packages/config provided by base images, this image:
 - Removes from the base image:
   - firefox
 - Adds the following packages to the base image:
+  - appimagelauncher (easily integrate AppImages)
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
+  - fira code font (and nerd font)
   - inotify-tools
+  - moby-compose - free version of docker-compose
   - powertop
   - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
+  - [starship](https://starship.rs)
   - [tailscale](https://tailscale.com/) (for VPN)
   - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)

@@ -25,7 +25,7 @@ RUN export IMAGE_NAME=$(echo "${IMAGE_NAME}" | cut -f1 -d-) && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
     systemctl enable tailscaled && \
-    rm -f /etc/yum.repos.d/tailscale.repo && \
+    rm -f /etc/yum.repos.d/{tailscale,terra}.repo && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/user.conf && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/system.conf && \
     mv /var/lib/alternatives /staged-alternatives && \
