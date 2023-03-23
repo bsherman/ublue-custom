@@ -15,12 +15,14 @@ COPY --from=docker.io/bketelsen/fleek:latest /app/fleek.1.gz /usr/share/man/man1
 
 ADD packages.json /tmp/packages.json
 ADD build.sh /tmp/build.sh
+ADD github-release-install.sh /tmp/github-release-install.sh
 
 # this export IMAGE_NAME is a hack to make build.sh/packages.json work
 # as the defaults expect. I should probably rework my workflow instead
 RUN export IMAGE_NAME=$(echo "${IMAGE_NAME}" | cut -f1 -d-) && \
     mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
+    /tmp/github-release-install.sh wez/wezterm wezterm fedora37 && \
     systemctl unmask dconf-update.service && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
