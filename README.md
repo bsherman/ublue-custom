@@ -33,7 +33,7 @@ In addition to the packages/config provided by base images, this image:
   - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
-  - [libvirtd/virsh](https://libvirt.org/) and [virt-install](https://virt-manager.org/) (for installing/running VMs)
+  - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
   - xpadneo/xone xbox controller drivers from [ublue-kmods images](https://github.com/bsherman/ublue-kmods)
   - Only on Silverblue: Gnome specific packages

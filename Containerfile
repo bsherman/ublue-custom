@@ -10,7 +10,6 @@ ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
 COPY etc /etc
 COPY usr /usr
 
-
 COPY --from=docker.io/bketelsen/fleek:latest /app/fleek /usr/bin/fleek
 COPY --from=docker.io/bketelsen/fleek:latest /app/fleek.1.gz /usr/share/man/man1/fleek.1.gz
 

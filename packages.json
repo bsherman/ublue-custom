@@ -12,10 +12,12 @@
                 "shotwell",
                 "tailscale",
                 "virt-install",
+                "virt-manager",
+                "virt-viewer",
                 "wireguard-tools"
             ],
             "kinoite": [
-		"zenity"
+                "zenity"
             ],
             "silverblue": [
                 "gnome-shell-extension-appindicator",
@@ -25,7 +27,7 @@
                 "nautilus-gsconnect"
             ],
             "vauxite": [
-		"zenity"
+                "zenity"
             ]
         },
         "exclude": {
