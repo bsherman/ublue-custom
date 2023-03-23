@@ -10,8 +10,14 @@ ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
 COPY etc /etc
 COPY usr /usr
 
+# fleek for nix
 COPY --from=docker.io/bketelsen/fleek:latest /app/fleek /usr/bin/fleek
 COPY --from=docker.io/bketelsen/fleek:latest /app/fleek.1.gz /usr/share/man/man1/fleek.1.gz
+
+# k8s/container tools
+COPY --from=cgr.dev/chainguard/cosign:latest /usr/bin/cosign /usr/bin/cosign
+COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
+COPY --from=docker.io/docker/compose-bin:latest /docker-compose /usr/bin/docker-compose
 
 ADD packages.json /tmp/packages.json
 ADD build.sh /tmp/build.sh
