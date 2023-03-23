@@ -35,7 +35,7 @@ install() {
   FILTER=${3}
 
   #curl -sL ${API} | jq -r '.assets[].browser_download_url' | grep -E 'x64.rpm$|x86_64.rpm$|all.rpm$|noarch.rpm$' | grep "${FILTER}"
-  DLS=$(curl -sL ${API} | jq -r '.assets[].browser_download_url' | grep -E 'x64.rpm$|x86_64.rpm$|all.rpm$|noarch.rpm$' | grep "${FILTER}")
+  DLS=$(curl -sL ${API} | jq -r '.assets[].browser_download_url' | grep -E 'x64.rpm$|x86_64.rpm$|all.rpm$|noarch.rpm|Linux.rpm$' | grep "${FILTER}")
   for DL in ${DLS}; do
     # WARNING: in case of multiple matches, this only installs the first
     echo "execute: rpm-ostree install \"${DL}\""

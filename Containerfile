@@ -29,6 +29,7 @@ RUN export IMAGE_NAME=$(echo "${IMAGE_NAME}" | cut -f1 -d-) && \
     mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
     /tmp/github-release-install.sh wez/wezterm wezterm fedora37 && \
+    /tmp/github-release-install.sh LinusDierheimer/fastfetch fastfetch && \
     systemctl unmask dconf-update.service && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
