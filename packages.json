@@ -2,7 +2,6 @@
     "all": {
         "include": {
             "all": [
-                "appimagelauncher",
                 "evolution",
                 "inotify-tools",
                 "jetbrains-mono-fonts",
