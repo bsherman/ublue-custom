@@ -26,18 +26,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_name: [silverblue, kinoite, vauxite, silverblue-nvidia, kinoite-nvidia, vauxite-nvidia]
-        major_version: [37]
+        image_name: [silverblue, kinoite, vauxite]
+        image_suffix: [main, nvidia]
+        major_version: [37, 38]
         include:
-        # - major_version: 36
-        #   is_latest_version: false
-        #   is_stable_version: true
           - major_version: 37
             is_latest_version: true
             is_stable_version: true
-        # - major_version: 38
-        #   is_latest_version: true
-        #   is_stable_version: false
+          - major_version: 38
+            is_latest_version: true
+            is_stable_version: false
     steps: 
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
@@ -102,12 +100,11 @@ jobs:
         id: meta
         with:
           images: |
-            ${{ format('{0}-custom', matrix.image_name) }}
+             ${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
           labels: |
-            org.opencontainers.image.title=${{ format('{0}-custom', matrix.image_name) }}
+            org.opencontainers.image.title=${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
             org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bsherman/ublue-custom/main/README.md
-            #io.artifacthub.package.logo-url=https://avatars.githubusercontent.com/u/1728152?s=200&v=4
       # Build image using Buildah action
       - name: Build Image
         id: build_image
@@ -117,11 +114,12 @@ jobs:
             ./Containerfile
           # Postfix image name with -custom to make it a little more descriptive
           # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
-          image: ${{ format('{0}-custom', matrix.image_name) }}
+          image: ${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
           tags: |
             ${{ steps.generate-tags.outputs.alias_tags }}
           build-args: |
-            IMAGE_NAME=${{ format('{0}-kmods', matrix.image_name) }}
+            IMAGE_NAME=${{ matrix.image_name }}
+            IMAGE_SUFFIX=${{ matrix.image_suffix }}
             FEDORA_MAJOR_VERSION=${{ matrix.major_version }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
@@ -150,6 +148,13 @@ jobs:
           extra-args: |
             --disable-content-trust
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       # Sign container
       - uses: sigstore/cosign-installer@main
 
@@ -161,13 +166,6 @@ jobs:
           wc -c cosign.key
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Sign container image
         run: |
