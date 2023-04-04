@@ -1,10 +1,10 @@
-ARG IMAGE_NAME="${IMAGE_NAME:-silverblue-kmods}"
-ARG BASE_IMAGE="ghcr.io/bsherman/${IMAGE_NAME}"
+ARG IMAGE_NAME="${IMAGE_NAME:-silverblue}"
+ARG IMAGE_SUFFIX="${IMAGE_SUFFIX:-main}"
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
 
-FROM ${BASE_IMAGE}:${FEDORA_MAJOR_VERSION}
+FROM ghcr.io/ublue-os/${IMAGE_NAME}-${IMAGE_SUFFIX}:${FEDORA_MAJOR_VERSION}
 
-ARG IMAGE_NAME="${IMAGE_NAME:-silverblue-kmods}"
+ARG IMAGE_NAME="${IMAGE_NAME:-silverblue}"
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
 
 COPY etc /etc
@@ -20,14 +20,17 @@ COPY --from=cgr.dev/chainguard/cosign:latest /usr/bin/cosign /usr/bin/cosign
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
 COPY --from=docker.io/docker/compose-bin:latest /docker-compose /usr/bin/docker-compose
 
+# add in akmods
+COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods            /tmp/akmods
+COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods-custom-key /tmp/akmods-custom-key
+
 ADD packages.json /tmp/packages.json
+ADD akmods.sh /tmp/akmods.sh
 ADD build.sh /tmp/build.sh
 ADD github-release-install.sh /tmp/github-release-install.sh
 
-# this export IMAGE_NAME is a hack to make build.sh/packages.json work
-# as the defaults expect. I should probably rework my workflow instead
-RUN export IMAGE_NAME=$(echo "${IMAGE_NAME}" | cut -f1 -d-) && \
-    mkdir -p /var/lib/alternatives && \
+RUN mkdir -p /var/lib/alternatives && \
+    /tmp/akmods.sh && \
     /tmp/build.sh && \
     /tmp/github-release-install.sh wez/wezterm wezterm fedora37 && \
     /tmp/github-release-install.sh LinusDierheimer/fastfetch fastfetch && \
