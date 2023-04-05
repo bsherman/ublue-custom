@@ -3,8 +3,6 @@ on:
   pull_request:
     branches:
       - main
-  schedule:
-    - cron: '30 22 * * *' # 10:30pm UTC everyday (35 minutes after ublue-kmods builds)
   push:
     branches:
       - main
