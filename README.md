@@ -10,7 +10,7 @@ These images are customized how I want, based on the great work by [team ublue o
 
 Based on:
 - [ublue-os/main](https://github.com/ublue-os/main) for good foundations
-  - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), just, nvtop, openssl, pipewire-codec-aptx, vim
+  - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), just, nvtop, openssl, pipewire-codec-aptx, ratbagd, vim
   - sets automatic staging of updates to system
   - sets flatpaks to update twice a day
 - [ublue-os/nvida](https://github.com/ublue-os/nvidia) for nvidia variants adds:
@@ -31,14 +31,13 @@ In addition to the packages/config provided by base images, this image:
   - jetbrains mono font (and nerd font)
   - inotify-tools
   - powertop
-  - ratbagd (for Piper mouse management)
   - shotwell (the flatpak version crashes accessing USB)
   - [starship](https://starship.rs)
   - [tailscale](https://tailscale.com/) (for VPN)
   - tmux
   - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
-  - xpadneo/xone xbox controller drivers from [ublue-kmods images](https://github.com/bsherman/ublue-kmods)
+  - xpadneo/xone xbox controller and wl broadcom drivers from [ublue-kmods images](https://github.com/bsherman/ublue-kmods)
   - Only on Silverblue: Gnome specific packages
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect)
     - gsconnect (plus dependancies)
