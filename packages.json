@@ -26,7 +26,8 @@
                 "gnome-shell-extension-appindicator",
                 "gnome-shell-extension-dash-to-dock",
                 "gnome-shell-extension-gsconnect",
-                "nautilus-gsconnect"
+                "nautilus-gsconnect",
+                "zenity"
             ],
             "vauxite": [
                 "zenity"

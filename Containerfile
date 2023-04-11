@@ -10,17 +10,7 @@ ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
 COPY etc /etc
 COPY usr /usr
 
-# fleek for nix
-COPY --from=docker.io/bketelsen/fleek:latest /app/fleek /usr/bin/fleek
-#COPY --from=docker.io/bketelsen/fleek:latest /app/man/man1/fleek.1.gz /usr/share/man/man1/fleek.1.gz
-#COPY --from=docker.io/bketelsen/fleek:latest /app/man/pt/man1/fleek.1.gz /usr/share/man/pt/man1/fleek.1.gz
-
-# k8s/container tools
-COPY --from=cgr.dev/chainguard/cosign:latest /usr/bin/cosign /usr/bin/cosign
-COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
-COPY --from=docker.io/docker/compose-bin:latest /docker-compose /usr/bin/docker-compose
-
-# add in akmods
+# add akmods RPMs for installation
 COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods            /tmp/akmods
 COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods-custom-key /tmp/akmods-custom-key
 
@@ -47,3 +37,15 @@ RUN mkdir -p /var/lib/alternatives && \
     mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \
     mkdir -p /tmp /var/tmp && \
     chmod 1777 /tmp /var/tmp
+
+# fleek for nix
+COPY --from=docker.io/bketelsen/fleek:latest /app/fleek /usr/bin/fleek
+COPY --from=docker.io/bketelsen/fleek:latest /en/man1/fleek.1.gz /usr/share/man/man1/fleek.1.gz
+COPY --from=docker.io/bketelsen/fleek:latest /pt/man1/fleek.1.gz /usr/share/man/pt/man1/fleek.1.gz
+COPY --from=docker.io/bketelsen/fleek:latest /completions/fleek.bash /etc/bash_completion.d/fleek
+COPY --from=docker.io/bketelsen/fleek:latest /completions/fleek.zsh /usr/local/share/zsh/site-functions/_fleek
+
+# k8s/container tools
+COPY --from=cgr.dev/chainguard/cosign:latest /usr/bin/cosign /usr/bin/cosign
+COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
+COPY --from=docker.io/docker/compose-bin:latest /docker-compose /usr/bin/docker-compose
