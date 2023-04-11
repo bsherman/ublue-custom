@@ -32,7 +32,6 @@ In addition to the packages/config provided by base images, this image:
   - inotify-tools
   - powertop
   - shotwell (the flatpak version crashes accessing USB)
-  - [starship](https://starship.rs)
   - [tailscale](https://tailscale.com/) (for VPN)
   - tmux
   - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
