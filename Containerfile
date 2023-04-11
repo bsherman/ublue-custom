@@ -22,6 +22,7 @@ ADD github-release-install.sh /tmp/github-release-install.sh
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/akmods.sh && \
     /tmp/build.sh && \
+    pip install --prefix=/usr yafti && \
     /tmp/github-release-install.sh wez/wezterm wezterm fedora37 && \
     /tmp/github-release-install.sh LinusDierheimer/fastfetch fastfetch && \
     systemctl unmask dconf-update.service && \

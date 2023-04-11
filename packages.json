@@ -9,6 +9,7 @@
                 "libvirt-client",
                 "libvirt-daemon-kvm",
                 "powertop",
+                "python3-pip",
                 "shotwell",
                 "tailscale",
                 "tmux",
