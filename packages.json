@@ -17,7 +17,8 @@
                 "virt-install",
                 "virt-manager",
                 "virt-viewer",
-                "wireguard-tools"
+                "wireguard-tools",
+                "zenity"
             ],
             "kinoite": [
                 "zenity"
