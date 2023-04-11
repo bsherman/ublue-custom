@@ -17,8 +17,7 @@
                 "virt-install",
                 "virt-manager",
                 "virt-viewer",
-                "wireguard-tools",
-                "zenity"
+                "wireguard-tools"
             ],
             "kinoite": [
                 "zenity"
@@ -27,7 +26,8 @@
                 "gnome-shell-extension-appindicator",
                 "gnome-shell-extension-dash-to-dock",
                 "gnome-shell-extension-gsconnect",
-                "nautilus-gsconnect"
+                "nautilus-gsconnect",
+                "zenity"
             ],
             "vauxite": [
                 "zenity"
