@@ -29,7 +29,6 @@ In addition to the packages/config provided by base images, this image:
 - Adds the following packages to the base image:
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
   - jetbrains mono font (and nerd font)
-  - inotify-tools
   - powertop
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)

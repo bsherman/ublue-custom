@@ -3,8 +3,8 @@
         "include": {
             "all": [
                 "evolution",
-                "inotify-tools",
                 "jetbrains-mono-fonts",
+                "langpacks-en",
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
@@ -18,18 +18,11 @@
                 "virt-viewer",
                 "wireguard-tools"
             ],
-            "kinoite": [
-                "zenity"
-            ],
             "silverblue": [
                 "gnome-shell-extension-appindicator",
                 "gnome-shell-extension-dash-to-dock",
                 "gnome-shell-extension-gsconnect",
-                "nautilus-gsconnect",
-                "zenity"
-            ],
-            "vauxite": [
-                "zenity"
+                "nautilus-gsconnect"
             ]
         },
         "exclude": {

@@ -1,12 +1,12 @@
-title: Welcome to uBlue
+title: Welcome to uBlue Fedora
 properties:
   mode: "run-on-change"
 screens:
   first-screen:
     source: yafti.screen.title
     values:
-      title: "Welcome to uBlue Custom Fedora (Alpha)"
-      icon: "/usr/share/icons/hicolor/scalable/places/start-here.svg"
+      title: "Welcome to uBlue Fedora (Custom) (and Alpha)"
+      icon: "/path/to/icon"
       description: |
         Pick some applications to get started
   can-we-modify-your-flatpaks:
@@ -27,7 +27,7 @@ screens:
       title: Application Installation
       show_terminal: true
       package_manager: yafti.plugin.flatpak
-      package_manager_args:
+      package_manager_defaults:
         user: false
         system: true
       groups:
@@ -72,17 +72,17 @@ screens:
           description: "Rock and Stone!"
           default: false
           packages:
-          - Piper: org.freedesktop.Piper
           - Bottles: com.usebottles.bottles
           - Discord: com.discordapp.Discord
-          - Games: org.gnome.Games
+          - Gnome Games: org.gnome.Games
+          - Piper: org.freedesktop.Piper
           - Heroic Games Launcher: com.heroicgameslauncher.hgl
           - MangoHUD: org.freedesktop.Platform.VulkanLayer.MangoHud//22.08
           - Steam: com.valvesoftware.Steam
           - Gamescope for Steam: com.valvesoftware.Steam.Utility.gamescope
           - Proton Updater for Steam: net.davidotek.pupgui2
         Office:
-          description: Bow to Capitalism
+          description: Documents and Such
           default: false
           packages:
           - LibreOffice: org.libreoffice.LibreOffice
@@ -104,7 +104,7 @@ screens:
     source: yafti.screen.title
     values:
       title: "All done!"
-      icon: "/usr/share/icons/hicolor/scalable/places/start-here.svg"
+      icon: "/path/to/icon"
       links:
         - "Website":
             run: /usr/bin/xdg-open https://ublue.it
