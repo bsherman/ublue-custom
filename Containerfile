@@ -9,6 +9,7 @@ ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
 
 COPY etc /etc
 COPY usr /usr
+COPY tmp /tmp
 
 # add akmods RPMs for installation
 COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods            /tmp/akmods
@@ -23,6 +24,7 @@ RUN mkdir -p /var/lib/alternatives && \
     /tmp/akmods.sh && \
     /tmp/build.sh && \
     pip install --prefix=/usr yafti && \
+    mv /tmp/yafti/{install,package}.py /usr/lib/python3.11/site-packages/yafti/screen/package/screen/ && \
     /tmp/github-release-install.sh wez/wezterm wezterm fedora37 && \
     /tmp/github-release-install.sh LinusDierheimer/fastfetch fastfetch && \
     systemctl unmask dconf-update.service && \
