@@ -29,6 +29,7 @@ RUN mkdir -p /var/lib/alternatives && \
     systemctl enable rpm-ostree-countme.timer && \
     systemctl enable tailscaled && \
     rm -f /etc/yum.repos.d/tailscale.repo && \
+    sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/distrobox/distrobox.conf && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/user.conf && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/system.conf && \
     mv /var/lib/alternatives /staged-alternatives && \
