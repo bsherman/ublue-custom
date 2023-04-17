@@ -2,14 +2,18 @@
     "all": {
         "include": {
             "all": [
+                "btop",
+                "direnv",
                 "evolution",
                 "jetbrains-mono-fonts",
+                "jq",
                 "langpacks-en",
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
                 "powertop",
                 "python3-pip",
+                "pwgen",
                 "shotwell",
                 "tailscale",
                 "tmux",

@@ -27,9 +27,12 @@ In addition to the packages/config provided by base images, this image:
 - Removes from the base image:
   - firefox
 - Adds the following packages to the base image:
+  - btop
+  - direnv, jq, yq
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
   - jetbrains mono font (and nerd font)
   - powertop
+  - pwgen
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
   - tmux
@@ -39,15 +42,13 @@ In addition to the packages/config provided by base images, this image:
   - Only on Silverblue: Gnome specific packages
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect)
     - gsconnect (plus dependancies)
-  - On Kinoite and Vauxite:
-    - zenity (used in ublue-firstboot script, available by default in Silverblue)
 - Sets faster timeout on systemd waiting for shutdown
 - Sets some a few custom gnome settings (see etc/dconf)
 
 ## Applications
 
 - Unlike the [ublue base image](https://github.com/ublue-os/base), flatpak applications are installed system wide, but are they are still not on the base image, as they install to /var.
-- Also unlike the [ublue base image](https://github.com/ublue-os/base), the "first run script" only executes for the default user which first logs into the system. We still use that process to customize flatpak refs and install default apps, but it only needs to run once as we install those apps to system.
+- Also unlike the [ublue base image](https://github.com/ublue-os/base), the yafti "first run script" only executes for the default user which first logs into the system. We still use that process to customize flatpak refs and install default apps, but it only needs to run once as we install those apps to system.
 - Custom apps installed on all images:
   - Mozilla Firefox
   - Brave Browser

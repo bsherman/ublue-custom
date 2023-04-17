@@ -23,7 +23,12 @@ RUN mkdir -p /var/lib/alternatives && \
     /tmp/akmods.sh && \
     /tmp/build.sh && \
     pip install --prefix=/usr yafti && \
+    /tmp/github-release-install.sh twpayne/chezmoi chezmoi && \
     /tmp/github-release-install.sh LinusDierheimer/fastfetch fastfetch && \
+    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && \
+    chmod +x /usr/bin/yq && \
+    wget https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz -O starship.tgz && \
+    tar zxf starship.tgz && rm starship.tgz && chmod +x starship && mv starship /usr/bin/starship && \
     systemctl unmask dconf-update.service && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
