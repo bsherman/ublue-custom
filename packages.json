@@ -12,6 +12,7 @@
                 "libvirt-client",
                 "libvirt-daemon-kvm",
                 "powertop",
+                "pipx",
                 "python3-pip",
                 "pwgen",
                 "shotwell",
