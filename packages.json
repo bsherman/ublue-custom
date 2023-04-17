@@ -22,11 +22,19 @@
                 "virt-viewer",
                 "wireguard-tools"
             ],
+            "kinoite": [
+                "libadwaita",
+                "libadwaita-qt5"
+            ],
             "silverblue": [
                 "gnome-shell-extension-appindicator",
                 "gnome-shell-extension-dash-to-dock",
                 "gnome-shell-extension-gsconnect",
                 "nautilus-gsconnect"
+            ],
+            "vauxite": [
+                "libadwaita",
+                "libadwaita-qt5"
             ]
         },
         "exclude": {
