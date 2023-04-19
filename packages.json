@@ -11,6 +11,7 @@
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
+                "pavucontrol",
                 "powertop",
                 "pipx",
                 "python3-pip",
