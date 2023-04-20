@@ -3,7 +3,6 @@
         "include": {
             "all": [
                 "btop",
-                "direnv",
                 "evolution",
                 "jetbrains-mono-fonts",
                 "jq",
@@ -11,11 +10,8 @@
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
-                "pavucontrol",
                 "powertop",
-                "pipx",
                 "python3-pip",
-                "pwgen",
                 "shotwell",
                 "tailscale",
                 "tmux",
@@ -26,7 +22,8 @@
             ],
             "kinoite": [
                 "libadwaita",
-                "libadwaita-qt5"
+                "libadwaita-qt5",
+                "zenity"
             ],
             "silverblue": [
                 "gnome-shell-extension-appindicator",
@@ -36,7 +33,8 @@
             ],
             "vauxite": [
                 "libadwaita",
-                "libadwaita-qt5"
+                "libadwaita-qt5",
+                "zenity"
             ]
         },
         "exclude": {
