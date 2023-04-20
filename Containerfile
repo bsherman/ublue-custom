@@ -42,13 +42,6 @@ RUN mkdir -p /var/lib/alternatives && \
     mkdir -p /tmp /var/tmp && \
     chmod 1777 /tmp /var/tmp
 
-# fleek for nix
-COPY --from=docker.io/bketelsen/fleek:latest /app/fleek /usr/bin/fleek
-COPY --from=docker.io/bketelsen/fleek:latest /en/man1/fleek.1.gz /usr/share/man/man1/fleek.1.gz
-COPY --from=docker.io/bketelsen/fleek:latest /pt/man1/fleek.1.gz /usr/share/man/pt/man1/fleek.1.gz
-COPY --from=docker.io/bketelsen/fleek:latest /completions/fleek.bash /etc/bash_completion.d/fleek
-COPY --from=docker.io/bketelsen/fleek:latest /completions/fleek.zsh /usr/local/share/zsh/site-functions/_fleek
-
 # k8s/container tools
 COPY --from=cgr.dev/chainguard/cosign:latest /usr/bin/cosign /usr/bin/cosign
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
