@@ -29,7 +29,7 @@ distrobox-debian:
 
 distrobox-fedora:
   echo 'Creating Fedora distrobox ...'
-  distrobox create --image registry.fedoraproject.org/fedora-toolbox:37 -n fedora -Y
+  distrobox create --image ghcr.io/bsherman/fedora-toolbox-custom:FEDORA_MAJOR_VERSION -n fedora -Y
 
 distrobox-opensuse:
   echo 'Creating openSUSE distrobox ...'
@@ -138,7 +138,6 @@ setup-other-flatpaks:
   org.gnome.Firmware \\
   org.gnome.seahorse.Application \\
   org.telegram.desktop \\
-  org.wezfurlong.wezterm \\
   re.sonny.Junction \\
   tech.feliciano.pocket-casts
 
