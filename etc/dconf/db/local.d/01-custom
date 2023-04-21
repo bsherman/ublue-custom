@@ -53,3 +53,7 @@ ambient-enabled=false
 allow-updates=false
 download-updates=false
 download-updates-notify=false
+
+[org/gnome/terminal/legacy/keybindings]
+next-tab='<Primary>Tab'
+prev-tab='<Primary><Shift>Tab'
