@@ -92,6 +92,12 @@ jobs:
 
           echo "alias_tags=${alias_tags[*]}" >> $GITHUB_OUTPUT
 
+      - name: Get current version
+        id: labels
+        run: |
+          ver=$(skopeo inspect docker://ghcr.io/ublue-os/${{ matrix.image_name }}:${{ matrix.major_version }} | jq -r '.Labels["org.opencontainers.image.version"]')
+          echo "VERSION=$ver" >> $GITHUB_OUTPUT
+
       # Build metadata
       - name: Image Metadata
         uses: docker/metadata-action@v4
@@ -100,9 +106,10 @@ jobs:
           images: |
              ${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
           labels: |
-            org.opencontainers.image.title=${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
-            org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bsherman/ublue-custom/main/README.md
+            org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
+            org.opencontainers.image.title=${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
+            org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
       # Build image using Buildah action
       - name: Build Image
         id: build_image
