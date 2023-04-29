@@ -106,15 +106,15 @@ Check the [just website](https://just.systems) for tips on modifying and adding 
 
 ## Usage
 
-Warning: This is an experimental feature and should not be used in production (yet), however it's pretty close)
+We build `latest` which now points to Fedora 38 as it has stabilized. But Fedora 37 builds are still available. You can chose a specific version by using the `37` or `38` tag:
 
     # pick any one of these
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:37
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:37
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:37
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:37
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:37
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:37
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:latest
 
 We build date tags as well, so if you want to rebase to a particular day's release:
   
