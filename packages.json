@@ -21,8 +21,15 @@
                 "wireguard-tools"
             ],
             "kinoite": [
+                "dragon",
+                "elisa-player",
+                "k3b",
+                "kalendar",
+                "kate",
+                "kontact",
                 "libadwaita",
                 "libadwaita-qt5",
+                "skanlite",
                 "zenity"
             ],
             "silverblue": [
