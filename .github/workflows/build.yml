@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_name: [silverblue, kinoite, vauxite]
+        image_name: [silverblue, kinoite, sericea, vauxite]
         image_suffix: [main, nvidia]
         major_version: [37, 38]
         include:
@@ -34,6 +34,10 @@ jobs:
           - major_version: 38
             is_latest_version: true
             is_stable_version: true
+        exclude:
+          # There is no Fedora 37 version of sericea
+          - image_name: sericea
+            major_version: 37
     steps: 
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action

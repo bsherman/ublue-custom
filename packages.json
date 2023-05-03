@@ -37,7 +37,6 @@
             ],
             "vauxite": [
                 "libadwaita",
-                "libadwaita-qt5",
                 "zenity"
             ]
         },
@@ -61,7 +60,11 @@
     },
     "38": {
         "include": {
-            "all": []
+            "all": [],
+            "sericea": [
+                "libadwaita",
+                "zenity"
+            ]
         },
         "exclude": {
             "all": []
