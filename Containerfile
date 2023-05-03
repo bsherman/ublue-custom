@@ -24,7 +24,6 @@ RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
     pip install --prefix=/usr yafti && \
     /tmp/github-release-install.sh twpayne/chezmoi chezmoi && \
-    /tmp/github-release-install.sh LinusDierheimer/fastfetch fastfetch && \
     wget --no-verbose https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && \
     chmod +x /usr/bin/yq && \
     systemctl unmask dconf-update.service && \
