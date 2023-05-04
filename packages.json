@@ -6,11 +6,16 @@
                 "jetbrains-mono-fonts",
                 "langpacks-en",
                 "libretls",
+                "libvirt-client",
+                "libvirt-daemon-kvm",
                 "powertop",
                 "python3-pip",
                 "shotwell",
                 "tailscale",
                 "tmux",
+                "virt-install",
+                "virt-manager",
+                "virt-viewer",
                 "wireguard-tools"
             ],
             "kinoite": [
