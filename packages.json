@@ -2,7 +2,6 @@
     "all": {
         "include": {
             "all": [
-                "btop",
                 "evolution",
                 "jetbrains-mono-fonts",
                 "jq",

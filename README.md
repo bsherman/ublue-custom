@@ -27,7 +27,6 @@ In addition to the packages/config provided by base images, this image:
 - Removes from the base image:
   - firefox
 - Adds the following packages to the base image:
-  - btop
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
   - jetbrains mono font (and nerd font)
   - jq, yq
