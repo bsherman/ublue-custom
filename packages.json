@@ -4,7 +4,6 @@
             "all": [
                 "evolution",
                 "jetbrains-mono-fonts",
-                "jq",
                 "langpacks-en",
                 "libretls",
                 "powertop",
@@ -37,7 +36,8 @@
         "exclude": {
             "all": [
                 "firefox",
-                "firefox-langpacks"
+                "firefox-langpacks",
+                "htop"
             ],
             "silverblue": [
                 "gnome-tour"

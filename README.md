@@ -10,7 +10,7 @@ These images are customized how I want, based on the great work by [team ublue o
 
 Based on:
 - [ublue-os/main](https://github.com/ublue-os/main) for good foundations
-  - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), htop, just, nvtop, openssl, pipewire-codec-aptx, ratbagd, vim
+  - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), just, nvtop, openssl, pipewire-codec-aptx, ratbagd, vim
   - sets automatic staging of updates to system
   - sets flatpaks to update twice a day
 - [ublue-os/nvida](https://github.com/ublue-os/nvidia) for nvidia variants adds:
@@ -26,10 +26,10 @@ Based on:
 In addition to the packages/config provided by base images, this image:
 - Removes from the base image:
   - firefox
+  - htop
 - Adds the following packages to the base image:
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
   - jetbrains mono font (and nerd font)
-  - jq, yq
   - powertop
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)

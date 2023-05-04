@@ -25,8 +25,6 @@ RUN mkdir -p /var/lib/alternatives && \
     pip install --prefix=/usr yafti && \
     /tmp/github-release-install.sh twpayne/chezmoi x86_64.rpm && \
     /tmp/github-release-install.sh wez/wezterm x86_64.rpm fedora && \
-    wget --no-verbose https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && \
-    chmod +x /usr/bin/yq && \
     systemctl unmask dconf-update.service && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
