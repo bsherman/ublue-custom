@@ -8,6 +8,7 @@
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
+                "p7zip",
                 "powertop",
                 "python3-pip",
                 "shotwell",

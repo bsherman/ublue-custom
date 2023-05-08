@@ -29,7 +29,8 @@ In addition to the packages/config provided by base images, this image:
   - htop
 - Adds the following packages to the base image:
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
-  - jetbrains mono font (and nerd font)
+  - jetbrains mono font
+  - p7zip
   - powertop
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
@@ -49,22 +50,7 @@ In addition to the packages/config provided by base images, this image:
 
 - Unlike the [ublue base image](https://github.com/ublue-os/base), flatpak applications are installed system wide, but are they are still not on the base image, as they install to /var.
 - Also unlike the [ublue base image](https://github.com/ublue-os/base), the yafti "first run script" only executes for the default user which first logs into the system. We still use that process to customize flatpak refs and install default apps, but it only needs to run once as we install those apps to system.
-- Custom apps installed on all images:
-  - Mozilla Firefox
-  - Brave Browser
-  - DejaDup
-  - Flatseal
-  - Libreoffice
-  - Piper (mouse manager)
-  - and the Celluloid Media Player (video)
-- Custom apps installed only on Silverblue (Gnome):
-  - Extension Manager
-  - Font Downloader
-  - Geary
-  - Rhythmbox Media Player (music)
-  - Sound Recorder
-- Core GNOME Applications are installed from Flathub (only on Silverblue image):
-  - GNOME Calculator, Calendar, Characters, Connections, Contacts, Evince, Firmware, Logs, Maps, NautilusPreviewer, TextEditor, Weather, baobab, clocks, eog, and font-viewer
+- Several applications are available for (optional) install via yafti: [list of applications](https://github.com/bsherman/ublue-custom/blob/main/etc/yafti.yml#L24C5-L101)
 - Lightly-tested scripts for easily enabling/disabling LUKS auto-unlock using TPM2.
   - `luks-enable-tpm2-autounlock` - backup `/etc/crypttab` and `systemd-cryptenroll`s TPM2 for unlock; requires existing LUKS2 password
   - `luks-disable-tpm2-autounlock` - restores the backup of `/etc/crypttab` and safely `systemd-cryptenroll` wipes TPM2 unlock slot
