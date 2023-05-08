@@ -13,6 +13,7 @@
                 "libvirt-client",
                 "libvirt-daemon-kvm",
                 "p7zip",
+                "p7zip-plugins",
                 "powertop",
                 "python3-pip",
                 "shotwell",
