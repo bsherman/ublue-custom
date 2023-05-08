@@ -29,7 +29,10 @@ In addition to the packages/config provided by base images, this image:
   - htop
 - Adds the following packages to the base image:
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
-  - jetbrains mono font
+  - fonts (for coding/terminals)
+    - fira code
+    - hack
+    - jetbrains mono
   - p7zip
   - powertop
   - shotwell (the flatpak version crashes accessing USB)

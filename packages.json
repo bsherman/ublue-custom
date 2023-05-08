@@ -3,6 +3,7 @@
         "include": {
             "all": [
                 "evolution",
+                "fira-code-fonts",
                 "jetbrains-mono-fonts",
                 "langpacks-en",
                 "libretls",
@@ -12,6 +13,7 @@
                 "powertop",
                 "python3-pip",
                 "shotwell",
+                "source-foundry-hack-fonts.noarch",
                 "tailscale",
                 "tmux",
                 "virt-install",
