@@ -3,8 +3,10 @@
         "include": {
             "all": [
                 "evolution",
+                "droidsansmono-nerd-fonts",
                 "fira-code-fonts",
                 "firacode-nerd-fonts",
+                "google-droid-fonts-all",
                 "hack-nerd-fonts",
                 "jetbrains-mono-fonts",
                 "jetbrainsmono-nerd-fonts",

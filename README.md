@@ -30,6 +30,7 @@ In addition to the packages/config provided by base images, this image:
 - Adds the following packages to the base image:
   - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
   - fonts (for coding/terminals)
+    - droid fonts (both variable and mono)
     - fira code
     - hack
     - jetbrains mono
