@@ -33,7 +33,6 @@ In addition to the packages/config provided by base images, this image:
     - droid fonts (both variable and mono)
     - fira code
     - hack
-    - jetbrains mono
   - p7zip
   - powertop
   - shotwell (the flatpak version crashes accessing USB)
