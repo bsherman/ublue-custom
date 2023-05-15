@@ -23,6 +23,8 @@ usage() {
 
 }
 
+set -ouex pipefail
+
 if [ -z ${ORG_PROJ} ]; then
   usage
   exit 1
