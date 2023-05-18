@@ -38,6 +38,7 @@ In addition to the packages/config provided by base images, this image:
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
   - tmux
+  - [touchegg](https://github.com/JoseExposito/touchegg) (for Xorg touchpad guestures)
   - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
   - xpadneo/xone xbox controller and wl broadcom drivers from [ublue-kmods images](https://github.com/bsherman/ublue-kmods)

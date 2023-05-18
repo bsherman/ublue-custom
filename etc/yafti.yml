@@ -60,6 +60,7 @@ screens:
           - Celluloid Video Player: io.github.celluloid_player.Celluloid
           - Sound Recorder: org.gnome.SoundRecorder
           - Rhythmbox Music Player: org.gnome.Rhythmbox3
+          - Touche: com.github.joseexposito.touche
         Web Browsers:
           description: Additional browsers to complement Firefox
           default: false
