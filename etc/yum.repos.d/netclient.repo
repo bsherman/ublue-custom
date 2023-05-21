@@ -1,0 +1,5 @@
+[netclient-repo]
+name=netclient
+baseurl=https://rpm.netmaker.org/packages
+enabled=1
+gpgcheck=0

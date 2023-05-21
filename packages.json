@@ -12,6 +12,7 @@
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
+                "netclient",
                 "p7zip",
                 "p7zip-plugins",
                 "powertop",

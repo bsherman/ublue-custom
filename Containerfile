@@ -29,7 +29,7 @@ RUN mkdir -p /var/lib/alternatives && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
     systemctl enable tailscaled && \
-    rm -f /etc/yum.repos.d/{terra,tailscale}.repo && \
+    rm -f /etc/yum.repos.d/{netclient,terra,tailscale}.repo && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/distrobox/distrobox.conf && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/justfile && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/user.conf && \
