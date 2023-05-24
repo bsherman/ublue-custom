@@ -44,8 +44,8 @@ In addition to the packages/config provided by base images, this image:
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
   - xpadneo/xone xbox controller and wl broadcom drivers from [ublue-kmods images](https://github.com/bsherman/ublue-kmods)
   - Only on Silverblue: Gnome specific packages
-    - default font set to Noto
-    - gnome shell extensions (appindicator, dash-to-dock, gsconnect)
+    - default font set to Droid Sans
+    - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)
     - gsconnect (plus dependancies)
   - Only on Kinoite and Vauxite
     - zenity
