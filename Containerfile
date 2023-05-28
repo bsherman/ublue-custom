@@ -24,7 +24,6 @@ RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
     rm -f /etc/yum.repos.d/{netclient,tailscale}.repo && \
     /tmp/github-release-install.sh twpayne/chezmoi x86_64.rpm && \
-    /tmp/github-release-install.sh wez/wezterm x86_64.rpm fedora && \
     pip install --prefix=/usr yafti && \
     systemctl unmask dconf-update.service && \
     systemctl enable dconf-update.service && \
