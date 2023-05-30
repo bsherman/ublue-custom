@@ -17,7 +17,6 @@ done
 KERNEL_VERSION="$(rpm -q kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
 # install stuff
 rpm-ostree install --idempotent \
-  /tmp/akmods/wl/kmod-wl-${KERNEL_VERSION}-*.rpm \
   /tmp/akmods/xone/kmod-xone-${KERNEL_VERSION}-*.rpm \
   /tmp/akmods/xpadneo/kmod-xpadneo-${KERNEL_VERSION}-*.rpm \
   /tmp/akmods-custom-key/rpmbuild/RPMS/noarch/akmods-custom-key-*.rpm \
