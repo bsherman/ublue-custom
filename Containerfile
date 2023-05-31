@@ -22,13 +22,13 @@ ADD github-release-install.sh /tmp/github-release-install.sh
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/akmods.sh && \
     /tmp/build.sh && \
-    rm -f /etc/yum.repos.d/{netclient,tailscale}.repo && \
     /tmp/github-release-install.sh twpayne/chezmoi x86_64.rpm && \
     pip install --prefix=/usr yafti && \
     systemctl unmask dconf-update.service && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
     systemctl enable tailscaled.service && \
+    sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{netclient,tailscale}.repo && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/distrobox/distrobox.conf && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/justfile && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/user.conf && \
