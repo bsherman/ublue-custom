@@ -71,9 +71,10 @@ After that run the following commands:
 - `just` - Show all tasks, more will be added in the future
 - `just bios` - Reboot into the system bios (Useful for dualbooting)
 - `just changelogs` - Show the changelogs of the pending update
-- `just enable-secure-boot-akmods-custom` - use mokutil to import akmods-custom key for SecureBoot loading of xone/xpadneo drivers (must follow steps after reboot to import the key)
-- `just enable-secure-boot-akmods-nvidia` - use mokutil to import akmods-custom key for SecureBoot loading of nvidia drivers (must follow steps after reboot to import the key)
-- `just enable-nvidia-drivers` - set kernel boot args to enable nvidia drivers (needs a reboot)
+- `just enroll-secure-boot-key` - use mokutil to import ublue-akmods key for SecureBoot loading of drivers (must follow steps after reboot to import the key)
+- `just enroll-secure-boot-key-legacy-nvidia` - use mokutil to import akmods-custom key for SecureBoot loading of nvidia drivers (must follow steps after reboot to import the key)
+- `just set-kargs-nvidia` - set kernel boot args to enable nvidia drivers (needs a reboot)
+- `just setup-firefox-flatpak-vaapi-nvidia` - what it says on the tin?
 - `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
 - Set up distroboxes for the following images:
   - `just distrobox-boxkit`

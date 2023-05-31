@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
       - main
+    schedule:
+      - cron: '45 8 * * *' # 8:45am UTC everyday (45 minutes after ublue-os/nvidia builds)
   push:
     branches:
       - main

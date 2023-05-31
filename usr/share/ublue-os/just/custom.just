@@ -1,44 +1,7 @@
-default:
-  @just --list
-
-bios:
-  systemctl reboot --firmware-setup
-
-changelogs:
-  rpm-ostree db diff --changelogs
-
-enable-secure-boot-akmods-custom:
-  sudo mokutil --import /etc/pki/akmods/certs/akmods-custom.der
-
-enable-secure-boot-akmods-nvidia:
-  sudo mokutil --import /etc/pki/akmods/certs/akmods-nvidia.der
-
-enable-nvidia-drivers:
-  rpm-ostree kargs \
-    --append=rd.driver.blacklist=nouveau \
-    --append=modprobe.blacklist=nouveau \
-    --append=nvidia-drm.modeset=1
-
-distrobox-boxkit:
-  echo 'Creating Boxkit distrobox ...'
-  distrobox create --image ghcr.io/ublue-os/boxkit -n boxkit -Y
-
-distrobox-debian:
-  echo 'Creating Debian distrobox ...'
-  distrobox create --image quay.io/toolbx-images/debian-toolbox:unstable -n debian -Y
-
 distrobox-fedora:
   echo 'Creating Fedora distrobox ...'
   distrobox create --image ghcr.io/bsherman/fedora-toolbox-custom:FEDORA_MAJOR_VERSION -n fedora -Y
 
-distrobox-opensuse:
-  echo 'Creating openSUSE distrobox ...'
-  distrobox create --image quay.io/toolbx-images/opensuse-toolbox:tumbleweed -n opensuse -Y
-
-distrobox-ubuntu:
-  echo 'Creating Ubuntu distrobox ...'
-  distrobox create --image quay.io/toolbx-images/ubuntu-toolbox:22.04 -n ubuntu -Y
-  
 setup-flatpaks:
   echo 'Setting up your flatpaks...'
   flatpak install -y --system \\
@@ -140,8 +103,3 @@ setup-other-flatpaks:
   org.telegram.desktop \\
   re.sonny.Junction \\
   tech.feliciano.pocket-casts
-
-update:
-  rpm-ostree update
-  flatpak update -y
-  distrobox upgrade -a

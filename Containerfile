@@ -11,16 +11,16 @@ COPY etc /etc
 COPY usr /usr
 
 # add akmods RPMs for installation
-COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods            /tmp/akmods
-COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods-custom-key /tmp/akmods-custom-key
+#COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods            /tmp/akmods
+#COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods-custom-key /tmp/akmods-custom-key
 
 ADD packages.json /tmp/packages.json
-ADD akmods.sh /tmp/akmods.sh
+#ADD akmods.sh /tmp/akmods.sh
 ADD build.sh /tmp/build.sh
 ADD github-release-install.sh /tmp/github-release-install.sh
 
 RUN mkdir -p /var/lib/alternatives && \
-    /tmp/akmods.sh && \
+#    /tmp/akmods.sh && \
     /tmp/build.sh && \
     /tmp/github-release-install.sh twpayne/chezmoi x86_64.rpm && \
     pip install --prefix=/usr yafti && \
