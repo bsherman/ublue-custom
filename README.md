@@ -13,6 +13,8 @@ Based on:
   - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), just, nvtop, openssl, pipewire-codec-aptx, ratbagd, vim
   - sets automatic staging of updates to system
   - sets flatpaks to update twice a day
+  - v4l2loopback driver from [ublue-os/akmods](https://github.com/ublue-os/akmods)
+  - xpadneo/xone xbox controller drivers from [ublue-os/akmods](https://github.com/ublue-os/akmods)
 - [ublue-os/nvida](https://github.com/ublue-os/nvidia) for nvidia variants adds:
   - nvidia kernel drivers
   - nvidia container runtime
@@ -28,7 +30,6 @@ In addition to the packages/config provided by base images, this image:
   - firefox
   - htop
 - Adds the following packages to the base image:
-  - evolution (needed to easily add CalDAV/CardDAV sources for Geary/Calendar)
   - fonts (for coding/terminals)
     - droid fonts (both variable and mono)
     - fira code
@@ -42,7 +43,6 @@ In addition to the packages/config provided by base images, this image:
   - [touchegg](https://github.com/JoseExposito/touchegg) (for Xorg touchpad guestures)
   - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
-  - xpadneo/xone xbox controller and wl broadcom drivers from [ublue-kmods images](https://github.com/bsherman/ublue-kmods)
   - Only on Silverblue: Gnome specific packages
     - default font set to Droid Sans
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)

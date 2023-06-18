@@ -2,7 +2,6 @@
     "all": {
         "include": {
             "all": [
-                "evolution",
                 "fira-code-fonts",
                 "google-droid-fonts-all",
                 "kitty",
