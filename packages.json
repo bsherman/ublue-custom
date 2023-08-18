@@ -39,10 +39,6 @@
                 "gnome-shell-extension-gsconnect",
                 "gnome-shell-extension-no-overview",
                 "nautilus-gsconnect"
-            ],
-            "vauxite": [
-                "libadwaita",
-                "zenity"
             ]
         },
         "exclude": {

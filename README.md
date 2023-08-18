@@ -8,6 +8,12 @@ Custom Fedora immutable desktop images which are mostly stock, plus the few thin
 
 These images are customized how I want, based on the great work by [team ublue os](https://github.com/ublue-os).
 
+Images built:
+- Silverblue (Fedora GNOME immutable desktop)
+- Kinoite (Fedora KDE immutable desktop)
+- Sericea (Fedora Sway immutable desktop)
+*I no longer build Vauxite (XFCE) as the 3 above are official Fedora immutable desktop editions.*
+
 Based on:
 - [ublue-os/main](https://github.com/ublue-os/main) for good foundations
   - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), just, nvtop, openssl, pipewire-codec-aptx, ratbagd, vim
@@ -46,7 +52,7 @@ In addition to the packages/config provided by base images, this image:
     - default font set to Droid Sans
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)
     - gsconnect (plus dependancies)
-  - Only on Kinoite and Vauxite
+  - Only on Kinoite and Sericea
     - zenity
 - Sets faster timeout on systemd waiting for shutdown
 - Sets gnome's "APP is not responding" check to 30 seconds
@@ -71,7 +77,6 @@ After that run the following commands:
 - `just bios` - Reboot into the system bios (Useful for dualbooting)
 - `just changelogs` - Show the changelogs of the pending update
 - `just enroll-secure-boot-key` - use mokutil to import ublue-akmods key for SecureBoot loading of drivers (must follow steps after reboot to import the key)
-- `just enroll-secure-boot-key-legacy-nvidia` - use mokutil to import akmods-custom key for SecureBoot loading of nvidia drivers (must follow steps after reboot to import the key)
 - `just set-kargs-nvidia` - set kernel boot args to enable nvidia drivers (needs a reboot)
 - `just setup-firefox-flatpak-vaapi-nvidia` - what it says on the tin?
 - `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
@@ -105,8 +110,8 @@ We build `latest` which now points to Fedora 38 as it has stabilized. But Fedora
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:latest
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:latest
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-custom:latest
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-nvidia-custom:latest
 
 We build date tags as well, so if you want to rebase to a particular day's release:
   
@@ -115,8 +120,8 @@ We build date tags as well, so if you want to rebase to a particular day's relea
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:20230302
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:20230302
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-custom:20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/vauxite-nvidia-custom:20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-custom:20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-nvidia-custom:20230302
 
 The `latest` tag will automatically point to the latest stable build, but I suggest using version 37, 38, etc as they become available to avoid surprise upgrades.
 
@@ -128,5 +133,5 @@ These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosig
     cosign verify --key cosign.pub ghcr.io/bsherman/silverblue-nvidia-custom
     cosign verify --key cosign.pub ghcr.io/bsherman/kinoite-custom
     cosign verify --key cosign.pub ghcr.io/bsherman/kinoite-nvidia-custom
-    cosign verify --key cosign.pub ghcr.io/bsherman/vauxite-custom
-    cosign verify --key cosign.pub ghcr.io/bsherman/vauxite-nvidia-custom
+    cosign verify --key cosign.pub ghcr.io/bsherman/sericea-custom
+    cosign verify --key cosign.pub ghcr.io/bsherman/sericea-nvidia-custom
