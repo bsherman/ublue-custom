@@ -41,6 +41,7 @@ In addition to the packages/config provided by base images, this image:
     - fira code
     - hack
   - [kitty](https://sw.kovidgoyal.net/kitty/) terminal
+  - moby-engine (docker's open source version, disabled by default)
   - p7zip
   - powertop
   - shotwell (the flatpak version crashes accessing USB)

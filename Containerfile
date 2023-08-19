@@ -24,6 +24,8 @@ RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
     /tmp/github-release-install.sh twpayne/chezmoi x86_64.rpm && \
     pip install --prefix=/usr yafti && \
+    systemctl disable docker.service && \
+    systemctl disable docker.socket && \
     systemctl unmask dconf-update.service && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
