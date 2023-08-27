@@ -18,16 +18,13 @@
                 "shotwell",
                 "source-foundry-hack-fonts",
                 "tailscale",
-                "tmux",
                 "virt-install",
                 "virt-manager",
-                "virt-viewer",
-                "wireguard-tools"
+                "virt-viewer"
             ],
             "kinoite": [
                 "k3b",
                 "kalendar",
-                "kate",
                 "libadwaita",
                 "libadwaita-qt5",
                 "skanlite",
