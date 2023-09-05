@@ -32,7 +32,6 @@
                 "zenity"
             ],
             "silverblue": [
-                "gnome-console",
                 "gnome-shell-extension-appindicator",
                 "gnome-shell-extension-dash-to-dock",
                 "gnome-shell-extension-frippery-move-clock",
