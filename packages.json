@@ -2,6 +2,7 @@
     "all": {
         "include": {
             "all": [
+                "bootc",
                 "fira-code-fonts",
                 "google-droid-fonts-all",
                 "kitty",
