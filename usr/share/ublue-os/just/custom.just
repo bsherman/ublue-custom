@@ -1,6 +1,8 @@
+set allow-duplicate-recipes
+
 distrobox-fedora:
   echo 'Creating Fedora distrobox ...'
-  distrobox create --image ghcr.io/bsherman/fedora-toolbox-custom:FEDORA_MAJOR_VERSION -n fedora -Y
+  distrobox create --nvidia --image ghcr.io/bsherman/fedora-toolbox-custom:FEDORA_MAJOR_VERSION -n fedora -Y
 
 setup-flatpaks:
   echo 'Setting up your flatpaks...'
