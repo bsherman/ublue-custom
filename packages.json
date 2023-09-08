@@ -34,7 +34,6 @@
             "silverblue": [
                 "gnome-shell-extension-appindicator",
                 "gnome-shell-extension-dash-to-dock",
-                "gnome-shell-extension-frippery-move-clock",
                 "gnome-shell-extension-gsconnect",
                 "gnome-shell-extension-no-overview",
                 "nautilus-gsconnect"
