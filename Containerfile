@@ -33,7 +33,7 @@ RUN mkdir -p /var/lib/alternatives && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
     systemctl enable tailscaled.service && \
-    sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{bootc,netclient,tailscale}.repo && \
+    sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{bootc,tailscale}.repo && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/distrobox/distrobox.conf && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/distrobox/distrobox.ini && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /usr/share/ublue-os/just/custom.just && \

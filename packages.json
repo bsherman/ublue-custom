@@ -10,7 +10,6 @@
                 "libvirt-client",
                 "libvirt-daemon-kvm",
                 "moby-engine",
-                "netclient",
                 "p7zip",
                 "p7zip-plugins",
                 "powertop",
