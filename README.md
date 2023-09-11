@@ -37,7 +37,6 @@ In addition to the packages/config provided by base images, this image:
   - htop
 - Adds the following packages to the base image:
   - fonts (for coding/terminals)
-    - droid fonts (both variable and mono)
     - fira code
     - hack
   - [kitty](https://sw.kovidgoyal.net/kitty/) terminal
@@ -50,7 +49,7 @@ In addition to the packages/config provided by base images, this image:
   - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
   - Only on Silverblue: Gnome specific packages
-    - default font set to Droid Sans
+    - default font set to Noto Sans
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)
     - gsconnect (plus dependancies)
   - Only on Kinoite and Sericea
