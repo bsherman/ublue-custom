@@ -28,3 +28,6 @@ if [[ "${#EXCLUDED_PACKAGES[@]}" -gt 0 ]]; then
     rpm-ostree override remove \
         ${EXCLUDED_PACKAGES[@]}
 fi
+
+### OVERRIDE TO FIX DOCKER-COMPOSE with PODMAN
+rpm-ostree override replace https://bodhi.fedoraproject.org/updates/FEDORA-2023-8d641964bc
