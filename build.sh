@@ -31,6 +31,3 @@ fi
 
 ### github direct installs
 /tmp/github-release-install.sh wagoodman/dive amd64
-
-### OVERRIDE TO FIX DOCKER-COMPOSE with PODMAN
-rpm-ostree override replace https://bodhi.fedoraproject.org/updates/FEDORA-2023-8d641964bc
