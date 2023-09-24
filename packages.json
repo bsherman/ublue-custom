@@ -2,6 +2,7 @@
     "all": {
         "include": {
             "all": [
+                "alacritty",
                 "bootc",
                 "fira-code-fonts",
                 "iperf3",

@@ -36,6 +36,7 @@ In addition to the packages/config provided by base images, this image:
   - firefox
   - htop
 - Adds the following packages to the base image:
+  - [alacritty](https://alacritty.org) terminal
   - fonts (for coding/terminals)
     - fira code
     - hack
