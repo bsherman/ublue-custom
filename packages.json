@@ -14,6 +14,8 @@
                 "moby-engine",
                 "p7zip",
                 "p7zip-plugins",
+                "pcp",
+                "pcp-system-tools",
                 "powertop",
                 "python3-pip",
                 "shotwell",

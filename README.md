@@ -43,6 +43,7 @@ In addition to the packages/config provided by base images, this image:
   - [kitty](https://sw.kovidgoyal.net/kitty/) terminal
   - moby-engine (docker's open source version, disabled by default)
   - p7zip
+  - [pcp/pcp-system-tools](https://pcp.io/)
   - powertop
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
