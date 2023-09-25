@@ -43,7 +43,7 @@ In addition to the packages/config provided by base images, this image:
   - [kitty](https://sw.kovidgoyal.net/kitty/) terminal
   - moby-engine (docker's open source version, disabled by default)
   - p7zip
-  - [pcp](https://pcp.io/) - Performance Co-pilot monitoring
+  - ~~[pcp](https://pcp.io/) - Performance Co-pilot monitoring~~ *temporarily disabled until I sort out some issues*
   - powertop
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
@@ -55,6 +55,7 @@ In addition to the packages/config provided by base images, this image:
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)
     - gsconnect (plus dependancies)
   - Only on Kinoite and Sericea
+    - libadwaita(-qt)
     - zenity
 - Sets faster timeout on systemd waiting for shutdown
 - Sets gnome's "APP is not responding" check to 30 seconds

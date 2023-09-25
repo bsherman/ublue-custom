@@ -7,14 +7,12 @@
                 "fira-code-fonts",
                 "iperf3",
                 "kitty",
-                "langpacks-en",
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
                 "moby-engine",
                 "p7zip",
                 "p7zip-plugins",
-                "pcp-zeroconf",
                 "powertop",
                 "python3-pip",
                 "shotwell",
@@ -30,6 +28,10 @@
                 "libadwaita",
                 "libadwaita-qt5",
                 "skanlite",
+                "zenity"
+            ],
+            "sericea": [
+                "libadwaita",
                 "zenity"
             ],
             "silverblue": [
@@ -62,11 +64,7 @@
     },
     "38": {
         "include": {
-            "all": [],
-            "sericea": [
-                "libadwaita",
-                "zenity"
-            ]
+            "all": []
         },
         "exclude": {
             "all": []
