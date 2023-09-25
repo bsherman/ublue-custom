@@ -15,10 +15,8 @@ EXCLUDED_PACKAGES=($(jq -r "[(.all.exclude | (.all, select(.\"$IMAGE_NAME\" != n
 if [[ "${#INCLUDED_PACKAGES[@]}" -gt 0 ]]; then
     rpm-ostree install \
         ${INCLUDED_PACKAGES[@]}
-
 else
     echo "No packages to install."
-
 fi
 
 if [[ "${#EXCLUDED_PACKAGES[@]}" -gt 0 ]]; then
