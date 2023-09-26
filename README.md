@@ -57,6 +57,8 @@ In addition to the packages/config provided by base images, this image:
   - Only on Kinoite and Sericea
     - libadwaita(-qt)
     - zenity
+  - Only on Sericea
+    - some nwg-shell and other packages for sway fun
 - Sets faster timeout on systemd waiting for shutdown
 - Sets gnome's "APP is not responding" check to 30 seconds
 - Sets some a few custom gnome settings (see etc/dconf)
