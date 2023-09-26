@@ -31,7 +31,20 @@
                 "zenity"
             ],
             "sericea": [
+                "brightnessctl",
+                "ddcutil",
                 "libadwaita",
+                "nwg-bar",
+                "nwg-displays",
+                "nwg-icon-picker",
+                "nwg-look",
+                "nwg-shell",
+                "nwg-shell-config",
+                "nwg-shell-wallpapers",
+                "swaync",
+                "swappy",
+                "wlr-randr",
+                "wlsunset",
                 "zenity"
             ],
             "silverblue": [

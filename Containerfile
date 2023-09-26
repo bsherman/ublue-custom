@@ -19,13 +19,9 @@ ADD packages.json /tmp/packages.json
 ADD build.sh /tmp/build.sh
 ADD github-release-install.sh /tmp/github-release-install.sh
 
-## bootc
-RUN wget https://copr.fedorainfracloud.org/coprs/rhcontainerbot/bootc/repo/fedora-"${FEDORA_MAJOR_VERSION}"/bootc-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/bootc.repo
-
 RUN mkdir -p /var/lib/alternatives && \
 #    /tmp/akmods.sh && \
     /tmp/build.sh && \
-    /tmp/github-release-install.sh twpayne/chezmoi x86_64.rpm && \
     pip install --prefix=/usr yafti && \
     systemctl disable docker.service && \
     systemctl disable docker.socket && \
@@ -33,7 +29,6 @@ RUN mkdir -p /var/lib/alternatives && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
     systemctl enable tailscaled.service && \
-    sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{bootc,tailscale}.repo && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /usr/etc/distrobox/distrobox.conf && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /usr/etc/distrobox/distrobox.ini && \
     sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /usr/share/ublue-os/just/custom.just && \
