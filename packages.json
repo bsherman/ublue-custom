@@ -40,6 +40,8 @@
                 "nwg-bar",
                 "nwg-displays",
                 "nwg-look",
+                "qalculate",
+                "qalculate-gtk",
                 "swaync",
                 "swappy",
                 "wlr-randr",
