@@ -32,17 +32,18 @@
                 "zenity"
             ],
             "sericea": [
-                "azote",
                 "brightnessctl",
                 "ddcutil",
                 "gopsuinfo",
                 "gtklock",
+                "gtklock-playerctl-module",
+                "gtklock-powerbar-module",
+                "gtklock-userinfo-module",
                 "libadwaita",
-                "nwg-bar",
-                "nwg-displays",
-                "nwg-look",
                 "sddm-themes",
                 "sddm-wayland-sway",
+                "sway-audio-idle-inhibit",
+                "sway-settings",
                 "swaync",
                 "swappy",
                 "wlr-randr",
@@ -82,7 +83,11 @@
     },
     "38": {
         "include": {
-            "all": []
+            "all": [],
+            "sericea": [
+                "nwg-displays",
+                "nwg-look"
+            ]
         },
         "exclude": {
             "all": []

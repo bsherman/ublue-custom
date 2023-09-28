@@ -8,7 +8,11 @@ RELEASE="$(rpm -E %fedora)"
 wget https://copr.fedorainfracloud.org/coprs/rhcontainerbot/bootc/repo/fedora-${RELEASE}/bootc-${RELEASE}.repo -O /etc/yum.repos.d/copr_bootc.repo
 
 if [ "sericea" == "${IMAGE_NAME}" ]; then
-    wget https://copr.fedorainfracloud.org/coprs/tofik/nwg-shell/repo/fedora-${RELEASE}/tofik-nwg-shell-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_nwg-shell.repo
+    if [ "38" == "${RELEASE}" ]; then
+        wget https://copr.fedorainfracloud.org/coprs/tofik/nwg-shell/repo/fedora-${RELEASE}/tofik-nwg-shell-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-nwg-shell.repo
+    else
+        wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
+    fi
 fi
 
 
