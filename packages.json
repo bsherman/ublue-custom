@@ -47,6 +47,7 @@
                 "swaync",
                 "swappy",
                 "wlr-randr",
+                "wdisplays",
                 "wlsunset",
                 "zenity"
             ],
@@ -85,7 +86,7 @@
         "include": {
             "all": [],
             "sericea": [
-                "nwg-displays",
+                "nwg-bar",
                 "nwg-look"
             ]
         },
