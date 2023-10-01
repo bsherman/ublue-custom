@@ -39,7 +39,10 @@
                 "gtklock-playerctl-module",
                 "gtklock-powerbar-module",
                 "gtklock-userinfo-module",
+                "gnome-themes-extra",
                 "libadwaita",
+                "lxappearance",
+                "qadwaitadecorations-qt5",
                 "sddm-themes",
                 "sddm-wayland-sway",
                 "sway-audio-idle-inhibit",
@@ -84,11 +87,7 @@
     },
     "38": {
         "include": {
-            "all": [],
-            "sericea": [
-                "nwg-bar",
-                "nwg-look"
-            ]
+            "all": []
         },
         "exclude": {
             "all": []
