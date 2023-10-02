@@ -49,6 +49,7 @@
                 "sway-settings",
                 "swaync",
                 "swappy",
+                "udiskie",
                 "wlr-randr",
                 "wdisplays",
                 "wlsunset",
@@ -65,8 +66,7 @@
         "exclude": {
             "all": [
                 "firefox",
-                "firefox-langpacks",
-                "htop"
+                "firefox-langpacks"
             ],
             "silverblue": [
                 "gnome-extensions-app",
