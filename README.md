@@ -34,7 +34,6 @@ Based on:
 In addition to the packages/config provided by base images, this image:
 - Removes from the base image:
   - firefox
-  - htop
 - Adds the following packages to the base image:
   - [alacritty](https://alacritty.org) terminal
   - fonts (for coding/terminals)
@@ -58,7 +57,7 @@ In addition to the packages/config provided by base images, this image:
     - libadwaita(-qt)
     - zenity
   - Only on Sericea
-    - some nwg-shell and other packages for sway fun
+    - some other packages for sway fun
 - Sets faster timeout on systemd waiting for shutdown
 - Sets gnome's "APP is not responding" check to 30 seconds
 - Sets some a few custom gnome settings (see etc/dconf)
@@ -82,8 +81,9 @@ After that run the following commands:
 - `just bios` - Reboot into the system bios (Useful for dualbooting)
 - `just changelogs` - Show the changelogs of the pending update
 - `just enroll-secure-boot-key` - use mokutil to import ublue-akmods key for SecureBoot loading of drivers (must follow steps after reboot to import the key)
-- `just set-kargs-nvidia` - set kernel boot args to enable nvidia drivers (needs a reboot)
-- `just setup-firefox-flatpak-vaapi-nvidia` - what it says on the tin?
+- `just nvidia-set-kargs` - set kernel boot args to enable nvidia drivers (needs a reboot)
+- `just nvidia-setup-firefox-vaapi` - setup VAAPI in Firefox Flatpak for Nvidia
+- `just nvidia-test-cuda` - tests CUDA support on Nvidia GPUs
 - `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
 - Set up distroboxes for the following images:
   - `just distrobox-boxkit`
@@ -91,7 +91,7 @@ After that run the following commands:
   - `just distrobox-fedora`
   - `just distrobox-opensuse`
   - `just distrobox-ubuntu`
-- Install various flatpak collections:
+- These flatpak directives are temporarily not working:
   - `just setup-flatpaks` - Install a selection of flatpaks (in my case, usually on parents' laptops but not kids')
   - `just setup-media-flatpaks` - Install Audacity, Inkscape, Kdenlive, Krita, and OBS
   - `just setup-other-flatpaks` - Install misc stuff mostly used only by me amongst my family
