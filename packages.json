@@ -43,6 +43,7 @@
                 "libadwaita",
                 "lxappearance",
                 "qadwaitadecorations-qt5",
+                "power-profiles-daemon",
                 "sddm-themes",
                 "sddm-wayland-sway",
                 "sway-audio-idle-inhibit",
