@@ -2,11 +2,9 @@
     "all": {
         "include": {
             "all": [
-                "alacritty",
                 "bootc",
-                "fira-code-fonts",
+                "foot",
                 "iperf3",
-                "kitty",
                 "libretls",
                 "libvirt-client",
                 "libvirt-daemon-kvm",
@@ -16,7 +14,6 @@
                 "powertop",
                 "python3-pip",
                 "shotwell",
-                "source-foundry-hack-fonts",
                 "strace",
                 "tailscale",
                 "virt-install",

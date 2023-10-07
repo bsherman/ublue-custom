@@ -35,11 +35,7 @@ In addition to the packages/config provided by base images, this image:
 - Removes from the base image:
   - firefox
 - Adds the following packages to the base image:
-  - [alacritty](https://alacritty.org) terminal
-  - fonts (for coding/terminals)
-    - fira code
-    - hack
-  - [kitty](https://sw.kovidgoyal.net/kitty/) terminal
+  - foot terminal for wayland
   - moby-engine (docker's open source version, disabled by default)
   - p7zip
   - ~~[pcp](https://pcp.io/) - Performance Co-pilot monitoring~~ *temporarily disabled until I sort out some issues*
