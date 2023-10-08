@@ -74,30 +74,38 @@ It will copy the template from `/etc/justfile` to your home directory.
 After that run the following commands:
 
 - `just` - Show all tasks, more will be added in the future
-- `just bios` - Reboot into the system bios (Useful for dualbooting)
-- `just changelogs` - Show the changelogs of the pending update
-- `just enroll-secure-boot-key` - use mokutil to import ublue-akmods key for SecureBoot loading of drivers (must follow steps after reboot to import the key)
-- `just nvidia-set-kargs` - set kernel boot args to enable nvidia drivers (needs a reboot)
-- `just nvidia-setup-firefox-vaapi` - setup VAAPI in Firefox Flatpak for Nvidia
-- `just nvidia-test-cuda` - tests CUDA support on Nvidia GPUs
-- `just update` - Update rpm-ostree, flatpaks, and distroboxes in one command
-- Set up distroboxes for the following images:
-  - `just distrobox-boxkit`
-  - `just distrobox-debian`
-  - `just distrobox-fedora`
-  - `just distrobox-opensuse`
-  - `just distrobox-ubuntu`
-- These flatpak directives are temporarily not working:
-  - `just setup-flatpaks` - Install a selection of flatpaks (in my case, usually on parents' laptops but not kids')
-  - `just setup-media-flatpaks` - Install Audacity, Inkscape, Kdenlive, Krita, and OBS
-  - `just setup-other-flatpaks` - Install misc stuff mostly used only by me amongst my family
-  - `just setup-gaming-educational` - Install kid friendly drawing, math, programming, and typing games
-  - `just setup-gaming-light` - Install simple games like crosswords, solitaire(cards), mines, bejeweled/tetris clones
-  - `just setup-gaming-linux` - Install Linux/Tux games plus a Tron/lightcycle game
-  - `just setup-gaming-minecraft` - Install PrismLauncher (Minecraft for Java) and Bedrock Edition launcher
-  - `just setup-gaming-serious` - Install Steam, Heroic Game Launcher, Bottles, and community builds of Proton.
-  - `just setup-flatpak-overrides-gaming` - Enable MangoHud by default (hit right Shift-F12 to toggle), and enable Bottles to create apps
-  - `just setup-flatpak-overrides-pwa` - Enable Chromium browsers to create apps
+    - bios                          # Boot into this device's BIOS/UEFI screen
+    - changelogs                    # Show the changelog
+    - clean-system                  # Clean up old containers and flatpaks
+    - disable-updates               # Disable all auto-update timers
+    - distrobox-arch                # Create an Arch container
+    - distrobox-bazzite             # Create a Bazzite-Arch container
+    - distrobox-boxkit              # Create an Alpine boxkit container
+    - distrobox-debian              # Create a Debian container
+    - distrobox-fedora              # Create a Fedora container
+    - distrobox-fedora-custom       # Create a Fedora (bsherman custom) container
+    - distrobox-opensuse            # Create an openSUSE container
+    - distrobox-ubuntu              # Create an Ubuntu container
+    - enable-updates                # Enable all auto-update timers
+    - enroll-secure-boot-key        # Enroll Nvidia driver & KMOD signing key for secure boot - Enter password "ublue-os" if prompted
+    - install-apps-common           # Install common apps for my home users
+    - install-apps-creative         # Install Creative Media Apps
+    - install-apps-misc             # Install Other misc apps for my home users
+    - install-games-educational     # Install educational games
+    - install-games-light           # Install light/casual games
+    - install-games-linux           # Install Linux games
+    - install-games-minecraft       # Install Minecraft games
+    - install-obs-studio-portable   # Install obs-studio-portable from wimpysworld, which bundles an extensive collection of 3rd party plugins
+    - install-pwa-flatpak-overrides # Give browsers permission to create PWAs (Progressive Web Apps)
+    - install-steam                 # Install Steam with MangoHud, Gamescope and Prototricks
+    - install-virtualization        # Install virtualization stack (libvirt/virt-manager/etc)
+    - nvidia-set-kargs              # Set needed kernel arguments for Nvidia GPUs
+    - nvidia-setup-firefox-vaapi    # Enable VAAPI in Firefox Flatpak for Nvidia GPUs
+    - nvidia-test-cuda              # Test CUDA support for Nvidia GPUs
+    - regenerate-grub               # Regenerate GRUB config, useful in dual-boot scenarios where a second operating system isn't listed
+    - uninstall-virtualization      # Un-install virtualization stack (libvirt/virt-manager/etc)
+    - update                        # Update system, flatpaks, and containers all at once
+    - update-firmware               # Update device firmware
 
 Check the [just website](https://just.systems) for tips on modifying and adding your own recipes.
 

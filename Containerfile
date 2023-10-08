@@ -28,10 +28,11 @@ RUN mkdir -p /var/lib/alternatives && \
     systemctl enable dconf-update.service && \
     systemctl enable rpm-ostree-countme.timer && \
     systemctl enable tailscaled.service && \
-    sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /usr/share/ublue-os/just/custom.just && \
+    sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /usr/share/ublue-os/just/60-custom.just && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/user.conf && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/system.conf && \
     mv /var/lib/alternatives /staged-alternatives && \
+    rm -f /usr/share/applications/htop.desktop && \
     rm -rf /tmp/* /var/* && \
     ostree container commit && \
     mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \

@@ -6,8 +6,6 @@
                 "foot",
                 "iperf3",
                 "libretls",
-                "libvirt-client",
-                "libvirt-daemon-kvm",
                 "moby-engine",
                 "p7zip",
                 "p7zip-plugins",
@@ -15,10 +13,7 @@
                 "python3-pip",
                 "shotwell",
                 "strace",
-                "tailscale",
-                "virt-install",
-                "virt-manager",
-                "virt-viewer"
+                "tailscale"
             ],
             "kinoite": [
                 "k3b",
