@@ -39,6 +39,4 @@ RUN mkdir -p /var/lib/alternatives && \
     mkdir -p /tmp /var/tmp && \
     chmod 1777 /tmp /var/tmp
 
-# k8s/container tools
-COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
 COPY --from=docker.io/docker/compose-bin:latest /docker-compose /usr/bin/docker-compose
