@@ -21,7 +21,6 @@ ADD github-release-install.sh /tmp/github-release-install.sh
 RUN mkdir -p /var/lib/alternatives && \
 #    /tmp/akmods.sh && \
     /tmp/build.sh && \
-    pip install --prefix=/usr yafti && \
     systemctl disable docker.service && \
     systemctl disable docker.socket && \
     systemctl unmask dconf-update.service && \
@@ -32,7 +31,7 @@ RUN mkdir -p /var/lib/alternatives && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/user.conf && \
     sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/system.conf && \
     mv /var/lib/alternatives /staged-alternatives && \
-    rm -f /usr/share/applications/htop.desktop && \
+    rm -f /usr/share/applications/{htop,nvtop}.desktop && \
     rm -rf /tmp/* /var/* && \
     ostree container commit && \
     mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \

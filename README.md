@@ -12,7 +12,6 @@ Images built:
 - Silverblue (Fedora GNOME immutable desktop)
 - Kinoite (Fedora KDE immutable desktop)
 - Sericea (Fedora Sway immutable desktop)
-*I no longer build Vauxite (XFCE) as the 3 above are official Fedora immutable desktop editions.*
 
 Based on:
 - [ublue-os/main](https://github.com/ublue-os/main) for good foundations
@@ -27,7 +26,6 @@ Based on:
   - nvidia vaapi driver
   - nvidia selinux config
 
-#### NOTE: this project is not formally affiliated with [ublue-os](https://github.com/ublue-os/) and is not supported by their team.
 
 ## Features
 
@@ -60,20 +58,24 @@ In addition to the packages/config provided by base images, this image:
 
 ## Applications
 
-- Unlike the [ublue base image](https://github.com/ublue-os/base), flatpak applications are installed system wide, but are they are still not on the base image, as they install to /var.
-- Also unlike the [ublue base image](https://github.com/ublue-os/base), the yafti "first run script" only executes for the default user which first logs into the system. We still use that process to customize flatpak refs and install default apps, but it only needs to run once as we install those apps to system.
-- Several applications are available for (optional) install via yafti: [list of applications](https://github.com/bsherman/ublue-custom/blob/main/etc/yafti.yml#L24C5-L101)
+- Flatpaks
+    - This image does not actually change Fedora flatpak application defaults, but suggests changing them
+        - Silverblue (Kinoite, Sericea, etc) by default, only come with the "fedora" flatpak remote pre-installed, and the Gnome apps which come on Silverblue are installed from that location
+    - I suggest using the included `just setup-flatpak-repos` command to remove the `fedora` flatpak remote (and all apps from it) and setup the `flathub` remote (see below)
+    - Then run `just install-apps-gnome` to install the now missing apps (plus a few nice extras)
+    - Run `just` recipe with `-n` for a dry-run, eg: `just -n install-apps-creative`
 - Lightly-tested scripts for easily enabling/disabling LUKS auto-unlock using TPM2.
   - `luks-enable-tpm2-autounlock` - backup `/etc/crypttab` and `systemd-cryptenroll`s TPM2 for unlock; requires existing LUKS2 password
   - `luks-disable-tpm2-autounlock` - restores the backup of `/etc/crypttab` and safely `systemd-cryptenroll` wipes TPM2 unlock slot
 
-## Further Customization
+## Just Customizations
 
-A `just` task runner default config is included for further customization after first boot.
+A `just` task runner default config is included for easy customization after first boot.
 It will copy the template from `/etc/justfile` to your home directory.
 After that run the following commands:
 
 - `just` - Show all tasks, more will be added in the future
+    - setup-flatpak-repos           # Setup flathub remote, remove fedora remote if present
     - bios                          # Boot into this device's BIOS/UEFI screen
     - changelogs                    # Show the changelog
     - clean-system                  # Clean up old containers and flatpaks
@@ -88,16 +90,16 @@ After that run the following commands:
     - distrobox-ubuntu              # Create an Ubuntu container
     - enable-updates                # Enable all auto-update timers
     - enroll-secure-boot-key        # Enroll Nvidia driver & KMOD signing key for secure boot - Enter password "ublue-os" if prompted
-    - install-apps-common           # Install common apps for my home users
     - install-apps-creative         # Install Creative Media Apps
+    - install-apps-gnome            # Install typical GNOME apps
     - install-apps-misc             # Install Other misc apps for my home users
+    - install-apps-productivity     # Install Productivity and Communications apps
     - install-games-educational     # Install educational games
     - install-games-light           # Install light/casual games
     - install-games-linux           # Install Linux games
     - install-games-minecraft       # Install Minecraft games
-    - install-obs-studio-portable   # Install obs-studio-portable from wimpysworld, which bundles an extensive collection of 3rd party plugins
+    - install-games-steam           # Install Steam with MangoHud, Gamescope and Prototricks
     - install-pwa-flatpak-overrides # Give browsers permission to create PWAs (Progressive Web Apps)
-    - install-steam                 # Install Steam with MangoHud, Gamescope and Prototricks
     - install-virtualization        # Install virtualization stack (libvirt/virt-manager/etc)
     - nvidia-set-kargs              # Set needed kernel arguments for Nvidia GPUs
     - nvidia-setup-firefox-vaapi    # Enable VAAPI in Firefox Flatpak for Nvidia GPUs
@@ -110,9 +112,21 @@ After that run the following commands:
 Check the [just website](https://just.systems) for tips on modifying and adding your own recipes.
 
 
-## Usage
+## Installation & Usage
 
-We build `latest` which now points to Fedora 38 as it has stabilized. But Fedora 37 builds are still available. You can chose a specific version by using the `37` or `38` tag:
+### Install from Upstream
+
+For the best experience, install from an official Fedora OSTree ISO:
+
+- [Silverblue (GNOME)](https://fedoraproject.org/silverblue/download/)
+- [Kinoite (KDE Plasma)](https://fedoraproject.org/kinoite/download/)
+- [Sericea (Sway)](https://fedoraproject.org/sericea/download/)
+
+### Rebase to Custom
+
+After installation is complete, use the appropriate `rebase` command to install one of these custom images.
+
+We build `latest` which currently points to Fedora 38 (Fedora 39 will become latest after it releases and related packages have stabilized). Fedora 37 builds are still available. You can chose a specific version by using the `37`, `38` or `39` tag instead of `latest`:
 
     # pick any one of these
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:latest
@@ -125,14 +139,12 @@ We build `latest` which now points to Fedora 38 as it has stabilized. But Fedora
 We build date tags as well, so if you want to rebase to a particular day's release:
   
     # pick any one of these
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-custom:20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-nvidia-custom:20230302
-
-The `latest` tag will automatically point to the latest stable build, but I suggest using version 37, 38, etc as they become available to avoid surprise upgrades.
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:38-20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:38-20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:38-20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:38-20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-custom:38-20230302
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-nvidia-custom:38-20230302
 
 ## Verification
 
