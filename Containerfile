@@ -16,13 +16,10 @@ COPY usr /usr
 ADD packages.json /tmp/packages.json
 ADD *.sh /tmp/
 
-RUN mkdir -p /var/lib/alternatives && \
-    /tmp/install.sh && \
+RUN /tmp/install.sh && \
     /tmp/post-install.sh && \
-    mv /var/lib/alternatives /staged-alternatives && \
     rm -rf /tmp/* /var/* && \
     ostree container commit && \
-    mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \
     mkdir -p /tmp /var/tmp && \
     chmod 1777 /tmp /var/tmp
 

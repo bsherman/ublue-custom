@@ -2,8 +2,11 @@
     "all": {
         "include": {
             "all": [
+                "1password",
+                "1password-cli",
                 "bootc",
                 "foot",
+                "google-chrome-stable",
                 "iperf3",
                 "libretls",
                 "moby-engine",
@@ -57,10 +60,7 @@
             ]
         },
         "exclude": {
-            "all": [
-                "firefox",
-                "firefox-langpacks"
-            ],
+            "all": [],
             "silverblue": [
                 "gnome-extensions-app",
                 "gnome-tour"
