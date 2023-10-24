@@ -2,9 +2,6 @@
 
 set -ouex pipefail
 
-/tmp/post-install-1password.sh
-/tmp/post-install-google-chrome.sh
-
 systemctl disable docker.service
 systemctl disable docker.socket
 

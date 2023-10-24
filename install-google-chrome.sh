@@ -2,7 +2,7 @@
 
 set -ouex pipefail
 
-echo "Fixing-up Google Chrome"
+echo "Installing Google Chrome"
 
 # On libostree systems, /opt is a symlink to /var/opt,
 # which actually only exists on the live system. /var is
@@ -12,13 +12,27 @@ echo "Fixing-up Google Chrome"
 # symbolic link /opt/google => /usr/lib/google upon
 # boot.
 
-## already done via install.sh
 # Prepare staging directory
-#mkdir -p /var/opt # -p just in case it exists
+mkdir -p /var/opt # -p just in case it exists
 
-## already installed via packages.sh
-#INSTALL_RPM='https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm'
-#rpm-ostree install "${INSTALL_RPM}"
+# Prepare alternatives directory
+mkdir -p /var/lib/alternatives
+
+# Setup repo
+cat << EOF > /etc/yum.repos.d/google-chrome.repo
+[google-chrome]
+name=google-chrome
+baseurl=https://dl.google.com/linux/chrome/rpm/stable/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=https://dl.google.com/linux/linux_signing_key.pub
+EOF
+
+# Import signing key
+rpm --import https://dl.google.com/linux/linux_signing_key.pub
+
+# Now let's install the packages.
+rpm-ostree install google-chrome-stable
 
 # Clean up the yum repo (updates are baked into new images)
 rm /etc/yum.repos.d/google-chrome.repo -f

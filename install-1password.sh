@@ -2,7 +2,7 @@
 
 set -ouex pipefail
 
-echo "Fixing-up 1Password"
+echo "Installing 1Password"
 
 # On libostree systems, /opt is a symlink to /var/opt,
 # which actually only exists on the live system. /var is
@@ -12,13 +12,26 @@ echo "Fixing-up 1Password"
 # symbolic link /opt/1Password => /usr/lib/1Password upon
 # boot.
 
-## already done via install.sh
 # Prepare staging directory
-#mkdir -p /var/opt # -p just in case it exists
+mkdir -p /var/opt # -p just in case it exists
+# for some reason...
 
-## already installed via packages.sh
-#INSTALL_RPM='https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm'
-#rpm-ostree install "${INSTALL_RPM}"
+# Setup repo
+cat << EOF > /etc/yum.repos.d/1password.repo
+[1password]
+name=1Password Stable Channel
+baseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://downloads.1password.com/linux/keys/1password.asc
+EOF
+
+# Import signing key
+rpm --import https://downloads.1password.com/linux/keys/1password.asc
+
+# Now let's install the packages.
+rpm-ostree install 1password 1password-cli
 
 # Clean up the yum repo (updates are baked into new images)
 rm /etc/yum.repos.d/1password.repo -f
@@ -74,8 +87,11 @@ chmod g+s "${BROWSER_SUPPORT_PATH}"
 # Dynamically create the required group via sysusers.d
 # and set the GID based on the files we just chgrp'd
 cat >/usr/lib/sysusers.d/onepassword.conf <<EOF
-g     onepassword ${HELPER_PATH}
+g onepassword ${GID_ONEPASSWORD}
 EOF
+# remove the sysusers.d entry created by onepassword's RPM.
+# It doesn't magically set the GID like we need it to.
+rm -f /usr/lib/sysusers.d/30-rpmostree-pkg-group-onepassword.conf
 
 # Register path symlink
 # We do this via tmpfiles.d so that it is created by the live system.
@@ -83,13 +99,7 @@ cat >/usr/lib/tmpfiles.d/onepassword.conf <<EOF
 L  /opt/1Password  -  -  -  -  /usr/lib/1Password
 EOF
 
-## already installed via packages.sh
-# Then we install the 1password CLI binary as well
-#cd "$(mktemp -d)"
-#wget -q https://cache.agilebits.com/dist/1P/op2/pkg/v2.14.0/op_linux_amd64_v2.14.0.zip
-#unzip op_linux_amd64_v2.14.0.zip
-
-#mv op /usr/bin
+# Now, tweak 1password-cli
 
 # it needs its own group and needs setgid, like the other helpers.
 #groupadd -g ${GID_ONEPASSWORDCLI} onepassword-cli
@@ -98,6 +108,8 @@ chmod g+s /usr/bin/op
 
 # Dynamically create the required group via sysusers.d
 # and set the GID based on the files we just chgrp'd
-cat >/usr/lib/sysusers.d/onepassword.conf <<EOF
-g     onepassword-cli /usr/bin/op
+cat >/usr/lib/sysusers.d/onepassword-cli.conf <<EOF
+g onepassword-cli ${GID_ONEPASSWORDCLI}
 EOF
+
+op --version
