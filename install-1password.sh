@@ -85,8 +85,7 @@ chgrp "${GID_ONEPASSWORD}" "${BROWSER_SUPPORT_PATH}"
 chmod g+s "${BROWSER_SUPPORT_PATH}"
 
 # onepassword-cli also needs its own group and setgid, like the other helpers.
-#groupadd -g ${GID_ONEPASSWORDCLI} onepassword-cli
-chown root:${GID_ONEPASSWORDCLI} /usr/bin/op
+chgrp ${GID_ONEPASSWORDCLI} /usr/bin/op
 chmod g+s /usr/bin/op
 
 # Dynamically create the required groups via sysusers.d
