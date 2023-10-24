@@ -67,8 +67,8 @@ chmod 4755 /usr/lib/1Password/chrome-sandbox
 # conflict with any real groups on the deployed system.
 # Normal user group GIDs on Fedora are sequential starting
 # at 1000, so let's skip ahead and set to something higher.
-GID_ONEPASSWORD="1500"
-GID_ONEPASSWORDCLI="1600"
+GID_ONEPASSWORD="1790"
+GID_ONEPASSWORDCLI="1791"
 
 HELPER_PATH="/usr/lib/1Password/1Password-KeyringHelper"
 BROWSER_SUPPORT_PATH="/usr/lib/1Password/1Password-BrowserSupport"
@@ -84,14 +84,24 @@ chmod g+s "${HELPER_PATH}"
 chgrp "${GID_ONEPASSWORD}" "${BROWSER_SUPPORT_PATH}"
 chmod g+s "${BROWSER_SUPPORT_PATH}"
 
-# Dynamically create the required group via sysusers.d
+# onepassword-cli also needs its own group and setgid, like the other helpers.
+#groupadd -g ${GID_ONEPASSWORDCLI} onepassword-cli
+chown root:${GID_ONEPASSWORDCLI} /usr/bin/op
+chmod g+s /usr/bin/op
+
+# Dynamically create the required groups via sysusers.d
 # and set the GID based on the files we just chgrp'd
 cat >/usr/lib/sysusers.d/onepassword.conf <<EOF
 g onepassword ${GID_ONEPASSWORD}
 EOF
-# remove the sysusers.d entry created by onepassword's RPM.
-# It doesn't magically set the GID like we need it to.
+cat >/usr/lib/sysusers.d/onepassword-cli.conf <<EOF
+g onepassword-cli ${GID_ONEPASSWORDCLI}
+EOF
+
+# remove the sysusers.d entries created by onepassword RPMs.
+# They don't magically set the GID like we need them to.
 rm -f /usr/lib/sysusers.d/30-rpmostree-pkg-group-onepassword.conf
+rm -f /usr/lib/sysusers.d/30-rpmostree-pkg-group-onepassword-cli.conf
 
 # Register path symlink
 # We do this via tmpfiles.d so that it is created by the live system.
@@ -99,17 +109,3 @@ cat >/usr/lib/tmpfiles.d/onepassword.conf <<EOF
 L  /opt/1Password  -  -  -  -  /usr/lib/1Password
 EOF
 
-# Now, tweak 1password-cli
-
-# it needs its own group and needs setgid, like the other helpers.
-#groupadd -g ${GID_ONEPASSWORDCLI} onepassword-cli
-chown root:${GID_ONEPASSWORDCLI} /usr/bin/op
-chmod g+s /usr/bin/op
-
-# Dynamically create the required group via sysusers.d
-# and set the GID based on the files we just chgrp'd
-cat >/usr/lib/sysusers.d/onepassword-cli.conf <<EOF
-g onepassword-cli ${GID_ONEPASSWORDCLI}
-EOF
-
-op --version
