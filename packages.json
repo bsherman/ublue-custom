@@ -13,15 +13,15 @@
                 "python3-pip",
                 "shotwell",
                 "strace",
-                "tailscale"
+                "tailscale",
+                "zenity"
             ],
             "kinoite": [
                 "k3b",
                 "kalendar",
                 "libadwaita",
                 "libadwaita-qt5",
-                "skanlite",
-                "zenity"
+                "skanlite"
             ],
             "sericea": [
                 "brightnessctl",
@@ -45,8 +45,7 @@
                 "udiskie",
                 "wlr-randr",
                 "wdisplays",
-                "wlsunset",
-                "zenity"
+                "wlsunset"
             ],
             "silverblue": [
                 "gnome-shell-extension-appindicator",
