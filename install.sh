@@ -26,4 +26,5 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{copr*,tailscale}.repo
 
 ### custom installs
 /tmp/install-1password.sh
+/tmp/install-brave-browser.sh
 /tmp/install-google-chrome.sh
