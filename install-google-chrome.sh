@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# Thanks to bri for the inspiration! My script is based on this example:
+# https://github.com/briorg/bluefin/blob/c62c30a04d42fd959ea770722c6b51216b4ec45b/scripts/1password.sh
+
 set -ouex pipefail
 
 echo "Installing Google Chrome"
