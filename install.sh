@@ -25,6 +25,12 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{copr*,tailscale}.repo
 /tmp/github-release-install.sh twpayne/chezmoi x86_64
 
 ### custom installs
-/tmp/install-1password.sh
-/tmp/install-brave-browser.sh
-/tmp/install-google-chrome.sh
+if [ "hostrpm" == "${BROWSER_MODE}" ]; then
+  # use host-native browser installation
+  /tmp/install-1password.sh
+  /tmp/install-brave-browser.sh
+  /tmp/install-google-chrome.sh
+else
+  # for flatpak/distrbox only browser installation
+  rpm-ostree override remove firefox firefox-langpacks
+fi
