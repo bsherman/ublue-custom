@@ -4,6 +4,9 @@ set -ouex pipefail
 
 RELEASE="$(rpm -E %fedora)"
 
+# ensure that RPM post-install don't break with alternatives reqs
+mkdir -p /var/lib/alternatives
+
 # Get required repos
 wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo
 wget https://copr.fedorainfracloud.org/coprs/rhcontainerbot/bootc/repo/fedora-${RELEASE}/bootc-${RELEASE}.repo -O /etc/yum.repos.d/copr_bootc.repo
@@ -20,3 +23,14 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{copr*,tailscale}.repo
 
 ### github direct installs
 /tmp/github-release-install.sh twpayne/chezmoi x86_64
+
+### custom installs
+if [ "hostrpm" == "${BROWSER_MODE}" ]; then
+  # use host-native browser installation
+  /tmp/install-1password.sh
+  /tmp/install-brave-browser.sh
+  /tmp/install-google-chrome.sh
+else
+  # for flatpak/distrbox only browser installation
+  rpm-ostree override remove firefox firefox-langpacks
+fi

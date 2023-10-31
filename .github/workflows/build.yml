@@ -29,6 +29,7 @@ jobs:
         image_name: [silverblue, kinoite, sericea]
         image_suffix: [main, nvidia]
         major_version: [37, 38, 39]
+        browser_mode: [flatpak, hostrpm]
         include:
           - major_version: 37
             is_latest_version: false
@@ -51,7 +52,11 @@ jobs:
         run: |
           # Generate a timestamp for creating an image version history
           TIMESTAMP="$(date +%Y%m%d)"
-          VARIANT="${{ matrix.major_version }}"
+          if [[ "${{ matrix.browser_mode}}" == "hostrpm" ]]; then
+            VARIANT="${{ matrix.major_version }}-browsers"
+          else
+            VARIANT="${{ matrix.major_version }}"
+          fi
 
           COMMIT_TAGS=()
           BUILD_TAGS=()
@@ -132,6 +137,7 @@ jobs:
             IMAGE_NAME=${{ matrix.image_name }}
             IMAGE_SUFFIX=${{ matrix.image_suffix }}
             FEDORA_MAJOR_VERSION=${{ matrix.major_version }}
+            BROWSER_MODE=${{ matrix.browser_mode}}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
 

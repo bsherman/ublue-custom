@@ -56,10 +56,7 @@
             ]
         },
         "exclude": {
-            "all": [
-                "firefox",
-                "firefox-langpacks"
-            ],
+            "all": [],
             "silverblue": [
                 "gnome-extensions-app",
                 "gnome-tour"
