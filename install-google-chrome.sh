@@ -32,7 +32,10 @@ gpgkey=https://dl.google.com/linux/linux_signing_key.pub
 EOF
 
 # Import signing key
+echo "DEBUGGING RPM"
+ls -al /usr/share/rpm/
 rpm --import https://dl.google.com/linux/linux_signing_key.pub
+ls -al /usr/share/rpm/
 
 # Now let's install the packages.
 rpm-ostree install google-chrome-stable

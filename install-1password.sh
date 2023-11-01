@@ -30,8 +30,11 @@ repo_gpgcheck=1
 gpgkey=https://downloads.1password.com/linux/keys/1password.asc
 EOF
 
+echo "DEBUGGING RPM"
+ls -al /usr/share/rpm/
 # Import signing key
 rpm --import https://downloads.1password.com/linux/keys/1password.asc
+ls -al /usr/share/rpm/
 
 # Now let's install the packages.
 rpm-ostree install 1password 1password-cli
