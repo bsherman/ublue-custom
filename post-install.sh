@@ -2,6 +2,8 @@
 
 set -ouex pipefail
 
+fc-cache -v -r -f
+
 systemctl disable docker.service
 systemctl disable docker.socket
 
