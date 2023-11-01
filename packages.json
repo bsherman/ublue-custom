@@ -4,6 +4,7 @@
             "all": [
                 "bootc",
                 "foot",
+                "google-noto-sans-fonts",
                 "iperf3",
                 "libretls",
                 "moby-engine",
