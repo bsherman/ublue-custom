@@ -126,7 +126,7 @@ For the best experience, install from an official Fedora OSTree ISO:
 
 After installation is complete, use the appropriate `rebase` command to install one of these custom images.
 
-We build `latest` which currently points to Fedora 38 (Fedora 39 will become latest after it releases and related packages have stabilized). Fedora 37 builds are still available. You can chose a specific version by using the `37`, `38` or `39` tag instead of `latest`:
+We build `latest` which currently points to Fedora 38 (Fedora 39 will become latest after it releases and related packages have stabilized). Fedora 37 is no longer built here. You can chose a specific version by using the `38` or `39` tag instead of `latest`:
 
     # pick any one of these
     sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:latest

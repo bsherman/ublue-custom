@@ -28,19 +28,19 @@ jobs:
       matrix:
         image_name: [silverblue, kinoite, sericea]
         image_suffix: [main, nvidia]
-        major_version: [37, 38, 39]
+        major_version: [38, 39]
         browser_mode: [flatpak, hostrpm]
         include:
-          - major_version: 37
-            is_latest_version: false
-            is_stable_version: true
           - major_version: 38
             is_latest_version: true
             is_stable_version: true
-        exclude:
-          # There is no Fedora 37 version of sericea
-          - image_name: sericea
-            major_version: 37
+          - major_version: 39
+            is_latest_version: false
+            is_stable_version: false
+        #exclude:
+        #  # There is no Fedora 37 version of sericea
+        #  - image_name: sericea
+        #    major_version: 37
     steps:
       - name: Maximize build space
         uses: ublue-os/remove-unwanted-software@v6
