@@ -41,7 +41,10 @@ jobs:
           # There is no Fedora 37 version of sericea
           - image_name: sericea
             major_version: 37
-    steps: 
+    steps:
+      - name: Maximize build space
+        uses: ublue-os/remove-unwanted-software@v6
+
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
