@@ -15,6 +15,7 @@
                 "shotwell",
                 "strace",
                 "tailscale",
+                "xwaylandvideobridge",
                 "zenity"
             ],
             "kinoite": [
