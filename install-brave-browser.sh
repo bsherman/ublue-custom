@@ -28,13 +28,13 @@ name=Brave Browser
 enabled=1
 autorefresh=1
 baseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 EOF
 
 # Import signing key
-echo "DEBUGGING RPM"
-ls -al /usr/share/rpm/
-rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-ls -al /usr/share/rpm/
+#rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
 # Now let's install the packages.
 rpm-ostree install brave-browser
