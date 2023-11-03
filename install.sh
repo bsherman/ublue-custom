@@ -9,7 +9,6 @@ mkdir -p /var/lib/alternatives
 
 # Get required repos
 wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo
-wget https://copr.fedorainfracloud.org/coprs/rhcontainerbot/bootc/repo/fedora-${RELEASE}/bootc-${RELEASE}.repo -O /etc/yum.repos.d/copr_bootc.repo
 
 if [ "sericea" == "${IMAGE_NAME}" ]; then
     wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo

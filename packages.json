@@ -2,7 +2,6 @@
     "all": {
         "include": {
             "all": [
-                "bootc",
                 "foot",
                 "google-noto-sans-fonts",
                 "iperf3",
