@@ -9,7 +9,6 @@ mkdir -p /var/lib/alternatives
 
 # Get required repos
 wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo
-
 if [ "sericea" == "${IMAGE_NAME}" ]; then
     wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
 fi
@@ -27,7 +26,10 @@ fi
 /tmp/packages.sh
 
 # disable installed repos
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{copr*,tailscale}.repo
+sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/tailscale.repo
+if [ "sericea" == "${IMAGE_NAME}" ]; then
+  sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/copr_tofik-sway.repo
+fi
 
 ### github direct installs
 /tmp/github-release-install.sh twpayne/chezmoi x86_64
