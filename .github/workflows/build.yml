@@ -26,8 +26,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_name: [silverblue, kinoite, sericea]
-        image_suffix: [main, nvidia]
+        image_name: [silverblue]
+        image_suffix: [main]
         major_version: [38, 39]
         browser_mode: [flatpak, hostrpm]
         include:
