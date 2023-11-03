@@ -15,6 +15,15 @@ if [ "sericea" == "${IMAGE_NAME}" ]; then
     wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
 fi
 
+# install kmods if F39 or newer
+if [[ "${FEDORA_MAJOR_VERSION}" -ge 39 ]]; then
+  for REPO in $(rpm -ql ublue-os-akmods-addons|grep ^"/etc"|grep repo$); do
+    echo "akmods: enable default entry: ${REPO}"
+    sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' ${REPO}
+  done
+  rpm-ostree install /tmp/akmods-rpms/*.rpm
+fi
+
 # run common packages script
 /tmp/packages.sh
 
