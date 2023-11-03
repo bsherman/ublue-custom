@@ -23,6 +23,7 @@ sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/{copr*,tailscale}.repo
 
 ### github direct installs
 /tmp/github-release-install.sh twpayne/chezmoi x86_64
+/tmp/github-release-install.sh wez/wezterm fedora38.x86_64
 
 ### custom installs
 if [ "hostrpm" == "${BROWSER_MODE}" ]; then
