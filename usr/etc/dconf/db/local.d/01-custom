@@ -1,7 +1,7 @@
 [org/gnome/shell]
 disable-user-extensions=false
-disabled-extensions=['appindicatorsupport@rgcjonas.gmail.com', 'background-logo@fedorahosted.org']
-enabled-extensions = ['no-overview@fthx', 'places-menu@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com']
+disabled-extensions=['background-logo@fedorahosted.org']
+enabled-extensions = ['appindicatorsupport@rgcjonas.gmail.com', 'no-overview@fthx', 'places-menu@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com']
 favorite-apps = ['org.mozilla.firefox.desktop', 'com.brave.Browser.desktop', 'org.gnome.Calendar.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Rhythmbox3.desktop', 'org.libreoffice.LibreOffice.writer.desktop', 'yelp.desktop']
 
 [org/gnome/desktop/background]
@@ -19,7 +19,7 @@ enable-hot-corners=false
 font-antialiasing='rgba'
 font-hinting='slight'
 font-name="Noto Sans 11"
-monospace-font-name='Noto Sans Mono 10'
+monospace-font-name='Source Code Pro 10'
 
 
 [org/gnome/desktop/peripherals/touchpad]
