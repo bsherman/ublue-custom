@@ -4,7 +4,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '16 0 * * *' # 4:00pm UTC everyday (30 minutes after ublue-os/nvidia builds)
+    - cron: '56 15 * * *' # 3:56pm UTC everyday (26 minutes after ublue-os/nvidia builds)
   push:
     branches:
       - main
