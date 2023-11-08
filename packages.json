@@ -2,16 +2,22 @@
     "all": {
         "include": {
             "all": [
+                "dosfstools",
                 "google-noto-sans-fonts",
+                "ipcalc",
                 "iperf3",
                 "libretls",
+                "ltrace",
                 "moby-engine",
                 "netcat",
+                "nmap",
                 "p7zip",
                 "p7zip-plugins",
+                "patch",
                 "powertop",
                 "python3-pip",
                 "shotwell",
+                "strace",
                 "tailscale",
                 "xwaylandvideobridge",
                 "zenity"
