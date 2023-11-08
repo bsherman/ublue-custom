@@ -33,7 +33,6 @@ In addition to the packages/config provided by base images, this image:
 - Removes from the base image:
   - firefox
 - Adds the following packages to the base image:
-  - foot terminal for wayland
   - moby-engine (docker's open source version, disabled by default)
   - p7zip
   - ~~[pcp](https://pcp.io/) - Performance Co-pilot monitoring~~ *temporarily disabled until I sort out some issues*
@@ -42,14 +41,15 @@ In addition to the packages/config provided by base images, this image:
   - [tailscale](https://tailscale.com/) (for VPN)
   - tmux
   - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
+  - [wezterm](https://wezfurlong.org/wezterm/) cross platform terminal
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
+  - zenity - for UI scripting
   - Only on Silverblue: Gnome specific packages
     - default font set to Noto Sans
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)
     - gsconnect (plus dependancies)
   - Only on Kinoite and Sericea
     - libadwaita(-qt)
-    - zenity
   - Only on Sericea
     - some other packages for sway fun
 - Sets faster timeout on systemd waiting for shutdown

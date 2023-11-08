@@ -41,6 +41,30 @@ if [ "hostrpm" == "${BROWSER_MODE}" ]; then
   /tmp/install-1password.sh
   /tmp/install-brave-browser.sh
   /tmp/install-google-chrome.sh
+  # and since we'll do host-native browsers, let's do some dev tools also
+  rpm-ostree install --idempotent \
+    autoconf \
+    automake \
+    binutils \
+    cmake \
+    dosfstools \
+    gcc \
+    gcc-c++ \
+    gdb \
+    glibc-devel \
+    indent \
+    ipcalc \
+    libtool \
+    ltrace \
+    nmap \
+    patch \
+    patchutils \
+    pkgconf \
+    strace \
+    syslinux \
+    xorriso \
+    xz-devel \
+    yamllint
 else
   # for flatpak/distrbox only browser installation
   rpm-ostree override remove firefox firefox-langpacks
