@@ -6,6 +6,7 @@
                 "iperf3",
                 "libretls",
                 "moby-engine",
+                "netcat",
                 "p7zip",
                 "p7zip-plugins",
                 "powertop",
