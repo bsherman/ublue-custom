@@ -40,7 +40,7 @@ In addition to the packages/config provided by base images, this image:
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
   - tmux
-  - [libvirtd/virsh](https://libvirt.org/) and [virt-manager](https://virt-manager.org/) (for installing/running VMs)
+  - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs (use a client from distrobox, etc)
   - [wezterm](https://wezfurlong.org/wezterm/) cross platform terminal
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
   - zenity - for UI scripting
