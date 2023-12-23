@@ -18,6 +18,7 @@
                 "libvirt-daemon-driver-storage-disk",
                 "libvirt-daemon-driver-storage-scsi",
                 "ltrace",
+                "lm_sensors",
                 "moby-engine",
                 "netcat",
                 "nmap",
