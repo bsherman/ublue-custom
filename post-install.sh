@@ -2,6 +2,10 @@
 
 set -ouex pipefail
 
+# add customized container policy based on upstream's
+cat /usr/etc/containers/policy.json  | jq -M '.transports.docker += {"ghcr.io/bsherman":[{"type":"sigstoreSigned","keyPath":"/usr/etc/pki/containers/bsherman.pub","signedIdentity":{"type":"matchRepository"}}]}' > /tmp/bsherman-policy.json && \
+  cp /tmp/bsherman-policy.json /usr/etc/containers/policy.json
+
 systemctl disable docker.service
 systemctl disable docker.socket
 
