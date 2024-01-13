@@ -1,0 +1,3 @@
+docker:
+  ghcr.io/bsherman:
+    use-sigstore-attachments: true
