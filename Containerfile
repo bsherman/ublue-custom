@@ -22,19 +22,6 @@ COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*wi
 ADD packages.json /tmp/packages.json
 ADD *.sh /tmp/
 
-# Prompt Terminal
-RUN if [ ${FEDORA_MAJOR_VERSION} -ge "39" ]; then \
-        wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-$(rpm -E %fedora)/kylegospo-prompt-fedora-$(rpm -E %fedora).repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
-        rpm-ostree override replace \
-        --experimental \
-        --from repo=copr:copr.fedorainfracloud.org:kylegospo:prompt \
-            vte291 \
-            vte-profile && \
-        rpm-ostree install \
-            prompt && \
-        rm -f /etc/yum.repos.d/_copr_kylegospo-prompt.repo \
-    ; fi
-
 RUN /tmp/install.sh && \
     /tmp/post-install.sh && \
     rm -rf /tmp/* /var/* && \
