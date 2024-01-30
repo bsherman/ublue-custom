@@ -31,7 +31,7 @@ jobs:
         major_version: [38, 39]
         # don't build hostrpm browsers anymore as not using them
         # browser_mode: [flatpak, hostrpm]
-        browser_mode: [flatpak]
+        # browser_mode: [flatpak]
         include:
           - major_version: 38
             is_latest_version: true
@@ -39,6 +39,7 @@ jobs:
           - major_version: 39
             is_latest_version: false
             is_stable_version: false
+          - browser_mode: flatpak
     steps:
       - name: Checkout
         uses: actions/checkout@v4
