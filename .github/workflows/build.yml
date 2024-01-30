@@ -39,17 +39,14 @@ jobs:
           - major_version: 39
             is_latest_version: false
             is_stable_version: false
-        #exclude:
-        #  # There is no Fedora 37 version of sericea
-        #  - image_name: sericea
-        #    major_version: 37
     steps:
-      - name: Maximize build space
-        uses: ublue-os/remove-unwanted-software@v6
-
-      # Checkout push-to-registry action GitHub repository
-      - name: Checkout Push to Registry action
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Verify base image
+        uses: EyeCantCU/cosign-action/verify@v0.2.2
+        with:
+          containers: ${{ matrix.image_name }}-${{ matrix.image_suffix }}:${{ matrix.major_version }}
 
       - name: Generate tags
         id: generate-tags
@@ -122,10 +119,11 @@ jobs:
           images: |
              ${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
           labels: |
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bsherman/ublue-custom/main/README.md
-            org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
             org.opencontainers.image.title=${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
             org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
+            org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bsherman/ublue-custom/main/README.md
+
       # Build image using Buildah action
       - name: Build Image
         id: build_image
@@ -167,8 +165,6 @@ jobs:
           registry: ${{ steps.registry_case.outputs.lowercase }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
-          extra-args: |
-            --disable-content-trust
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
