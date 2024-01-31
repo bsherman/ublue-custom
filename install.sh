@@ -48,7 +48,7 @@ fi
 
 ### github direct installs
 /tmp/github-release-install.sh twpayne/chezmoi x86_64
-/tmp/github-release-install.sh wez/wezterm fedora38.x86_64
+/tmp/github-release-install.sh wez/wezterm fedora39.x86_64
 
 ### browser installs
 if [ "hostrpm" == "${BROWSER_MODE}" ]; then
