@@ -9,7 +9,7 @@ cat /usr/etc/containers/policy.json  | jq -M '.transports.docker += {"ghcr.io/bs
 # custom gnome overrides
 mkdir -p /tmp/ublue-schema-test && \
 find /usr/share/glib-2.0/schemas/ -type f ! -name "*.gschema.override" -exec cp {} /tmp/ublue-schema-test/ \; && \
-cp /usr/share/glib-2.0/schemas/99-com.github.bsherman-ublue-custom.gschema.override /tmp/ublue-schema-test/ && \
+cp /usr/share/glib-2.0/schemas/*-ublue-custom.gschema.override /tmp/ublue-schema-test/ && \
 echo "Running error test for ublue-custom gschema override. Aborting if failed." && \
 glib-compile-schemas --strict /tmp/ublue-schema-test || exit 1 && \
 echo "Compiling gschema to include ublue-custom setting overrides" && \
