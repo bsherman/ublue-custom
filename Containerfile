@@ -22,7 +22,6 @@ COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*wi
 ADD packages.json /tmp/packages.json
 ADD *.sh /tmp/
 
-
 RUN /tmp/install.sh && \
     /tmp/post-install.sh && \
     rm -rf /tmp/* /var/* && \
