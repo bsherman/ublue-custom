@@ -47,10 +47,6 @@ intellihide-mode='FOCUS_APPLICATION_WINDOWS'
 multi-monitor=true
 show-apps-at-top=true
 
-[org.gnome.settings-daemon.plugins.media-keys]
-custom-keybindings=['/org.gnome.settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
-home=['<Super>e']
-
 [org.gnome.settings-daemon.plugins.power]
 ambient-enabled=false
 
@@ -58,3 +54,9 @@ ambient-enabled=false
 allow-updates=false
 download-updates=false
 download-updates-notify=false
+
+## Below settings are supported with gschema override, but their corresponding dconfs are not. So edit dconfs if you need to modify this section further.
+
+[org.gnome.settings-daemon.plugins.media-keys]
+custom-keybindings=['/org.gnome.settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+home=['<Super>e']
