@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    - cron: '56 15 * * *' # 3:56pm UTC everyday (26 minutes after ublue-os/nvidia builds)
   push:
     branches:
       - main
@@ -15,7 +17,7 @@ env:
 
 jobs:
   push-ghcr:
-    name: Build and push image
+    name: custom image
     runs-on: ubuntu-22.04
     permissions:
       contents: read
@@ -24,24 +26,28 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_name: [silverblue, kinoite, sericea, vauxite]
+        image_name: [silverblue, kinoite, sericea]
         image_suffix: [main, nvidia]
-        major_version: [37, 38]
+        major_version: [38, 39]
+        # don't build hostrpm browsers anymore as not using them
+        # browser_mode: [flatpak, hostrpm]
+        # browser_mode: [flatpak]
         include:
-          - major_version: 37
-            is_latest_version: false
-            is_stable_version: true
           - major_version: 38
             is_latest_version: true
             is_stable_version: true
-        exclude:
-          # There is no Fedora 37 version of sericea
-          - image_name: sericea
-            major_version: 37
-    steps: 
-      # Checkout push-to-registry action GitHub repository
-      - name: Checkout Push to Registry action
-        uses: actions/checkout@v3
+          - major_version: 39
+            is_latest_version: false
+            is_stable_version: false
+          - browser_mode: flatpak
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify base image
+        uses: EyeCantCU/cosign-action/verify@v0.2.2
+        with:
+          containers: ${{ matrix.image_name }}-${{ matrix.image_suffix }}:${{ matrix.major_version }}
 
       - name: Generate tags
         id: generate-tags
@@ -49,7 +55,11 @@ jobs:
         run: |
           # Generate a timestamp for creating an image version history
           TIMESTAMP="$(date +%Y%m%d)"
-          VARIANT="${{ matrix.major_version }}"
+          if [[ "${{ matrix.browser_mode}}" == "hostrpm" ]]; then
+            VARIANT="${{ matrix.major_version }}-browsers"
+          else
+            VARIANT="${{ matrix.major_version }}"
+          fi
 
           COMMIT_TAGS=()
           BUILD_TAGS=()
@@ -104,16 +114,17 @@ jobs:
 
       # Build metadata
       - name: Image Metadata
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         id: meta
         with:
           images: |
              ${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
           labels: |
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bsherman/ublue-custom/main/README.md
-            org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
             org.opencontainers.image.title=${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
             org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
+            org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bsherman/ublue-custom/main/README.md
+
       # Build image using Buildah action
       - name: Build Image
         id: build_image
@@ -130,6 +141,7 @@ jobs:
             IMAGE_NAME=${{ matrix.image_name }}
             IMAGE_SUFFIX=${{ matrix.image_suffix }}
             FEDORA_MAJOR_VERSION=${{ matrix.major_version }}
+            BROWSER_MODE=${{ matrix.browser_mode}}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
 
@@ -137,7 +149,7 @@ jobs:
       # https://github.com/macbre/push-to-ghcr/issues/12
       - name: Lowercase Registry
         id: registry_case
-        uses: ASzc/change-string-case-action@v5
+        uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ env.IMAGE_REGISTRY }}
 
@@ -154,18 +166,16 @@ jobs:
           registry: ${{ steps.registry_case.outputs.lowercase }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
-          extra-args: |
-            --disable-content-trust
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-      - uses: sigstore/cosign-installer@v3.0.3
+      - uses: sigstore/cosign-installer@v3.3.0
         if: github.event_name != 'pull_request'
 
       # Only needed when running `cosign sign` using a key

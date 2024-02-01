@@ -2,57 +2,87 @@
     "all": {
         "include": {
             "all": [
-                "evolution",
-                "droidsansmono-nerd-fonts",
-                "fira-code-fonts",
-                "firacode-nerd-fonts",
-                "google-droid-fonts-all",
-                "hack-nerd-fonts",
+                "dosfstools",
+                "google-noto-sans-fonts",
+                "ipcalc",
+                "iperf3",
                 "langpacks-en",
                 "libretls",
-                "libvirt-client",
-                "libvirt-daemon-kvm",
+                "libvirt-daemon",
+                "libvirt-daemon-config-network",
+                "libvirt-daemon-driver-interface",
+                "libvirt-daemon-driver-network",
+                "libvirt-daemon-driver-nwfilter",
+                "libvirt-daemon-driver-qemu",
+                "libvirt-daemon-driver-secret",
+                "libvirt-daemon-driver-storage-core",
+                "libvirt-daemon-driver-storage-disk",
+                "libvirt-daemon-driver-storage-scsi",
+                "ltrace",
+                "lm_sensors",
+                "moby-engine",
+                "netcat",
+                "nmap",
                 "p7zip",
                 "p7zip-plugins",
+                "patch",
                 "powertop",
                 "python3-pip",
+                "qemu-kvm",
                 "shotwell",
-                "source-foundry-hack-fonts",
+                "strace",
                 "tailscale",
-                "tmux",
-                "virt-install",
-                "virt-manager",
-                "virt-viewer",
-                "wireguard-tools"
+                "xwaylandvideobridge",
+                "zenity"
             ],
             "kinoite": [
                 "k3b",
                 "kalendar",
-                "kate",
                 "libadwaita",
                 "libadwaita-qt5",
-                "skanlite",
-                "zenity"
+                "skanlite"
+            ],
+            "sericea": [
+                "brightnessctl",
+                "ddcutil",
+                "gopsuinfo",
+                "gtklock",
+                "gtklock-playerctl-module",
+                "gtklock-powerbar-module",
+                "gtklock-userinfo-module",
+                "gnome-themes-extra",
+                "libadwaita",
+                "lxappearance",
+                "qadwaitadecorations-qt5",
+                "power-profiles-daemon",
+                "sddm-themes",
+                "sddm-wayland-sway",
+                "sway-audio-idle-inhibit",
+                "sway-settings",
+                "swaync",
+                "swappy",
+                "udiskie",
+                "wlr-randr",
+                "wdisplays",
+                "wlsunset"
             ],
             "silverblue": [
                 "gnome-shell-extension-appindicator",
                 "gnome-shell-extension-dash-to-dock",
                 "gnome-shell-extension-gsconnect",
+                "gnome-shell-extension-no-overview",
                 "nautilus-gsconnect"
-            ],
-            "vauxite": [
-                "libadwaita",
-                "zenity"
             ]
         },
         "exclude": {
-            "all": [
-                "firefox",
-                "firefox-langpacks",
-                "htop"
-            ],
+            "all": [],
             "silverblue": [
+                "gnome-extensions-app",
+                "gnome-software-rpm-ostree",
                 "gnome-tour"
+            ],
+            "sericea": [
+                "sddm-x11"
             ]
         }
     },
@@ -66,11 +96,15 @@
     },
     "38": {
         "include": {
-            "all": [],
-            "sericea": [
-                "libadwaita",
-                "zenity"
-            ]
+            "all": []
+        },
+        "exclude": {
+            "all": []
+        }
+    },
+    "39": {
+        "include": {
+            "all": []
         },
         "exclude": {
             "all": []

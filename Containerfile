@@ -1,47 +1,33 @@
 ARG IMAGE_NAME="${IMAGE_NAME:-silverblue}"
 ARG IMAGE_SUFFIX="${IMAGE_SUFFIX:-main}"
-ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
+ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
 
 FROM ghcr.io/ublue-os/${IMAGE_NAME}-${IMAGE_SUFFIX}:${FEDORA_MAJOR_VERSION}
 
 ARG IMAGE_NAME="${IMAGE_NAME:-silverblue}"
-ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-37}"
+ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
+ARG BROWSER_MODE="${BROWSER_MODE:-flatpak}"
 
-COPY etc /etc
 COPY usr /usr
 
 # add akmods RPMs for installation
-COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods            /tmp/akmods
-COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods-custom-key /tmp/akmods-custom-key
+#COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods            /tmp/akmods
+#COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods-custom-key /tmp/akmods-custom-key
+COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*xpad*.rpm /tmp/akmods-rpms/
+COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*xone*.rpm /tmp/akmods-rpms/
+COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*openrazer*.rpm /tmp/akmods-rpms/
+COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*v4l2loopback*.rpm /tmp/akmods-rpms/
+COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*winesync*.rpm /tmp/akmods-rpms/
 
 ADD packages.json /tmp/packages.json
-ADD akmods.sh /tmp/akmods.sh
-ADD build.sh /tmp/build.sh
-ADD github-release-install.sh /tmp/github-release-install.sh
+ADD *.sh /tmp/
 
-RUN mkdir -p /var/lib/alternatives && \
-    /tmp/akmods.sh && \
-    /tmp/build.sh && \
-    pip install --prefix=/usr yafti && \
-    /tmp/github-release-install.sh twpayne/chezmoi x86_64.rpm && \
-    /tmp/github-release-install.sh wez/wezterm x86_64.rpm fedora && \
-    rpm-ostree cleanup -m && \
-    rm -f /etc/yum.repos.d/{terra,tailscale}.repo && \
-    glib-compile-schemas /usr/share/glib-2.0/schemas && \
-    systemctl enable rpm-ostree-countme.timer && \
-    systemctl enable tailscaled && \
-    sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/distrobox/distrobox.conf && \
-    sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /etc/justfile && \
-    sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/user.conf && \
-    sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/system.conf && \
-    mv /var/lib/alternatives /staged-alternatives && \
+
+RUN /tmp/install.sh && \
+    /tmp/post-install.sh && \
     rm -rf /tmp/* /var/* && \
     ostree container commit && \
-    mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \
     mkdir -p /tmp /var/tmp && \
     chmod 1777 /tmp /var/tmp
 
-# k8s/container tools
-COPY --from=cgr.dev/chainguard/cosign:latest /usr/bin/cosign /usr/bin/cosign
-COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
 COPY --from=docker.io/docker/compose-bin:latest /docker-compose /usr/bin/docker-compose
