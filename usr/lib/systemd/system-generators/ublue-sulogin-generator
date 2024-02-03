@@ -22,7 +22,7 @@ if [ -n "$1" ]; then
 fi
 
 # If invoked with no arguments (for testing) write to /tmp
-UNIT_DIR="${2:-/tmp}"
+UNIT_DIR="${1:-/tmp}"
 
 set -euo pipefail
 
