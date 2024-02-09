@@ -16,11 +16,13 @@ if [ "sericea" == "${IMAGE_NAME}" ]; then
   wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
 fi
 
-# use mesa from ublue-staging with nvk support until upstream supports it
-rpm-ostree override replace \
-    --experimental \
-    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-        mesa-vulkan-drivers
+if [ "${FEDORA_MAJOR_VERSION}" -ge 39 ]; then
+    # use mesa from ublue-staging with nvk support until upstream supports it
+    rpm-ostree override replace \
+        --experimental \
+        --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+            mesa-vulkan-drivers
+fi
 
 # install kmods if F39 or newer
 if [ "${FEDORA_MAJOR_VERSION}" -ge 39 ]; then
