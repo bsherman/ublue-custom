@@ -8,10 +8,19 @@ RELEASE="$(rpm -E %fedora)"
 mkdir -p /var/lib/alternatives
 
 # Get required repos
+# tailscale
 wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo
+# ublue-staging: needed for tuned, nvk enabled mesa, etc
+wget https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-${RELEASE}/ublue-os-staging-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_ublue-os-staging.repo
 if [ "sericea" == "${IMAGE_NAME}" ]; then
   wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
 fi
+
+# use mesa from ublue-staging with nvk support until upstream supports it
+rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+        mesa-vulkan-drivers
 
 # install kmods if F39 or newer
 if [ "${FEDORA_MAJOR_VERSION}" -ge 39 ]; then
@@ -25,7 +34,7 @@ fi
 # Prompt Terminal
 if [ "silverblue" == "${IMAGE_NAME}" ]; then
   if [ ${FEDORA_MAJOR_VERSION} -ge "39" ]; then
-    wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-$(rpm -E %fedora)/kylegospo-prompt-fedora-$(rpm -E %fedora).repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
+    wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-${RELEASE}/kylegospo-prompt-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
     rpm-ostree override replace \
     --experimental \
     --from repo=copr:copr.fedorainfracloud.org:kylegospo:prompt \
