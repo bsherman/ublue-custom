@@ -35,7 +35,6 @@
                 "tuned",
                 "tuned-ppd",
                 "tuned-utils",
-                "tuned-utils-systemtap",
                 "tuned-profiles-atomic",
                 "xwaylandvideobridge",
                 "zenity"
