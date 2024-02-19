@@ -33,7 +33,7 @@ if [ "${FEDORA_MAJOR_VERSION}" -ge 39 ]; then
   rpm-ostree install /tmp/akmods-rpms/*.rpm
 fi
 
-# Prompt Terminal
+# Ptyxis Terminal
 if [ "silverblue" == "${IMAGE_NAME}" ]; then
   if [ ${FEDORA_MAJOR_VERSION} -ge "39" ]; then
     wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-${RELEASE}/kylegospo-prompt-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
@@ -43,7 +43,7 @@ if [ "silverblue" == "${IMAGE_NAME}" ]; then
         vte291 \
         vte-profile && \
     rpm-ostree install \
-        prompt && \
+        ptyxis && \
     rm -f /etc/yum.repos.d/_copr_kylegospo-prompt.repo
   fi
 fi
