@@ -32,6 +32,11 @@
                 "shotwell",
                 "strace",
                 "tailscale",
+                "tuned",
+                "tuned-ppd",
+                "tuned-utils",
+                "tuned-utils-systemtap",
+                "tuned-profiles-atomic",
                 "xwaylandvideobridge",
                 "zenity"
             ],
@@ -75,7 +80,9 @@
             ]
         },
         "exclude": {
-            "all": [],
+            "all": [
+                "power-profiles-daemon"
+            ],
             "silverblue": [
                 "gnome-extensions-app",
                 "gnome-software-rpm-ostree",
@@ -84,14 +91,6 @@
             "sericea": [
                 "sddm-x11"
             ]
-        }
-    },
-    "37": {
-        "include": {
-            "all": []
-        },
-        "exclude": {
-            "all": []
         }
     },
     "38": {

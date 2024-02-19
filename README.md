@@ -40,6 +40,7 @@ In addition to the packages/config provided by base images, this image:
   - shotwell (the flatpak version crashes accessing USB)
   - [tailscale](https://tailscale.com/) (for VPN)
   - tmux
+  - tuned (replaces power-profile-daemon)
   - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs (use a client from distrobox, etc)
   - [wezterm](https://wezfurlong.org/wezterm/) cross platform terminal
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
@@ -71,43 +72,40 @@ In addition to the packages/config provided by base images, this image:
 ## Just Customizations
 
 A `just` task runner default config is included for easy customization after first boot.
-It will copy the template from `/etc/justfile` to your home directory.
-After that run the following commands:
+It will copy a template to your home directory.
 
-- `just` - Show all tasks, more will be added in the future
-    - setup-flatpak-repos           # Setup flathub remote, remove fedora remote if present
-    - bios                          # Boot into this device's BIOS/UEFI screen
-    - changelogs                    # Show the changelog
-    - clean-system                  # Clean up old containers and flatpaks
-    - disable-updates               # Disable all auto-update timers
-    - distrobox-arch                # Create an Arch container
-    - distrobox-bazzite             # Create a Bazzite-Arch container
-    - distrobox-boxkit              # Create an Alpine boxkit container
-    - distrobox-debian              # Create a Debian container
-    - distrobox-fedora              # Create a Fedora container
-    - distrobox-fedora-custom       # Create a Fedora (bsherman custom) container
-    - distrobox-opensuse            # Create an openSUSE container
-    - distrobox-ubuntu              # Create an Ubuntu container
-    - enable-updates                # Enable all auto-update timers
-    - enroll-secure-boot-key        # Enroll Nvidia driver & KMOD signing key for secure boot - Enter password "ublue-os" if prompted
-    - install-apps-creative         # Install Creative Media Apps
-    - install-apps-gnome            # Install typical GNOME apps
-    - install-apps-misc             # Install Other misc apps for my home users
-    - install-apps-productivity     # Install Productivity and Communications apps
-    - install-games-educational     # Install educational games
-    - install-games-light           # Install light/casual games
-    - install-games-linux           # Install Linux games
-    - install-games-minecraft       # Install Minecraft games
-    - install-games-steam           # Install Steam with MangoHud, Gamescope and Prototricks
-    - install-pwa-flatpak-overrides # Give browsers permission to create PWAs (Progressive Web Apps)
-    - install-virtualization        # Install virtualization stack (libvirt/virt-manager/etc)
-    - nvidia-set-kargs              # Set needed kernel arguments for Nvidia GPUs
-    - nvidia-setup-firefox-vaapi    # Enable VAAPI in Firefox Flatpak for Nvidia GPUs
-    - nvidia-test-cuda              # Test CUDA support for Nvidia GPUs
-    - regenerate-grub               # Regenerate GRUB config, useful in dual-boot scenarios where a second operating system isn't listed
-    - uninstall-virtualization      # Un-install virtualization stack (libvirt/virt-manager/etc)
-    - update                        # Update system, flatpaks, and containers all at once
-    - update-firmware               # Update device firmware
+After that run `ujust` to get a list of default commands ( a sample set of commands is included below ):
+
+```bash
+`ujust
+Click here to view the Universal Blue just documentation
+Available commands:
+ - bios                           # Boot into this device's BIOS/UEFI screen
+ - changelogs                     # Show the changelog
+ - chsh new_shell                 # Change the user's shell
+ - configure-nvidia ACTION="prompt" # Configure the Nvidia driver
+ - distrobox-fedora-custom        # Create a Fedora (bsherman custom) container
+ - enroll-secure-boot-key         # Enroll Nvidia driver & KMOD signing key for secure boot - Enter password "ublue-os" if prompted
+ - install-apps-creative          # Install Creative Media Apps
+ - install-apps-gnome             # Install typical GNOME apps
+ - install-apps-misc              # Install Other misc apps for my home users
+ - install-apps-productivity      # Install Productivity and Communications apps
+ - install-games-educational      # Install educational games
+ - install-games-light            # Install light/casual games
+ - install-games-linux            # Install Linux games
+ - install-games-minecraft        # Install Minecraft games
+ - install-games-steam            # Install Steam with MangoHud, Gamescope and Prototricks
+ - install-obs-studio-portable    # Install obs-studio-portable from wimpysworld, which bundles an extensive collection of 3rd party plugins
+ - install-pwa-flatpak-overrides  # Give browsers permission to create PWAs (Progressive Web Apps)
+ - logs-last-boot                 # Show all messages from last boot
+ - logs-this-boot                 # Show all messages from this boot
+ - toggle-updates ACTION="prompt" # Turn automatic updates on or off
+ - auto-update ACTION="prompt"    # alias for `toggle-updates`
+ - toggle-user-motd               # Toggle display of the user-motd in terminal
+ - update VERB_LEVEL="full"       # Update system, flatpaks, and containers all at once
+ - upgrade VERB_LEVEL="full"      # alias for `update`
+ - update-firmware                # Update device firmware
+```
 
 Check the [just website](https://just.systems) for tips on modifying and adding your own recipes.
 
@@ -120,7 +118,7 @@ For the best experience, install from an official Fedora OSTree ISO:
 
 - [Silverblue (GNOME)](https://fedoraproject.org/silverblue/download/)
 - [Kinoite (KDE Plasma)](https://fedoraproject.org/kinoite/download/)
-- [Sericea (Sway)](https://fedoraproject.org/sericea/download/)
+- [Sway (formerly known as Sericea)](https://fedoraproject.org/atomic-desktops/sway/)
 
 ### Rebase to Custom
 

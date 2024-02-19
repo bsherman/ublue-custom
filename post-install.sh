@@ -25,6 +25,7 @@ systemctl unmask dconf-update.service
 systemctl enable dconf-update.service
 systemctl enable rpm-ostree-countme.timer
 systemctl enable tailscaled.service
+systemctl enable tuned.service
 
 # custom just recipes
 sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /usr/share/ublue-os/just/60-custom.just
