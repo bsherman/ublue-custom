@@ -36,7 +36,6 @@
                 "tuned-ppd",
                 "tuned-utils",
                 "tuned-profiles-atomic",
-                "xwaylandvideobridge",
                 "zenity"
             ],
             "kinoite": [
