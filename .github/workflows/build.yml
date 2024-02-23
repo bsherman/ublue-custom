@@ -180,9 +180,7 @@ jobs:
 
       - name: Sign tags
         if: github.event_name != 'pull_request'
-        run: cosign sign -y ${TAGS}
-        env:
-          TAGS: ${{steps.meta.outputs.tags}}
+        run: cosign sign -y ${{ steps.registry_case.outputs.lowercase }}/${{ steps.build_image.outputs.image }}:${{ matrix.major_version }}
 
       - name: Verify the pushed tags
         if: github.event_name != 'pull_request'
@@ -190,7 +188,7 @@ jobs:
           cosign verify \
             --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
             --certificate-identity-regexp "${{ github.server_url }}/${{ github.repository }}" \
-            ${TAGS}
+            ${{ steps.registry_case.outputs.lowercase }}/${{ steps.build_image.outputs.image }}:${{ matrix.major_version }}
 
       - name: Echo outputs
         if: github.event_name != 'pull_request'
