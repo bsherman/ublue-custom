@@ -2,10 +2,6 @@
 
 set -ouex pipefail
 
-# add customized container policy based on upstream's
-cat /usr/etc/containers/policy.json  | jq -M '.transports.docker += {"ghcr.io/bsherman":[{"type":"sigstoreSigned","keyPath":"/usr/etc/pki/containers/bsherman.pub","signedIdentity":{"type":"matchRepository"}}]}' > /tmp/bsherman-policy.json && \
-  cp /tmp/bsherman-policy.json /usr/etc/containers/policy.json
-
 # custom gnome overrides
 mkdir -p /tmp/ublue-schema-test && \
 find /usr/share/glib-2.0/schemas/ -type f ! -name "*.gschema.override" -exec cp {} /tmp/ublue-schema-test/ \; && \
