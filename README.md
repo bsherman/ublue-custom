@@ -124,33 +124,33 @@ For the best experience, install from an official Fedora OSTree ISO:
 
 After installation is complete, use the appropriate `rebase` command to install one of these custom images.
 
+*Note: for `IMAGE_NAME` in the commands below, substitute one of these image names:*
+
+- `silverblue-custom`
+- `silverblue-nvidia-custom`
+- `kinoite-custom`
+- `kinoite-nvidia-custom`
+- `sericea-custom`
+- `sericea-nvidia-custom`
+
+
 We build `latest` which currently points to Fedora 38 (Fedora 39 will become latest after it releases and related packages have stabilized). Fedora 37 is no longer built here. You can chose a specific version by using the `38` or `39` tag instead of `latest`:
 
-    # pick any one of these
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-custom:latest
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-nvidia-custom:latest
+    sudo rpm-ostree rebase \
+        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:latest
 
 We build date tags as well, so if you want to rebase to a particular day's release:
   
-    # pick any one of these
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-custom:38-20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/silverblue-nvidia-custom:38-20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-custom:38-20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/kinoite-nvidia-custom:38-20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-custom:38-20230302
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/bsherman/sericea-nvidia-custom:38-20230302
+    sudo rpm-ostree rebase \
+        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:39-20240223
 
 ## Verification
 
-These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the appropriate command:
+These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/) using OpenID Connect with Github. You can verify the signature by running the following command:
 
-    cosign verify --key cosign.pub ghcr.io/bsherman/silverblue-custom
-    cosign verify --key cosign.pub ghcr.io/bsherman/silverblue-nvidia-custom
-    cosign verify --key cosign.pub ghcr.io/bsherman/kinoite-custom
-    cosign verify --key cosign.pub ghcr.io/bsherman/kinoite-nvidia-custom
-    cosign verify --key cosign.pub ghcr.io/bsherman/sericea-custom
-    cosign verify --key cosign.pub ghcr.io/bsherman/sericea-nvidia-custom
+    cosign verify \
+        --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+        --certificate-identity-regexp "https://github.com/bsherman/ublue-custom" \
+        ghcr.io/bsherman/IMAGE_NAME
+
+
