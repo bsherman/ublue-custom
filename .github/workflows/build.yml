@@ -62,7 +62,7 @@ jobs:
       - name: Verify base image
         uses: EyeCantCU/cosign-action/verify@v0.2.2
         with:
-          containers: ${{ matrix.image_name }}-${{ matrix.image_suffix }}:${{ matrix.major_version }}
+          containers: ${{ env.SOURCE_IMAGE }}-${{ matrix.image_suffix }}:${{ matrix.major_version }}
 
       - name: Generate tags
         id: generate-tags
