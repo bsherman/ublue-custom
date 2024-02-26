@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_name: [silverblue, kinoite, sericea]
+        image_name: [silverblue, kinoite, sericea, budgie]
         image_suffix: [main, nvidia]
         major_version: [38, 39]
         # don't build hostrpm browsers anymore as not using them
@@ -40,9 +40,24 @@ jobs:
             is_latest_version: true
             is_stable_version: true
           - browser_mode: flatpak
+        exclude:
+          - major_version: 38
+            image_name: budgie
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Matrix Variables
+        shell: bash
+        run: |
+          if [[ "${{ matrix.image_name }}" == "budgie" ]]; then
+              export SOURCE_IMAGE=onyx
+          else
+              export SOURCE_IMAGE=${{ matrix.image_name }}
+          fi
+          export IMAGE_NAME=${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+          echo "SOURCE_IMAGE=$SOURCE_IMAGE" >> $GITHUB_ENV
 
       - name: Verify base image
         uses: EyeCantCU/cosign-action/verify@v0.2.2
@@ -109,8 +124,8 @@ jobs:
       - name: Get current version
         id: labels
         run: |
-          ver=$(skopeo inspect docker://ghcr.io/ublue-os/${{ matrix.image_name }}-${{ matrix.image_suffix }}:${{ matrix.major_version }} | jq -r '.Labels["org.opencontainers.image.version"]')
-          echo "VERSION=$ver" >> $GITHUB_OUTPUT
+          ver=$(skopeo inspect docker://ghcr.io/ublue-os/${{ env.SOURCE_IMAGE }}-${{ matrix.image_suffix }}:${{ matrix.major_version }} | jq -r '.Labels["org.opencontainers.image.version"]')
+          echo "SOURCE_IMAGE_VERSION=$ver" >> $GITHUB_ENV
 
       # Build metadata
       - name: Image Metadata
@@ -118,10 +133,10 @@ jobs:
         id: meta
         with:
           images: |
-             ${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
+            ${{ env.IMAGE_NAME }}
           labels: |
-            org.opencontainers.image.title=${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
-            org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
+            org.opencontainers.image.version=${{ env.SOURCE_IMAGE_VERSION }}
             org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bsherman/ublue-custom/main/README.md
 
@@ -134,12 +149,13 @@ jobs:
             ./Containerfile
           # Postfix image name with -custom to make it a little more descriptive
           # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
-          image: ${{ 'nvidia' == matrix.image_suffix && format('{0}-nvidia-custom', matrix.image_name) || format('{0}-custom', matrix.image_name) }}
+          image: ${{ env.IMAGE_NAME }}
           tags: |
             ${{ steps.generate-tags.outputs.alias_tags }}
           build-args: |
             IMAGE_NAME=${{ matrix.image_name }}
             IMAGE_SUFFIX=${{ matrix.image_suffix }}
+            SOURCE_IMAGE=${{ env.SOURCE_IMAGE }}
             FEDORA_MAJOR_VERSION=${{ matrix.major_version }}
             BROWSER_MODE=${{ matrix.browser_mode}}
           labels: ${{ steps.meta.outputs.labels }}
