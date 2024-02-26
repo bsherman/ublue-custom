@@ -45,7 +45,7 @@ if [ "silverblue" == "${IMAGE_NAME}" ]; then
         vte291 \
         vte-profile && \
     rpm-ostree install \
-        ptyxis && \
+        ptyxis
   fi
 fi
 
