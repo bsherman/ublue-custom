@@ -36,6 +36,7 @@
                 "tuned-ppd",
                 "tuned-utils",
                 "tuned-profiles-atomic",
+                "webapp-manager",
                 "zenity"
             ],
             "kinoite": [

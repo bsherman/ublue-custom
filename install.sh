@@ -12,6 +12,9 @@ mkdir -p /var/lib/alternatives
 wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo
 # ublue-staging: needed for tuned, nvk enabled mesa, etc
 wget https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-${RELEASE}/ublue-os-staging-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_ublue-os-staging.repo
+# webapp-manager
+wget https://copr.fedorainfracloud.org/coprs/kylegospo/webapp-manager/repo/fedora-$(rpm -E %fedora)/kylegospo-webapp-manager-fedora-$(rp
+m -E %fedora).repo -O /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo
 if [ "sericea" == "${IMAGE_NAME}" ]; then
   wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
 fi
@@ -44,17 +47,17 @@ if [ "silverblue" == "${IMAGE_NAME}" ]; then
         vte-profile && \
     rpm-ostree install \
         ptyxis && \
-    rm -f /etc/yum.repos.d/_copr_kylegospo-prompt.repo
   fi
 fi
 
 # run common packages script
 /tmp/packages.sh
 
-# disable installed repos
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/tailscale.repo
+# remove used repos
+rm -f /etc/yum.repos.d/_copr_kylegospo*
+rm -f /etc/yum.repos.d/tailscale.repo
 if [ "sericea" == "${IMAGE_NAME}" ]; then
-  sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/copr_tofik-sway.repo
+  rm -f /etc/yum.repos.d/copr_tofik-sway.repo
 fi
 
 ### github direct installs
