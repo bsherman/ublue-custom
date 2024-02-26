@@ -39,6 +39,17 @@
                 "webapp-manager",
                 "zenity"
             ],
+            "budgie": [
+                "atril",
+                "atril-thumbnailer",
+                "libadwaita",
+                "nemo-audio-tab",
+                "nemo-emblems",
+                "nemo-gsconnect",
+                "nemo-image-converter",
+                "nemo-pastebin",
+                "nemo-previews"
+            ],
             "kinoite": [
                 "k3b",
                 "kalendar",
@@ -80,6 +91,9 @@
         "exclude": {
             "all": [
                 "power-profiles-daemon"
+            ],
+            "budgie": [
+                "gnome-software-rpm-ostree"
             ],
             "silverblue": [
                 "gnome-extensions-app",
