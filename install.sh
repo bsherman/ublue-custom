@@ -13,8 +13,7 @@ wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d
 # ublue-staging: needed for tuned, nvk enabled mesa, etc
 wget https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-${RELEASE}/ublue-os-staging-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_ublue-os-staging.repo
 # webapp-manager
-wget https://copr.fedorainfracloud.org/coprs/kylegospo/webapp-manager/repo/fedora-$(rpm -E %fedora)/kylegospo-webapp-manager-fedora-$(rp
-m -E %fedora).repo -O /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo
+wget https://copr.fedorainfracloud.org/coprs/kylegospo/webapp-manager/repo/fedora-$(rpm -E %fedora)/kylegospo-webapp-manager-fedora-$(rpm -E %fedora).repo -O /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo
 if [ "sericea" == "${IMAGE_NAME}" ]; then
   wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
 fi
@@ -46,7 +45,7 @@ if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
         vte291 \
         vte-profile && \
     rpm-ostree install \
-        ptyxis && \
+        ptyxis
   fi
 fi
 
