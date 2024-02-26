@@ -36,7 +36,7 @@ if [ "${FEDORA_MAJOR_VERSION}" -ge 39 ]; then
 fi
 
 # Ptyxis Terminal
-if [ "silverblue" == "${IMAGE_NAME}" ]; then
+if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
   if [ ${FEDORA_MAJOR_VERSION} -ge "39" ]; then
     wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-${RELEASE}/kylegospo-prompt-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
     rpm-ostree override replace \
