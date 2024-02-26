@@ -140,17 +140,18 @@ We build `latest` which currently points to Fedora 38 (Fedora 39 will become lat
         ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:latest
 
 We build date tags as well, so if you want to rebase to a particular day's release:
-  
+
     sudo rpm-ostree rebase \
         ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:39-20240223
 
 ## Verification
 
-These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/) using OpenID Connect with Github. You can verify the signature by running the following command:
+These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosign/overview/) using both OpenID Connect with Github and a repo specific keypair. You can verify the signature by running one the following command:
 
     cosign verify \
         --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
         --certificate-identity-regexp "https://github.com/bsherman/ublue-custom" \
         ghcr.io/bsherman/IMAGE_NAME
 
+    cosign verify --key cosign.pub ghcr.io/bsherman/IMAGE_NAME
 

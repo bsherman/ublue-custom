@@ -178,11 +178,27 @@ jobs:
       - uses: sigstore/cosign-installer@v3.4.0
         if: github.event_name != 'pull_request'
 
-      - name: Sign tags
+      - name: Sign container image with keypair
+        if: github.event_name != 'pull_request'
+        run: |
+          cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/${{ steps.build_image.outputs.image }}@${TAGS}
+        env:
+          TAGS: ${{ steps.push.outputs.digest }}
+          COSIGN_EXPERIMENTAL: false
+          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      - name: Verify keypair signature
+        if: github.event_name != 'pull_request'
+        run: |
+          cosign verify \
+            --key cosign.pub \
+            ${{ steps.registry_case.outputs.lowercase }}/${{ steps.build_image.outputs.image }}:${{ matrix.major_version }}
+
+      - name: Sign container image with OIDC
         if: github.event_name != 'pull_request'
         run: cosign sign -y ${{ steps.registry_case.outputs.lowercase }}/${{ steps.build_image.outputs.image }}:${{ matrix.major_version }}
 
-      - name: Verify the pushed tags
+      - name: Verify OIDC signature
         if: github.event_name != 'pull_request'
         run: |
           cosign verify \
