@@ -43,7 +43,7 @@ if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
     --experimental \
     --from repo=copr:copr.fedorainfracloud.org:kylegospo:prompt \
         vte291 \
-        vte-profile && \
+        vte-profile \
         libadwaita && \
     rpm-ostree install \
         ptyxis
