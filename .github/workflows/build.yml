@@ -26,7 +26,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_name: [silverblue, kinoite, sericea, budgie]
+        image_name: [silverblue, kinoite, sericea]
+        #image_name: [silverblue, kinoite, sericea, budgie]
         image_suffix: [main, nvidia]
         major_version: [38, 39]
         # don't build hostrpm browsers anymore as not using them
