@@ -3,6 +3,7 @@
         "include": {
             "all": [
                 "dosfstools",
+                "gh",
                 "google-noto-sans-fonts",
                 "ipcalc",
                 "iperf3",
