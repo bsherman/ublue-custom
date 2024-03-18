@@ -41,7 +41,8 @@ In addition to the packages/config provided by base images, this image:
   - [tailscale](https://tailscale.com/) (for VPN)
   - tmux
   - tuned (replaces power-profile-daemon)
-  - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs (use a client from distrobox, etc)
+  - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs
+  - virt-manager - UI for managing VMs on libvirtd
   - [wezterm](https://wezfurlong.org/wezterm/) cross platform terminal
   - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
   - zenity - for UI scripting

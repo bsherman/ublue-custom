@@ -37,6 +37,7 @@
                 "tuned-ppd",
                 "tuned-utils",
                 "tuned-profiles-atomic",
+                "virt-manager",
                 "webapp-manager",
                 "zenity"
             ],
