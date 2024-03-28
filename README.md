@@ -135,7 +135,7 @@ After installation is complete, use the appropriate `rebase` command to install 
 - `sericea-nvidia-custom`
 
 
-We build `latest` which currently points to Fedora 38 (Fedora 39 will become latest after it releases and related packages have stabilized). Fedora 37 is no longer built here. You can chose a specific version by using the `38` or `39` tag instead of `latest`:
+We build `latest` which currently points to Fedora 39 (Fedora 40 will become latest after it releases and related packages have stabilized). Fedora 37 and 38 are no longer built here. You can chose a specific version by using the `39` or `40` tag instead of `latest`:
 
     sudo rpm-ostree rebase \
         ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:latest
