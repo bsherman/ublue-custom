@@ -18,36 +18,29 @@ if [ "sericea" == "${IMAGE_NAME}" ]; then
   wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
 fi
 
-if [ "${FEDORA_MAJOR_VERSION}" -ge 39 ]; then
-    # use mesa from ublue-staging with nvk support until upstream supports it
-    rpm-ostree override replace \
-        --experimental \
-        --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-            mesa-vulkan-drivers
-fi
+# use mesa from ublue-staging with nvk support until upstream supports it
+rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+        mesa-vulkan-drivers
 
-# install kmods if F39 or newer
-if [ "${FEDORA_MAJOR_VERSION}" -ge 39 ]; then
-  for REPO in $(rpm -ql ublue-os-akmods-addons|grep ^"/etc"|grep repo$); do
-    echo "akmods: enable default entry: ${REPO}"
-    sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' ${REPO}
-  done
-  rpm-ostree install /tmp/akmods-rpms/*.rpm
-fi
+for REPO in $(rpm -ql ublue-os-akmods-addons|grep ^"/etc"|grep repo$); do
+  echo "akmods: enable default entry: ${REPO}"
+  sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' ${REPO}
+done
+rpm-ostree install /tmp/akmods-rpms/*.rpm
 
 # Ptyxis Terminal
 if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
-  if [ ${FEDORA_MAJOR_VERSION} -ge "39" ]; then
-    wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-${RELEASE}/kylegospo-prompt-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
-    rpm-ostree override replace \
-    --experimental \
-    --from repo=copr:copr.fedorainfracloud.org:kylegospo:prompt \
-        vte291 \
-        vte-profile \
-        libadwaita && \
-    rpm-ostree install \
-        ptyxis
-  fi
+  wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-${RELEASE}/kylegospo-prompt-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
+  rpm-ostree override replace \
+  --experimental \
+  --from repo=copr:copr.fedorainfracloud.org:kylegospo:prompt \
+      vte291 \
+      vte-profile \
+      libadwaita && \
+  rpm-ostree install \
+      ptyxis
 fi
 
 # run common packages script

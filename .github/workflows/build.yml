@@ -29,21 +29,18 @@ jobs:
         image_name: [silverblue, kinoite, sericea]
         #image_name: [silverblue, kinoite, sericea, budgie]
         image_suffix: [main, nvidia]
-        major_version: [38, 39]
+        major_version: [39, 40]
         # don't build hostrpm browsers anymore as not using them
         # browser_mode: [flatpak, hostrpm]
         # browser_mode: [flatpak]
         include:
-          - major_version: 38
-            is_latest_version: false
-            is_stable_version: true
           - major_version: 39
             is_latest_version: true
             is_stable_version: true
+          - major_version: 40
+            is_latest_version: false
+            is_stable_version: false
           - browser_mode: flatpak
-        exclude:
-          - major_version: 38
-            image_name: budgie
     steps:
       - name: Checkout
         uses: actions/checkout@v4
