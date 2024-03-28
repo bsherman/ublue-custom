@@ -54,7 +54,6 @@ In addition to the packages/config provided by base images, this image:
     - libadwaita(-qt)
   - Only on Sericea
     - some other packages for sway fun
-- Sets faster timeout on systemd waiting for shutdown
 - Sets gnome's "APP is not responding" check to 30 seconds
 - Sets some a few custom gnome settings (see etc/dconf)
 

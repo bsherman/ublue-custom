@@ -31,9 +31,5 @@ systemctl enable tuned.service
 # custom just recipes
 sed -i "s/FEDORA_MAJOR_VERSION/${FEDORA_MAJOR_VERSION}/" /usr/share/ublue-os/just/60-custom.just
 
-# custom shutdown timeouts
-sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/user.conf
-sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/system.conf
-
 # don't want these desktop icons
 rm -f /usr/share/applications/{htop,nvtop}.desktop
