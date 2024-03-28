@@ -18,12 +18,6 @@ if [ "sericea" == "${IMAGE_NAME}" ]; then
   curl https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -o /etc/yum.repos.d/copr_tofik-sway.repo
 fi
 
-# use mesa from ublue-staging with nvk support until upstream supports it
-rpm-ostree override replace \
-    --experimental \
-    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-        mesa-vulkan-drivers
-
 for REPO in $(rpm -ql ublue-os-akmods-addons|grep ^"/etc"|grep repo$); do
   echo "akmods: enable default entry: ${REPO}"
   sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' ${REPO}
