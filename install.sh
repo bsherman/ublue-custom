@@ -9,13 +9,13 @@ mkdir -p /var/lib/alternatives
 
 # Get required repos
 # tailscale
-wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo
+curl https://pkgs.tailscale.com/stable/fedora/tailscale.repo -o /etc/yum.repos.d/tailscale.repo
 # ublue-staging: needed for tuned, nvk enabled mesa, etc
-wget https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-${RELEASE}/ublue-os-staging-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_ublue-os-staging.repo
+curl https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-${RELEASE}/ublue-os-staging-fedora-${RELEASE}.repo?arch=x86_64 -o /etc/yum.repos.d/_copr_ublue-os-staging.repo
 # webapp-manager
-wget https://copr.fedorainfracloud.org/coprs/kylegospo/webapp-manager/repo/fedora-$(rpm -E %fedora)/kylegospo-webapp-manager-fedora-$(rpm -E %fedora).repo -O /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo
+curl https://copr.fedorainfracloud.org/coprs/kylegospo/webapp-manager/repo/fedora-${RELEASE}/kylegospo-webapp-manager-fedora-${RELEASE}.repo -o /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo
 if [ "sericea" == "${IMAGE_NAME}" ]; then
-  wget https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -O /etc/yum.repos.d/copr_tofik-sway.repo
+  curl https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -o /etc/yum.repos.d/copr_tofik-sway.repo
 fi
 
 # use mesa from ublue-staging with nvk support until upstream supports it
@@ -32,7 +32,7 @@ rpm-ostree install /tmp/akmods-rpms/*.rpm
 
 # Ptyxis Terminal
 if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
-  wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-${RELEASE}/kylegospo-prompt-fedora-${RELEASE}.repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
+  curl https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-${RELEASE}/kylegospo-prompt-fedora-${RELEASE}.repo?arch=x86_64 -o /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
   rpm-ostree override replace \
   --experimental \
   --from repo=copr:copr.fedorainfracloud.org:kylegospo:prompt \
