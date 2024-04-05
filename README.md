@@ -18,8 +18,6 @@ Based on:
   - adds distrobox, freeworld mesa and media codecs, gnome-tweaks (on gnome), just, nvtop, openssl, pipewire-codec-aptx, ratbagd, vim
   - sets automatic staging of updates to system
   - sets flatpaks to update twice a day
-  - v4l2loopback driver from [ublue-os/akmods](https://github.com/ublue-os/akmods)
-  - xpadneo/xone xbox controller drivers from [ublue-os/akmods](https://github.com/ublue-os/akmods)
 - [ublue-os/nvida](https://github.com/ublue-os/nvidia) for nvidia variants adds:
   - nvidia kernel drivers
   - nvidia container runtime
@@ -33,18 +31,23 @@ In addition to the packages/config provided by base images, this image:
 - Removes from the base image:
   - firefox
 - Adds the following packages to the base image:
-  - moby-engine (docker's open source version, disabled by default)
-  - p7zip
+  - akmods from[ublue-os/akmods](https://github.com/ublue-os/akmods)
+    - openrazer driver
+    - v4l2loopback driver
+    - xpadneo/xone xbox controller drivers
+  - [iwd](https://iwd.wiki.kernel.org/) replaces wpa_supplicant for more reliable wireless
+  - [moby-engine](https://mobyproject.org/) docker's open source version, disabled by default
+  - [p7zip](https://github.com/p7zip-project/p7zip)
   - ~~[pcp](https://pcp.io/) - Performance Co-pilot monitoring~~ *temporarily disabled until I sort out some issues*
-  - powertop
-  - shotwell (the flatpak version crashes accessing USB)
-  - [tailscale](https://tailscale.com/) (for VPN)
-  - tmux
-  - tuned (replaces power-profile-daemon)
+  - [powertop](https://github.com/fenrus75/powertop)
+  - [shotwell](https://shotwell-project.org/doc/html/) the flatpak version crashes accessing USB
+  - [tailscale](https://tailscale.com/) for VPN
+  - [tmux](https://github.com/tmux/tmux)
+  - [tuned](https://github.com/redhat-performance/tuned) replaces power-profile-daemon
   - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs
-  - virt-manager - UI for managing VMs on libvirtd
+  - [virt-manager](https://virt-manager.org/) UI for managing VMs on libvirtd
   - [wezterm](https://wezfurlong.org/wezterm/) cross platform terminal
-  - [wireguard-tools](https://www.wireguard.com/) (for more VPN)
+  - [wireguard-tools](https://www.wireguard.com/) for more VPN
   - zenity - for UI scripting
   - Only on Silverblue: Gnome specific packages
     - default font set to Noto Sans

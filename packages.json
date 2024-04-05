@@ -7,6 +7,7 @@
                 "google-noto-sans-fonts",
                 "ipcalc",
                 "iperf3",
+                "iwd",
                 "langpacks-en",
                 "libretls",
                 "libvirt-daemon",
@@ -91,7 +92,8 @@
         },
         "exclude": {
             "all": [
-                "power-profiles-daemon"
+                "power-profiles-daemon",
+                "wpa_supplicant"
             ],
             "budgie": [
                 "gnome-software-rpm-ostree"
