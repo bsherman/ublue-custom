@@ -33,7 +33,7 @@ In addition to the packages/config provided by base images, this image:
 - Adds the following packages to the base image:
   - akmods from[ublue-os/akmods](https://github.com/ublue-os/akmods)
     - openrazer driver
-    - v4l2loopback driver
+    - ~~v4l2loopback driver~~ temporarily disabled due to build issues with 6.8 on F39
     - xpadneo/xone xbox controller drivers
   - [iwd](https://iwd.wiki.kernel.org/) replaces wpa_supplicant for more reliable wireless
   - [moby-engine](https://mobyproject.org/) docker's open source version, disabled by default

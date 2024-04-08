@@ -16,7 +16,7 @@ COPY usr /usr
 COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*xpad*.rpm /tmp/akmods-rpms/
 COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*xone*.rpm /tmp/akmods-rpms/
 COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*openrazer*.rpm /tmp/akmods-rpms/
-COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*v4l2loopback*.rpm /tmp/akmods-rpms/
+#COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*v4l2loopback*.rpm /tmp/akmods-rpms/
 
 ADD packages.json /tmp/packages.json
 ADD *.sh /tmp/
