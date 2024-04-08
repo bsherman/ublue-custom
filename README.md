@@ -35,7 +35,6 @@ In addition to the packages/config provided by base images, this image:
     - openrazer driver
     - ~~v4l2loopback driver~~ temporarily disabled due to build issues with 6.8 on F39
     - xpadneo/xone xbox controller drivers
-  - [iwd](https://iwd.wiki.kernel.org/) replaces wpa_supplicant for more reliable wireless
   - [moby-engine](https://mobyproject.org/) docker's open source version, disabled by default
   - [p7zip](https://github.com/p7zip-project/p7zip)
   - ~~[pcp](https://pcp.io/) - Performance Co-pilot monitoring~~ *temporarily disabled until I sort out some issues*
