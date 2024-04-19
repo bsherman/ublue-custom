@@ -33,7 +33,7 @@ In addition to the packages/config provided by base images, this image:
 - Adds the following packages to the base image:
   - akmods from[ublue-os/akmods](https://github.com/ublue-os/akmods)
     - openrazer driver
-    - ~~v4l2loopback driver~~ temporarily disabled due to build issues with 6.8 on F39
+    - v4l2loopback driver
     - xpadneo/xone xbox controller drivers
   - [moby-engine](https://mobyproject.org/) docker's open source version, disabled by default
   - [p7zip](https://github.com/p7zip-project/p7zip)
@@ -45,7 +45,6 @@ In addition to the packages/config provided by base images, this image:
   - [tuned](https://github.com/redhat-performance/tuned) replaces power-profile-daemon
   - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs
   - [virt-manager](https://virt-manager.org/) UI for managing VMs on libvirtd
-  - [wezterm](https://wezfurlong.org/wezterm/) cross platform terminal
   - [wireguard-tools](https://www.wireguard.com/) for more VPN
   - zenity - for UI scripting
   - Only on Silverblue: Gnome specific packages
