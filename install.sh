@@ -24,16 +24,32 @@ rpm-ostree install /tmp/akmods-rpms/*.rpm
 
 # Ptyxis Terminal
 if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
-  rpm-ostree override replace \
-  --experimental \
-  --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-      gtk4 \
-      vte291 \
-      vte-profile \
-      libadwaita && \
-  rpm-ostree install \
-      ptyxis
+  if [ "${FEDORA_MAJOR_VERSION}" -ge "40" ]; then
+    # F40 installs ptyxis with mutter patch
+    rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+        vte291 \
+        vte-profile
+    rpm-ostree install ptyxis
+    rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+        mutter
+  else
+    # F39 needs libadwaita for ptyxis too, and not patching mutter
+    rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+        gtk4 \
+        vte291 \
+        vte-profile \
+        libadwaita && \
+    rpm-ostree install \
+        ptyxis
+  fi
 fi
+
 
 # run common packages script
 /tmp/packages.sh
