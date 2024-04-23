@@ -18,9 +18,13 @@ fi
 
 for REPO in $(rpm -ql ublue-os-akmods-addons|grep ^"/etc"|grep repo$); do
   echo "akmods: enable default entry: ${REPO}"
-  sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' ${REPO}
+  sed -i.bak '0,/enabled=0/{s/enabled=0/enabled=1/}' ${REPO}
 done
 rpm-ostree install /tmp/akmods-rpms/*.rpm
+for REPO in $(rpm -ql ublue-os-akmods-addons|grep ^"/etc"|grep repo$); do
+  echo "akmods: restore defaults: ${REPO}"
+  mv ${REPO}.bak ${REPO}
+done
 
 # Ptyxis Terminal
 if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
