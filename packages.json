@@ -54,9 +54,9 @@
             "kinoite": [
                 "k3b",
                 "kalendar",
-                "libadwaita",
-                "libadwaita-qt5",
-                "skanlite"
+                "kmail",
+                "kontact",
+                "libadwaita"
             ],
             "sericea": [
                 "brightnessctl",
@@ -108,7 +108,10 @@
     },
     "39": {
         "include": {
-            "all": []
+            "all": [],
+            "kinoite": [
+                "libadwaita-qt5"
+            ]
         },
         "exclude": {
             "all": []
@@ -116,7 +119,12 @@
     },
     "40": {
         "include": {
-            "all": []
+            "all": [],
+            "kinoite": [
+                "libadwaita-qt5",
+                "libadwaita-qt6",
+                "merkuro"
+            ]
         },
         "exclude": {
             "all": []

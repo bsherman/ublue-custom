@@ -27,27 +27,25 @@ for REPO in $(rpm -ql ublue-os-akmods-addons|grep ^"/etc"|grep repo$); do
 done
 
 # Ptyxis Terminal
-if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
-  if [ "${FEDORA_MAJOR_VERSION}" -ge "40" ]; then
-    # F40 installs ptyxis with mutter patch
-    rpm-ostree override replace \
-    --experimental \
-    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-        vte291 \
-        vte-profile
-    rpm-ostree install ptyxis
-  else
-    # F39 needs libadwaita for ptyxis too, and not patching mutter
-    rpm-ostree override replace \
-    --experimental \
-    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-        gtk4 \
-        vte291 \
-        vte-profile \
-        libadwaita && \
-    rpm-ostree install \
-        ptyxis
-  fi
+if [ "${FEDORA_MAJOR_VERSION}" -ge "40" ]; then
+  # F40 installs ptyxis with mutter patch
+  rpm-ostree override replace \
+  --experimental \
+  --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+      vte291 \
+      vte-profile
+  rpm-ostree install ptyxis
+else
+  # F39 needs libadwaita for ptyxis too, and not patching mutter
+  rpm-ostree override replace \
+  --experimental \
+  --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+      gtk4 \
+      vte291 \
+      vte-profile \
+      libadwaita && \
+  rpm-ostree install \
+      ptyxis
 fi
 
 

@@ -34,10 +34,11 @@ In addition to the packages/config provided by base images, this image:
   - akmods from[ublue-os/akmods](https://github.com/ublue-os/akmods)
     - openrazer driver
     - v4l2loopback driver
-    - xpadneo/xone xbox controller drivers
+    - xbox controller drivers (xpadneo/xone)
   - [moby-engine](https://mobyproject.org/) docker's open source version, disabled by default
   - [p7zip](https://github.com/p7zip-project/p7zip)
   - ~~[pcp](https://pcp.io/) - Performance Co-pilot monitoring~~ *temporarily disabled until I sort out some issues*
+  - [ptyxis](https://gitlab.gnome.org/chergert/ptyxis) (pronounced *tik-sys*) is a container oriented terminal
   - [powertop](https://github.com/fenrus75/powertop)
   - [shotwell](https://shotwell-project.org/doc/html/) the flatpak version crashes accessing USB
   - [tailscale](https://tailscale.com/) for VPN
@@ -51,13 +52,18 @@ In addition to the packages/config provided by base images, this image:
     - default font set to Noto Sans
     - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)
     - gsconnect (plus dependancies)
-  - Only on Kinoite and Sericea
+  - Only on Kinoite: KDE specific packages
+    - k3b
+    - kalendar
+    - kmail
+    - kontact
     - libadwaita(-qt)
   - Only on Sericea
+    - libadwaita
     - some other packages for sway fun
 - Sets faster timeout on systemd waiting for shutdown
 - Sets gnome's "APP is not responding" check to 30 seconds
-- Sets some a few custom gnome settings (see etc/dconf)
+- Sets some custom gnome default settings (see etc/dconf)
 
 ## Applications
 
