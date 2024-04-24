@@ -36,10 +36,6 @@ if [ "silverblue" == "${IMAGE_NAME}" ] || [ "budgie" == "${IMAGE_NAME}" ]; then
         vte291 \
         vte-profile
     rpm-ostree install ptyxis
-    rpm-ostree override replace \
-    --experimental \
-    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
-        mutter
   else
     # F39 needs libadwaita for ptyxis too, and not patching mutter
     rpm-ostree override replace \
