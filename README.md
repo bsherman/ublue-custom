@@ -54,10 +54,9 @@ In addition to the packages/config provided by base images, this image:
     - gsconnect (plus dependancies)
   - Only on Kinoite: KDE specific packages
     - k3b
-    - kalendar
     - kmail
-    - kontact
     - libadwaita(-qt)
+    - merkuro (new calendar and contacts apps)
   - Only on Sericea
     - libadwaita
     - some other packages for sway fun

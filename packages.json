@@ -53,6 +53,8 @@
             ],
             "kinoite": [
                 "k3b",
+                "kdepim-runtime",
+                "kmail",
                 "libadwaita",
                 "merkuro"
             ],
