@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_name: [silverblue, kinoite, sericea]
+        image_name: [silverblue, kinoite]
         #image_name: [silverblue, kinoite, sericea, budgie]
         image_suffix: [main, nvidia]
         major_version: [39, 40]

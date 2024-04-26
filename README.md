@@ -11,7 +11,7 @@ These images are customized how I want, based on the great work by [team ublue o
 Images built:
 - Silverblue (Fedora GNOME immutable desktop)
 - Kinoite (Fedora KDE immutable desktop)
-- Sericea (Fedora Sway immutable desktop)
+- ~~Sericea (Fedora Sway immutable desktop)~~ currently disabled due to build issues
 
 Based on:
 - [ublue-os/main](https://github.com/ublue-os/main) for good foundations
