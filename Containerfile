@@ -8,6 +8,9 @@ ARG IMAGE_NAME="${IMAGE_NAME:-silverblue}"
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
 ARG BROWSER_MODE="${BROWSER_MODE:-flatpak}"
 
+ARG DOCKER_BUILDX_VERSION=0.13.1
+ARG DOCKER_COMPOSE_VERSION=v2.25.0
+
 COPY usr /usr
 
 # add akmods RPMs for installation
@@ -28,4 +31,10 @@ RUN /tmp/install.sh && \
     mkdir -p /tmp /var/tmp && \
     chmod 1777 /tmp /var/tmp
 
-COPY --from=docker.io/docker/compose-bin:latest /docker-compose /usr/bin/docker-compose
+COPY --from=docker.io/docker/buildx-bin:${DOCKER_BUILDX_VERSION} /buildx /usr/libexec/docker/cli-plugins/docker-buildx
+COPY --from=docker.io/docker/compose-bin:${DOCKER_COMPOSE_VERSION} /docker-compose /usr/libexec/docker/cli-plugins/docker-compose
+
+RUN ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/bin/docker-compose && \
+    ostree container commit && \
+    mkdir -p /tmp /var/tmp && \
+    chmod 1777 /tmp /var/tmp
