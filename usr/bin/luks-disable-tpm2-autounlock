@@ -32,7 +32,7 @@ else
 fi
 
 ## Disable initramfs
-rpm-ostree initramfs |grep tpm2 > /dev/null
+rpm-ostree initramfs | grep tpm2 > /dev/null
 if [ 0 -eq $? ]; then
   echo "WARNING: if you configured initramfs for anything other than TPM2, this wipes that too..."
   echo "here's a printout:"
