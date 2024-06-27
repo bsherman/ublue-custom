@@ -2,12 +2,19 @@
     "all": {
         "include": {
             "all": [
+                "bootc",
                 "dosfstools",
+                "fastfetch",
                 "gh",
                 "google-noto-sans-fonts",
+                "hdparm",
+                "ifuse",
+                "input-leap",
+                "iotop",
                 "ipcalc",
                 "iperf3",
                 "langpacks-en",
+                "libimobiledevice",
                 "libretls",
                 "libvirt-daemon",
                 "libvirt-daemon-config-network",
@@ -19,8 +26,9 @@
                 "libvirt-daemon-driver-storage-core",
                 "libvirt-daemon-driver-storage-disk",
                 "libvirt-daemon-driver-storage-scsi",
-                "ltrace",
+                "libxcrypt-compat",
                 "lm_sensors",
+                "ltrace",
                 "moby-engine",
                 "netcat",
                 "nmap",
@@ -33,7 +41,10 @@
                 "shotwell",
                 "strace",
                 "tailscale",
+                "udica",
+                "usbmuxd",
                 "virt-manager",
+                "ydotool",
                 "zenity"
             ],
             "budgie": [
@@ -89,6 +100,9 @@
             "all": [],
             "budgie": [
                 "gnome-software-rpm-ostree"
+            ],
+            "kinoite": [
+                "plasma-welcome"
             ],
             "silverblue": [
                 "gnome-extensions-app",

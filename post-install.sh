@@ -50,3 +50,7 @@ fi
 if [ -x /usr/libexec/luks-disable-tpm2-autounlock ]; then
   rm -f /usr/bin/luks-disable-tpm2-autounlock && ln -s /usr/libexec/luks-disable-tpm2-autounlock /usr/bin/luks-disable-tpm2-autounlock
 fi
+
+if [ "$FEDORA_MAJOR_VERSION" -ge "40" ]; then
+    /usr/bin/bootupctl backend generate-update-metadata
+fi
