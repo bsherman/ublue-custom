@@ -3,18 +3,13 @@
 set -oue pipefail
 
 # Remove nvidia specific files
-if [[ "${IMAGE_FLAVOR}" =~ "nvidia" || ${COREOS_TYPE} =~ "nvidia" ]]; then
+#if [[ "${IMAGE_FLAVOR}" =~ "nvidia" || ${COREOS_TYPE} =~ "nvidia" ]]; then
+if [[ "${IMAGE_SUFFIX}" =~ "nvidia" ]]; then
   rm -f /usr/lib/modprobe.d/nvk.conf
   rm -f /usr/lib/modprobe.d/amd-legacy.conf
 else
   rm -f /usr/lib/dracut/dracut.conf.d/*nvidia.conf
   rm -f /usr/lib/modprobe.d/nvidia*.conf
-fi
-
-if [[ "${AKMODS_FLAVOR}" == "surface" ]]; then
-    KERNEL_SUFFIX="surface"
-else
-    KERNEL_SUFFIX=""
 fi
 
 QUALIFIED_KERNEL="$(rpm -qa | grep -P 'kernel-(|'"$KERNEL_SUFFIX"'-)(\d+\.\d+\.\d+)' | sed -E 's/kernel-(|'"$KERNEL_SUFFIX"'-)//')"
