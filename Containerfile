@@ -27,7 +27,8 @@ COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_MAJOR_VERSION} /rpms/kmods/*v4
 ADD packages.json /tmp/packages.json
 ADD *.sh /tmp/
 
-RUN /tmp/install.sh && \
+RUN rpm-ostree cliwrap install-to-root / && \
+    /tmp/install.sh && \
     /tmp/post-install.sh && \
     rm -rf /tmp/* /var/* && \
     ostree container commit && \
