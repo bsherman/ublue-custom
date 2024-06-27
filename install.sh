@@ -10,7 +10,7 @@ mkdir -p /var/lib/alternatives
 # Get required repos
 # tailscale
 curl https://pkgs.tailscale.com/stable/fedora/tailscale.repo -o /etc/yum.repos.d/tailscale.repo
-# ublue-staging: needed for tuned, nvk enabled mesa, etc
+# ublue-staging: needed for nvk enabled mesa, etc
 curl https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-${RELEASE}/ublue-os-staging-fedora-${RELEASE}.repo?arch=x86_64 -o /etc/yum.repos.d/_copr_ublue-os-staging.repo
 if [ "sericea" == "${IMAGE_NAME}" ]; then
   curl https://copr.fedorainfracloud.org/coprs/tofik/sway/repo/fedora-${RELEASE}/tofik-sway-fedora-${RELEASE}.repo -o /etc/yum.repos.d/copr_tofik-sway.repo

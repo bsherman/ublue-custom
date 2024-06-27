@@ -33,10 +33,6 @@
                 "shotwell",
                 "strace",
                 "tailscale",
-                "tuned",
-                "tuned-ppd",
-                "tuned-utils",
-                "tuned-profiles-atomic",
                 "virt-manager",
                 "zenity"
             ],
@@ -90,9 +86,7 @@
             ]
         },
         "exclude": {
-            "all": [
-                "power-profiles-daemon"
-            ],
+            "all": [],
             "budgie": [
                 "gnome-software-rpm-ostree"
             ],

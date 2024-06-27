@@ -43,7 +43,6 @@ In addition to the packages/config provided by base images, this image:
   - [shotwell](https://shotwell-project.org/doc/html/) the flatpak version crashes accessing USB
   - [tailscale](https://tailscale.com/) for VPN
   - [tmux](https://github.com/tmux/tmux)
-  - [tuned](https://github.com/redhat-performance/tuned) replaces power-profile-daemon
   - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs
   - [virt-manager](https://virt-manager.org/) UI for managing VMs on libvirtd
   - [wireguard-tools](https://www.wireguard.com/) for more VPN
