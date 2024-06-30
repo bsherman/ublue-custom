@@ -43,17 +43,11 @@ sed -i 's/#DefaultTimeoutStopSec.*/DefaultTimeoutStopSec=15s/' /etc/systemd/syst
 # don't want these desktop icons
 rm -f /usr/share/applications/{htop,nvtop}.desktop
 
-# use local tpm unlock scripts only if not provided upstream
-if [ -x /usr/libexec/luks-enable-tpm2-autounlock ]; then
-  rm -f /usr/bin/luks-enable-tpm2-autounlock && ln -s /usr/libexec/luks-enable-tpm2-autounlock /usr/bin/luks-enable-tpm2-autounlock
-fi
-if [ -x /usr/libexec/luks-disable-tpm2-autounlock ]; then
-  rm -f /usr/bin/luks-disable-tpm2-autounlock && ln -s /usr/libexec/luks-disable-tpm2-autounlock /usr/bin/luks-disable-tpm2-autounlock
-fi
-
-# generate pre-built initramfs (good for nvidia, tpm unlock, etc)
+# generate pre-built initramfs only if main, since nvidia rebuilds this upstream
 if [ "$FEDORA_MAJOR_VERSION" -ge "40" ]; then
-  /tmp/initramfs.sh
+  if [ "$IMAGE_SUFFIX" == "main" ]; then
+    /tmp/build-initramfs.sh
+  fi
 fi
 
 if [ "$FEDORA_MAJOR_VERSION" -ge "40" ]; then
