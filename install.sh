@@ -46,6 +46,8 @@ fi
 # run common packages script
 /tmp/packages.sh
 
+/tmp/install-waydroid.sh
+
 # remove used repos
 rm -f /etc/yum.repos.d/_copr_kylegospo*
 rm -f /etc/yum.repos.d/tailscale.repo

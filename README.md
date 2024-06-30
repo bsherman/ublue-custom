@@ -44,6 +44,7 @@ In addition to the packages/config provided by base images, this image:
   - [tmux](https://github.com/tmux/tmux)
   - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs
   - [virt-manager](https://virt-manager.org/) UI for managing VMs on libvirtd
+  - [waydroid](https://waydro.id/)
   - [wireguard-tools](https://www.wireguard.com/) for more VPN
   - zenity - for UI scripting
   - Only on Silverblue: Gnome specific packages
