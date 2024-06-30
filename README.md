@@ -40,7 +40,6 @@ In addition to the packages/config provided by base images, this image:
   - ~~[pcp](https://pcp.io/) - Performance Co-pilot monitoring~~ *temporarily disabled until I sort out some issues*
   - [ptyxis](https://gitlab.gnome.org/chergert/ptyxis) (pronounced *tik-sys*) is a container oriented terminal
   - [powertop](https://github.com/fenrus75/powertop)
-  - [shotwell](https://shotwell-project.org/doc/html/) the flatpak version crashes accessing USB
   - [tailscale](https://tailscale.com/) for VPN
   - [tmux](https://github.com/tmux/tmux)
   - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs
@@ -53,9 +52,8 @@ In addition to the packages/config provided by base images, this image:
     - gsconnect (plus dependancies)
   - Only on Kinoite: KDE specific packages
     - k3b
-    - kmail
     - libadwaita(-qt)
-    - merkuro (new calendar and contacts apps)
+    - skanpage
   - Only on Sericea
     - libadwaita
     - some other packages for sway fun
