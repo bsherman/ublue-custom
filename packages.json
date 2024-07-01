@@ -3,6 +3,7 @@
         "include": {
             "all": [
                 "bootc",
+                "btop",
                 "dosfstools",
                 "fastfetch",
                 "firewall-config",
@@ -29,7 +30,9 @@
                 "libvirt-daemon-driver-storage-scsi",
                 "libxcrypt-compat",
                 "lm_sensors",
+                "lshw",
                 "ltrace",
+                "lzip",
                 "moby-engine",
                 "netcat",
                 "nmap",
@@ -46,6 +49,7 @@
                 "strace",
                 "tailscale",
                 "udica",
+                "unrar",
                 "usbmuxd",
                 "virt-manager",
                 "ydotool",
