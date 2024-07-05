@@ -25,6 +25,7 @@ systemctl disable docker.socket
 systemctl unmask dconf-update.service
 systemctl enable dconf-update.service
 systemctl enable rpm-ostree-countme.timer
+systemctl enable swtpm-workaround.service
 systemctl enable tailscaled.service
 
 # custom just recipes
