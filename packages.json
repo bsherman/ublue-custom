@@ -45,6 +45,7 @@
                 "python3-pip",
                 "qemu-kvm",
                 "rclone",
+                "rsms-inter-fonts",
                 "solaar",
                 "strace",
                 "tailscale",
