@@ -62,7 +62,7 @@ jobs:
           echo "SOURCE_IMAGE=$SOURCE_IMAGE" >> $GITHUB_ENV
 
       - name: Verify base image
-        uses: EyeCantCU/cosign-action/verify@v0.2.2
+        uses: EyeCantCU/cosign-action/verify@v0.3.0
         with:
           containers: ${{ env.SOURCE_IMAGE }}-${{ matrix.image_suffix }}:${{ matrix.major_version }}
 
