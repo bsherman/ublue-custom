@@ -141,7 +141,9 @@
     },
     "40": {
         "include": {
-            "all": [],
+            "all": [
+                "ptyxis"
+            ],
             "kinoite": [
                 "libadwaita-qt5",
                 "libadwaita-qt6"

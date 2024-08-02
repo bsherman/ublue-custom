@@ -26,20 +26,15 @@ for REPO in $(rpm -ql ublue-os-akmods-addons|grep ^"/etc"|grep repo$); do
   mv ${REPO}.bak ${REPO}
 done
 
-# Ptyxis Terminal
-if [ "${FEDORA_MAJOR_VERSION}" -ge "40" ]; then
-  # F40 installs ptyxis
-  rpm-ostree install ptyxis
-else
+if [ "${FEDORA_MAJOR_VERSION}" -eq "39" ]; then
   # F39 needs libadwaita for ptyxis too
   rpm-ostree override replace \
   --experimental \
   --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
       gtk4 \
       vte291 \
-      libadwaita && \
-  rpm-ostree install \
-      ptyxis
+      libadwaita
+  rpm-ostree install ptyxis
 fi
 
 
