@@ -104,10 +104,17 @@
             ],
             "silverblue": [
                 "gnome-shell-extension-appindicator",
+                "gnome-shell-extension-blur-my-shell",
+                "gnome-shell-extension-caffeine",
                 "gnome-shell-extension-dash-to-dock",
                 "gnome-shell-extension-gsconnect",
+                "gnome-shell-extension-light-style",
+                "gnome-shell-extension-logo-menu",
                 "gnome-shell-extension-no-overview",
-                "nautilus-gsconnect"
+                "gnome-shell-extension-search-light",
+                "gnome-shell-extension-tailscale-gnome-qs",
+                "nautilus-gsconnect",
+                "nautilus-open-any-terminal"
             ]
         },
         "exclude": {
