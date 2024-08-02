@@ -128,6 +128,7 @@
             "silverblue": [
                 "gnome-extensions-app",
                 "gnome-software-rpm-ostree",
+                "gnome-terminal-nautilus",
                 "gnome-tour"
             ],
             "sericea": [
