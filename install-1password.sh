@@ -51,8 +51,6 @@ ln -s /opt/1Password/1password /usr/bin/1password
 # which is normally packaged with 1password. You can compare with
 # /usr/lib/1Password/after-install.sh if you want to see.
 
-cd /usr/lib/1Password
-
 # chrome-sandbox requires the setuid bit to be specifically set.
 # See https://github.com/electron/electron/issues/17972
 chmod 4755 /usr/lib/1Password/chrome-sandbox
@@ -73,14 +71,7 @@ chmod 4755 /usr/lib/1Password/chrome-sandbox
 GID_ONEPASSWORD="1790"
 GID_ONEPASSWORDCLI="1791"
 
-HELPER_PATH="/usr/lib/1Password/1Password-KeyringHelper"
 BROWSER_SUPPORT_PATH="/usr/lib/1Password/1Password-BrowserSupport"
-
-# Setup the Core App Integration helper binaries with the correct permissions and group
-chgrp "${GID_ONEPASSWORD}" "${HELPER_PATH}"
-# The binary requires setuid so it may interact with the Kernel keyring facilities
-chmod u+s "${HELPER_PATH}"
-chmod g+s "${HELPER_PATH}"
 
 # BrowserSupport binary needs setgid. This gives no extra permissions to the binary.
 # It only hardens it against environmental tampering.
@@ -110,4 +101,3 @@ rm -f /usr/lib/sysusers.d/30-rpmostree-pkg-group-onepassword-cli.conf
 cat >/usr/lib/tmpfiles.d/onepassword.conf <<EOF
 L  /opt/1Password  -  -  -  -  /usr/lib/1Password
 EOF
-

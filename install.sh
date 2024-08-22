@@ -53,9 +53,9 @@ fi
 /tmp/github-release-install.sh twpayne/chezmoi x86_64
 
 ### browser installs
+/tmp/install-1password.sh
 if [ "hostrpm" == "${BROWSER_MODE}" ]; then
   # use host-native browser installation
-  /tmp/install-1password.sh
   /tmp/install-brave-browser.sh
   /tmp/install-google-chrome.sh
 else
