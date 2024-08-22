@@ -14,12 +14,12 @@ secondary-color='#000000'
 
 [org.gnome.desktop.interface]
 clock-show-weekday=true
-document-font-name="Noto Sans 11"
+document-font-name="Inter 10"
 enable-hot-corners=false
 font-antialiasing='rgba'
 font-hinting='slight'
-font-name="Noto Sans 11"
-monospace-font-name='Source Code Pro 10'
+font-name="Inter 9"
+monospace-font-name='IBM Plex Mono 10'
 
 [org.gnome.desktop.peripherals.keyboard]
 numlock-state=true
@@ -33,7 +33,7 @@ action-double-click-titlebar='toggle-maximize'
 action-middle-click-titlebar='lower'
 button-layout='appmenu:minimize,maximize,close'
 resize-with-right-button=true
-titlebar-font='Noto Sans Bold 11'
+titlebar-font='Inter Bold 10'
 
 [org.gnome.mutter]
 check-alive-timeout=uint32 30000
