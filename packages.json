@@ -45,6 +45,7 @@
                 "pipx",
                 "playerctl",
                 "powertop",
+                "ptyxis",
                 "python3-pip",
                 "qemu-kvm",
                 "rclone",

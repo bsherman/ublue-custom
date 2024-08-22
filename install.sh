@@ -34,7 +34,6 @@ if [ "${FEDORA_MAJOR_VERSION}" -eq "39" ]; then
       gtk4 \
       vte291 \
       libadwaita
-  rpm-ostree install ptyxis
 fi
 
 
