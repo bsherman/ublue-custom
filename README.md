@@ -35,7 +35,7 @@ In addition to the packages/config provided by base images, this image:
     - openrazer driver
     - v4l2loopback driver
     - xbox controller drivers (xpadneo/xone)
-  - [moby-engine](https://mobyproject.org/) docker's open source version, disabled by default
+  - [docker-ce](https://docs.docker.com/engine/install/fedora/) docker's community edition, disabled by default
   - [p7zip](https://github.com/p7zip-project/p7zip)
   - ~~[pcp](https://pcp.io/) - Performance Co-pilot monitoring~~ *temporarily disabled until I sort out some issues*
   - [ptyxis](https://gitlab.gnome.org/chergert/ptyxis) (pronounced *tik-sys*) is a container oriented terminal
