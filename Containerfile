@@ -14,7 +14,7 @@ ARG DOCKER_BUILDX_VERSION=0.12.1
 # 2.24.7 matches docker/moby 24.0.5 which Fedora 40 has as of 2024-04-26
 ARG DOCKER_COMPOSE_VERSION=v2.24.7
 
-COPY system_files/shared /
+COPY system_files/ /
 
 # add akmods RPMs for installation
 #COPY --from="ghcr.io/bsherman/base-kmods:${FEDORA_MAJOR_VERSION}" /akmods            /tmp/akmods
