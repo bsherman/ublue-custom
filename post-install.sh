@@ -17,10 +17,6 @@ echo "Compiling gschema to include ublue-custom setting overrides" && \
 glib-compile-schemas /usr/share/glib-2.0/schemas &>/dev/null
 
 
-# don't run docker by default
-systemctl disable docker.service
-systemctl disable docker.socket
-
 # pre-enabled services
 systemctl unmask dconf-update.service
 systemctl enable dconf-update.service

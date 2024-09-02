@@ -19,6 +19,9 @@ rpm-ostree install \
   docker-buildx-plugin \
   docker-compose-plugin
 
+# prefer to have docker-compose available for legacy muscle-memory
+ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/bin/docker-compose
+
 systemctl enable docker.socket
 
 rm -f /etc/yum.repos.d/docker-ce.repo
