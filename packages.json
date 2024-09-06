@@ -59,17 +59,6 @@
                 "ydotool",
                 "zenity"
             ],
-            "budgie": [
-                "atril",
-                "atril-thumbnailer",
-                "libadwaita",
-                "nemo-audio-tab",
-                "nemo-emblems",
-                "nemo-gsconnect",
-                "nemo-image-converter",
-                "nemo-pastebin",
-                "nemo-preview"
-            ],
             "kinoite": [
                 "k3b",
                 "kde-runtime-docs",
@@ -115,9 +104,6 @@
         },
         "exclude": {
             "all": [],
-            "budgie": [
-                "gnome-software-rpm-ostree"
-            ],
             "kinoite": [
                 "plasma-welcome"
             ],

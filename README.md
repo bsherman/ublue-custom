@@ -11,7 +11,6 @@ These images are customized how I want, based on the great work by [team ublue o
 Images built:
 - Silverblue (Fedora GNOME immutable desktop)
 - Kinoite (Fedora KDE immutable desktop)
-- ~~Sericea (Fedora Sway immutable desktop)~~ currently disabled due to build issues
 
 Based on:
 - [ublue-os/main](https://github.com/ublue-os/main) for good foundations
@@ -55,9 +54,6 @@ In addition to the packages/config provided by base images, this image:
     - k3b
     - libadwaita(-qt)
     - skanpage
-  - Only on Sericea
-    - libadwaita
-    - some other packages for sway fun
 - Sets faster timeout on systemd waiting for shutdown
 - Sets gnome's "APP is not responding" check to 30 seconds
 - Sets some custom gnome default settings (see etc/dconf)
@@ -66,7 +62,7 @@ In addition to the packages/config provided by base images, this image:
 
 - Flatpaks
     - This image does not actually change Fedora flatpak application defaults, but suggests changing them
-        - Silverblue (Kinoite, Sericea, etc) by default, only come with the "fedora" flatpak remote pre-installed, and the Gnome apps which come on Silverblue are installed from that location
+        - Silverblue (Kinoite, etc) by default, only come with the "fedora" flatpak remote pre-installed, and the Gnome apps which come on Silverblue are installed from that location
     - I suggest using the included `just setup-flatpak-repos` command to remove the `fedora` flatpak remote (and all apps from it) and setup the `flathub` remote (see below)
     - Then run `just install-apps-gnome` to install the now missing apps (plus a few nice extras)
     - Run `just` recipe with `-n` for a dry-run, eg: `just -n install-apps-creative`
@@ -123,7 +119,6 @@ For the best experience, install from an official Fedora OSTree ISO:
 
 - [Silverblue (GNOME)](https://fedoraproject.org/silverblue/download/)
 - [Kinoite (KDE Plasma)](https://fedoraproject.org/kinoite/download/)
-- [Sway (formerly known as Sericea)](https://fedoraproject.org/atomic-desktops/sway/)
 
 ### Rebase to Custom
 
@@ -135,11 +130,9 @@ After installation is complete, use the appropriate `rebase` command to install 
 - `silverblue-nvidia-custom`
 - `kinoite-custom`
 - `kinoite-nvidia-custom`
-- `sericea-custom`
-- `sericea-nvidia-custom`
 
 
-We build `latest` which currently points to Fedora 39 (Fedora 40 will become latest after it releases and related packages have stabilized). Fedora 37 and 38 are no longer built here. You can chose a specific version by using the `39` or `40` tag instead of `latest`:
+We build `latest` which currently points to Fedora 40 (Fedora 41 will become latest after it releases and related packages have stabilized). Fedora 38 and 39 are no longer built here. You can chose a specific version by using the `40` tag instead of `latest`:
 
     sudo rpm-ostree rebase \
         ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:latest
