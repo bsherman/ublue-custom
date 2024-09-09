@@ -34,9 +34,6 @@ jobs:
         #image_name: [silverblue, kinoite, sericea]
         image_suffix: [main, nvidia]
         major_version: [40]
-        # don't build hostrpm browsers anymore as not using them
-        # browser_mode: [flatpak, hostrpm]
-        browser_mode: [flatpak]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
