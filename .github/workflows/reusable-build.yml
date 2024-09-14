@@ -124,27 +124,32 @@ jobs:
       - name: Verify base image
         uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
         with:
-          containers: ghcr.io/ublue-os/${{ env.BASE_IMAGE_NAME}}-${{ env.image_flavor }}:${{ env.fedora_version }}
+          containers: ${{ env.BASE_IMAGE_NAME}}-${{ env.image_flavor }}:${{ env.fedora_version }}
+          registry: ghcr.io/ublue-os
 
       - name: Verify Akmods
         uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
         with:
-          containers: ghcr.io/ublue-os/akmods:${{ env.AKMODS_FLAVOR}}-${{ env.fedora_version }}
+          containers: akmods:${{ env.AKMODS_FLAVOR}}-${{ env.fedora_version }}
+          registry: ghcr.io/ublue-os
 
       - name: Verify Nvidia
         uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
         with:
-          containers: ghcr.io/ublue-os/akmods-nvidia:${{ env.AKMODS_FLAVOR}}-${{ env.fedora_version }}
+          containers: akmods-nvidia:${{ env.AKMODS_FLAVOR}}-${{ env.fedora_version }}
+          registry: ghcr.io/ublue-os
 
       - name: Verify ZFS
         uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
         with:
-          containers: ghcr.io/ublue-os/akmods-zfs:coreos-stable-${{ env.fedora_version }}
+          containers: akmods-zfs:coreos-stable-${{ env.fedora_version }}
+          registry: ghcr.io/ublue-os
 
       - name: Verify Kernel Cache
         uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
         with:
-          containers: ghcr.io/ublue-os/${{ env.AKMODS_FLAVOR }}-kernel:${{ env.kernel_release }}
+          containers: ${{ env.AKMODS_FLAVOR }}-kernel:${{ env.kernel_release }}
+          registry: ghcr.io/ublue-os
 
       - name: Verify Kernel Verion Matches
         uses: Wandalen/wretry.action@6feedb7dedadeb826de0f45ff482b53b379a7844 # v3.5.0
