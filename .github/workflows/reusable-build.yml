@@ -25,13 +25,14 @@ jobs:
   build_container:
     name: image
     runs-on: ubuntu-22.04
-    continue-on-error: false
-    outputs:
-      image_full: ${{ steps.generate-outputs.outputs.image }}
     permissions:
       contents: read
       packages: write
+      attestations: write
       id-token: write
+    continue-on-error: false
+    outputs:
+      image_full: ${{ steps.generate-outputs.outputs.image }}
     strategy:
       fail-fast: false
       matrix:
