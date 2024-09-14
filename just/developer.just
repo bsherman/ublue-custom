@@ -1,10 +1,10 @@
 # Install virtualization stack (libvirt/virt-manager/etc)
 install-virtualization:
-  rpm-ostree install libvirt-client libvirt-daemon-kvm virt-install virt-manager
+    rpm-ostree install libvirt-client libvirt-daemon-kvm virt-install virt-manager
 
 # Un-install virtualization stack (libvirt/virt-manager/etc)
 uninstall-virtualization:
-  rpm-ostree uninstall libvirt-client libvirt-daemon-kvm virt-install virt-manager
+    rpm-ostree uninstall libvirt-client libvirt-daemon-kvm virt-install virt-manager
 
 # Install JetBrains Toolbox | https://www.jetbrains.com/toolbox-app/
 install-jetbrains-toolbox:
