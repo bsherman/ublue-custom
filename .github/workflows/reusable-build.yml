@@ -28,6 +28,10 @@ jobs:
     continue-on-error: false
     outputs:
       image_full: ${{ steps.generate-outputs.outputs.image }}
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     strategy:
       fail-fast: false
       matrix:
