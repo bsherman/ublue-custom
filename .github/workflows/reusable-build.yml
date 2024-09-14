@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  push-ghcr:
+  build_container:
     name: image
     runs-on: ubuntu-22.04
     continue-on-error: false
