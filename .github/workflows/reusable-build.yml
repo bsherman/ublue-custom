@@ -1,0 +1,449 @@
+name: Reusable Build and Push
+on:
+  workflow_call:
+    inputs:
+      image_version:
+        description: "The Image Version: gts, stable, or latest"
+        required: true
+        type: string
+      base_name:
+        description: "'silverblue' or 'kinoite'"
+        required: true
+        type: string
+    outputs:
+      images:
+        description: "An array of images built and pushed to the registry"
+        value: ${{ jobs.check.outputs.images }}
+env:
+    IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-${{ inputs.image_version }}
+  cancel-in-progress: true
+
+jobs:
+  push-ghcr:
+    name: image
+    runs-on: ubuntu-22.04
+    continue-on-error: false
+    outputs:
+      image_full: ${{ steps.generate-outputs.outputs.image }}
+    strategy:
+      fail-fast: false
+      matrix:
+        image_flavor:
+          - main
+          - nvidia
+        image_version:
+          - ${{ inputs.image_version }}
+        base_name:
+          - ${{ inputs.base_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Matrix Variables
+        shell: bash
+        run: |
+          # IMAGE_NAME
+          if [[ "${{ matrix.image_flavor }}" == "main" ]]; then
+              echo "IMAGE_NAME=${{ matrix.base_name }}-custom" >> $GITHUB_ENV
+          else
+              echo "IMAGE_NAME=${{ format('{0}-{1}', matrix.base_name, matrix.image_flavor) }}-custom" >> $GITHUB_ENV
+          fi
+
+          # BASE_IMAGE_NAME
+          echo "BASE_IMAGE_NAME=${{ matrix.base_name }}" >> $GITHUB_ENV
+
+          # TARGET_NAME
+          if [[ "${{ matrix.base_name }}" =~ "dx" ]]; then
+              echo "TARGET_NAME"="dx" >> $GITHUB_ENV
+          else
+              echo "TARGET_NAME"="base" >> $GITHUB_ENV
+          fi
+
+          # AKMODS_FLAVOR
+          if [[ "${{ matrix.image_version }}" =~ stable|gts ]]; then
+              echo "AKMODS_FLAVOR=coreos-stable" >> $GITHUB_ENV
+          elif [[ "${{ matrix.image_version }}" == "latest" ]]; then
+              echo "AKMODS_FLAVOR=fsync" >> $GITHUB_ENV
+          else
+              echo "AKMODS_FLAVOR=main" >> $GITHUB_ENV
+          fi
+
+          # Env for matrix.image_flavor
+          if [[ "${{ matrix.image_flavor }}" == "nvidia" && \
+                "${{ matrix.image_version }}" != "beta" ]]; then
+                  echo "image_flavor=main" >> $GITHUB_ENV
+                  echo "nvidia_type=nvidia" >> $GITHUB_ENV
+          elif [[ "${{ matrix.image_flavor }}" == "main" && \
+                  "${{ matrix.image_version }}" != "beta" ]]; then
+               echo "image_flavor=${{ matrix.image_flavor }}" >> $GITHUB_ENV
+               echo "nvidia_type=main" >> $GITHUB_ENV
+          else
+             echo "image_flavor=${{ matrix.image_flavor }}" >> $GITHUB_ENV
+          fi
+
+      - name: Get Current Fedora Version
+        id: labels
+        uses: Wandalen/wretry.action@6feedb7dedadeb826de0f45ff482b53b379a7844 # v3.5.0
+        with:
+          attempt_limit: 3
+          attempt_delay: 15000
+          command: |
+            set -eox pipefail
+            if [[ ${{ matrix.image_version }} == "stable" ]]; then
+              KERNEL_RELEASE=$(skopeo inspect docker://quay.io/fedora/fedora-coreos:stable | jq -r '.Labels["ostree.linux"]')
+            elif [[ ${{ matrix.image_version }} == "gts" && ${{ env.AKMODS_FLAVOR }} != "surface" ]]; then
+              coreos_kernel_release=$(skopeo inspect docker://quay.io/fedora/fedora-coreos:stable | jq -r '.Labels["ostree.linux"]')
+              coreos_fedora_version=$(echo $coreos_kernel_release | grep -oP 'fc\K[0-9]+')
+              fedora_version=$(($coreos_fedora_version - 1))
+              KERNEL_RELEASE=$(skopeo inspect docker://ghcr.io/ublue-os/coreos-stable-kernel:${fedora_version} | jq -r '.Labels["ostree.linux"]')
+            else
+              base_kernel_release=$(skopeo inspect docker://ghcr.io/ublue-os/${{ env.BASE_IMAGE_NAME }}-${{ env.image_flavor }}:${{ matrix.image_version }} | jq -r '.Labels["ostree.linux"]')
+              base_fedora_version=$(echo $base_kernel_release | grep -oP 'fc\K[0-9]+')
+              KERNEL_RELEASE=$(skopeo inspect docker://ghcr.io/ublue-os/${{ env.AKMODS_FLAVOR }}-kernel:${base_fedora_version} | jq -r '.Labels["ostree.linux"]')
+            fi
+            fedora_version=$(echo $KERNEL_RELEASE | grep -oP 'fc\K[0-9]+')
+            echo "kernel_release=$KERNEL_RELEASE" >> $GITHUB_ENV
+            echo "fedora_version=$fedora_version" >> $GITHUB_ENV
+            ver=$(skopeo inspect docker://ghcr.io/ublue-os/${{ env.BASE_IMAGE_NAME }}-${{ env.image_flavor }}:$fedora_version | jq -r '.Labels["org.opencontainers.image.version"]')
+            if [ -z "$ver" ] || [ "null" = "$ver" ]; then
+              echo "inspected image version must not be empty or null"
+              exit 1
+            fi
+            echo "VERSION=$ver" >> $GITHUB_ENV
+
+
+      - name: Verify base image
+        uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
+        with:
+          containers: ${{ env.BASE_IMAGE_NAME}}-${{ env.image_flavor }}:${{ env.fedora_version }}
+
+      - name: Verify Akmods
+        uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
+        with:
+          containers: akmods:${{ env.AKMODS_FLAVOR}}-${{ env.fedora_version }}
+
+      - name: Verify Nvidia
+        uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
+        with:
+          containers: akmods-nvidia:${{ env.AKMODS_FLAVOR}}-${{ env.fedora_version }}
+
+      - name: Verify ZFS
+        uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
+        with:
+          containers: akmods-zfs:coreos-stable-${{ env.fedora_version }}
+
+      - name: Verify Kernel Cache
+        uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
+        with:
+          containers: ${{ env.AKMODS_FLAVOR }}-kernel:${{ env.kernel_release }}
+
+      - name: Verify Kernel Verion Matches
+        uses: Wandalen/wretry.action@6feedb7dedadeb826de0f45ff482b53b379a7844 # v3.5.0
+        with:
+          attempt_limit: 3
+          attempt_delay: 15000
+          command: |
+            set -x
+            akmods_version=$(skopeo inspect docker://ghcr.io/ublue-os/akmods:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }} | jq -r '.Labels["ostree.linux"]')
+            if [[ "${akmods_version}" == "${{ env.kernel_release }}" ]]; then
+              echo "Kernel Versions Match"
+            else
+              echo "Kernel Version do Not Match"
+              exit 1
+            fi
+
+      - name: Check just syntax
+        uses: ublue-os/just-action@961e70ef33d8e0ef5ecf19dbb20739f3c0ce873b # v1
+
+
+      - name: Generate tags
+        id: generate-tags
+        shell: bash
+        run: |
+          # Generate a timestamp for creating an image version history
+          TIMESTAMP="$(date +%Y%m%d)"
+          FEDORA_VERSION="${{ matrix.image_version }}"
+
+          if [[ "${{ matrix.image_version }}" == "stable" ]]; then
+            IS_LATEST_VERSION=false
+            IS_STABLE_VERSION=true
+            IS_GTS_VERSION=false
+            IS_COREOS=true
+          elif [[ "${{ matrix.image_version }}" == "gts" ]]; then
+            IS_LATEST_VERSION=false
+            IS_STABLE_VERSION=true
+            IS_GTS_VERSION=true
+            IS_COREOS=false
+          elif [[ "${{ matrix.image_version }}" == "latest" ]]; then
+            IS_LATEST_VERSION=true
+            IS_STABLE_VERSION=true
+            IS_GTS_VERSION=false
+            IS_COREOS=false
+          elif [[ "${{ matrix.image_version }}" == "beta" ]]; then
+            IS_LATEST_VERSION=false
+            IS_STABLE_VERSION=false
+            IS_GTS_VERSION=false
+            IS_COREOS=false
+          fi
+
+          COMMIT_TAGS=()
+          BUILD_TAGS=()
+
+          # Have tags for tracking builds during pull request
+          SHA_SHORT="${GITHUB_SHA::7}"
+          COMMIT_TAGS+=("pr-${{ github.event.number }}-${FEDORA_VERSION}")
+          COMMIT_TAGS+=("${SHA_SHORT}-${FEDORA_VERSION}")
+          if [[ "$IS_LATEST_VERSION" == "true" ]] && \
+             [[ "$IS_STABLE_VERSION" == "true" ]]; then
+              COMMIT_TAGS+=("pr-${{ github.event.number }}")
+              COMMIT_TAGS+=("${SHA_SHORT}")
+          fi
+
+          if [[ ${{ matrix.image_version }} == "stable" ]]; then
+            BUILD_TAGS=("${FEDORA_VERSION}" "${FEDORA_VERSION}-${TIMESTAMP}")
+          else
+            BUILD_TAGS=("${{ env.fedora_version }}" "${{ env.fedora_version }}-${TIMESTAMP}")
+          fi
+
+          if [[ ${{ github.ref_name }} == "testing" ]]; then
+            if [[ ${{ matrix.image_version }} == "stable" ]]; then
+              BUILD_TAGS=("${FEDORA_VERSION}-testing" "${FEDORA_VERSION}-testing-${TIMESTAMP}")
+            else
+              BUILD_TAGS=("${{ env.fedora_version }}-testing" "${{ env.fedora_version }}-testing-${TIMESTAMP}")
+            fi
+            if [[ "$IS_LATEST_VERSION" == "true" ]] && \
+                [[ "$IS_STABLE_VERSION" == "true" ]]; then
+                BUILD_TAGS+=("testing")
+                echo "DEFAULT_TAG=testing" >> $GITHUB_ENV
+            elif [[ "$IS_GTS_VERSION" == "true" ]]; then
+                BUILD_TAGS+=("gts-testing")
+                echo "DEFAULT_TAG=gts-testing" >> $GITHUB_ENV
+            elif [[ "$IS_COREOS" == "true" ]]; then
+                echo "DEFAULT_TAG=stable-testing" >> $GITHUB_ENV
+            fi
+          else
+            if [[ "$IS_LATEST_VERSION" == "true" ]] && \
+                [[ "$IS_STABLE_VERSION" == "true" ]]; then
+                BUILD_TAGS+=("latest")
+                echo "DEFAULT_TAG=latest" >> $GITHUB_ENV
+            elif [[ "$IS_GTS_VERSION" == "true" ]]; then
+                  BUILD_TAGS+=("gts")
+                  echo "DEFAULT_TAG=gts" >> $GITHUB_ENV
+            elif [[ "$IS_COREOS" == "true" ]]; then
+                  echo "DEFAULT_TAG=stable" >> $GITHUB_ENV
+            fi
+          fi
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+              echo "Generated the following commit tags: "
+              for TAG in "${COMMIT_TAGS[@]}"; do
+                  echo "${TAG}"
+              done
+              alias_tags=("${COMMIT_TAGS[@]}")
+              echo "DEFAULT_TAG=${SHA_SHORT}-${FEDORA_VERSION}" >> $GITHUB_ENV
+          else
+              alias_tags=("${BUILD_TAGS[@]}")
+          fi
+          echo "Generated the following build tags: "
+          for TAG in "${BUILD_TAGS[@]}"; do
+              echo "${TAG}"
+          done
+          echo "alias_tags=${alias_tags[*]}" >> $GITHUB_OUTPUT
+
+      # Build metadata
+      - name: Image Metadata
+        uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: |
+            ${{ env.IMAGE_NAME }}
+          labels: |
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
+            org.opencontainers.image.version=${{ env.VERSION }}
+            org.opencontainers.image.description=Custom ${{ matrix.image_name }} unfiltered Flathub, distrobox, automatic updates, and drivers (nvidia and xbox)
+            ostree.linux=${{ env.kernel_release }}
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bsherman/ublue-custom/main/README.md
+
+      - name: Pull  images
+        if: github.event_name == 'pull_request' && ( matrix.image_flavor == 'main' || matrix.image_flavor == 'nvidia' ) || github.event_name != 'pull_request'
+        uses: Wandalen/wretry.action@6feedb7dedadeb826de0f45ff482b53b379a7844 # v3.5.0
+        with:
+          attempt_limit: 3
+          attempt_delay: 15000
+          command: |
+            # pull the base image used for FROM in containerfile so
+            # we can retry on that unfortunately common failure case
+            podman pull ${{ env.IMAGE_REGISTRY }}/${{ env.BASE_IMAGE_NAME }}-${{ env.image_flavor }}:${{ env.fedora_version }}
+            podman pull ${{ env.IMAGE_REGISTRY }}/akmods:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
+            podman pull ${{ env.IMAGE_REGISTRY }}/akmods-nvidia:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
+            podman pull ${{ env.IMAGE_REGISTRY }}/akmods-zfs:coreos-stable-${{ env.fedora_version }}
+            podman pull ${{ env.IMAGE_REGISTRY }}/${{ env.AKMODS_FLAVOR }}-kernel:${{ env.kernel_release }}
+
+      # Build image using Buildah action
+      - name: Build Image
+        id: build_image
+        if: github.event_name == 'pull_request' && ( matrix.image_flavor == 'main' || matrix.image_flavor == 'nvidia' ) || github.event_name != 'pull_request'
+        uses: redhat-actions/buildah-build@7a95fa7ee0f02d552a32753e7414641a04307056 # v2
+        with:
+          containerfiles: |
+            ./Containerfile
+          image: ${{ env.IMAGE_NAME }}
+          tags: |
+            ${{ steps.generate-tags.outputs.alias_tags }}
+          build-args: |
+            BASE_IMAGE_NAME=${{ env.BASE_IMAGE_NAME }}
+            IMAGE_NAME=${{ env.IMAGE_NAME }}
+            IMAGE_FLAVOR=${{ env.image_flavor }}
+            IMAGE_VENDOR=${{ github.repository_owner }}
+            FEDORA_MAJOR_VERSION=${{ env.fedora_version }}
+            TARGET_BASE=${{ matrix.target_base }}
+            AKMODS_FLAVOR=${{ env.AKMODS_FLAVOR }}
+            NVIDIA_TYPE=${{ env.nvidia_type }}
+            KERNEL=${{ env.kernel_release }}
+            UBLUE_IMAGE_TAG=${{ matrix.image_version }}
+          labels: ${{ steps.meta.outputs.labels }}
+          oci: false
+          # TODO(GH-280)
+          # extra-args: |
+          #   --target=${{ matrix.target_name || matrix.base_name }}
+          extra-args: |
+            --target=${{ env.TARGET_NAME }}
+
+      - name: Check Secureboot
+        if: github.event_name == 'pull_request' && ( matrix.image_flavor == 'main' || matrix.image_flavor == 'nvidia' ) || github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -x
+          if [[ ! $(command -v sbverify) || ! $(command -v curl) || ! $(command -v openssl) ]]; then
+            sudo apt update
+            sudo apt install sbsigntool curl openssl
+          fi
+          podman run -d --rm --name ${{env.IMAGE_NAME}}-$(echo "${{ steps.generate-tags.outputs.alias_tags }}" | cut -d " " -f 1) "${{ env.IMAGE_NAME }}":$(echo "${{ steps.generate-tags.outputs.alias_tags }}" | cut -d " " -f 1) sleep 1000
+          podman cp ${{env.IMAGE_NAME}}-$(echo "${{ steps.generate-tags.outputs.alias_tags }}" | cut -d " " -f 1):/usr/lib/modules/${{ env.kernel_release }}/vmlinuz .
+          podman rm -f ${{env.IMAGE_NAME}}-$(echo "${{ steps.generate-tags.outputs.alias_tags }}" | cut -d " " -f 1)
+          sbverify --list vmlinuz
+          curl --retry 3 -Lo kernel-sign.der https://github.com/ublue-os/kernel-cache/raw/main/certs/public_key.der
+          curl --retry 3 -Lo akmods.der https://github.com/ublue-os/kernel-cache/raw/main/certs/public_key_2.der
+          openssl x509 -in kernel-sign.der -out kernel-sign.crt
+          openssl x509 -in akmods.der -out akmods.crt
+          sbverify --cert kernel-sign.crt vmlinuz || exit 1
+          sbverify --cert akmods.crt vmlinuz || exit 1
+
+      # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
+      # https://github.com/macbre/push-to-ghcr/issues/12
+      - name: Lowercase Registry
+        id: registry_case
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ env.IMAGE_REGISTRY }}
+
+      # Push the image to GHCR (Image Registry)
+      - name: Push To GHCR
+        uses: redhat-actions/push-to-registry@5ed88d269cf581ea9ef6dd6806d01562096bee9c # v2
+        id: push
+        if: github.event_name != 'pull_request'
+        env:
+          REGISTRY_USER: ${{ github.actor }}
+          REGISTRY_PASSWORD: ${{ github.token }}
+        with:
+          image: ${{ steps.build_image.outputs.image }}
+          tags: ${{ steps.build_image.outputs.tags }}
+          registry: ${{ steps.registry_case.outputs.lowercase }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Sign container
+      - uses: sigstore/cosign-installer@4959ce089c160fddf62f7b42464195ba1a56d382 # v3.6.0
+        if: github.event_name != 'pull_request'
+
+      - name: Sign container image
+        if: github.event_name != 'pull_request'
+        run: |
+          cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}@${TAGS}
+        env:
+          TAGS: ${{ steps.push.outputs.digest }}
+          COSIGN_EXPERIMENTAL: false
+          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      - name: Generate file containing outputs
+        if: github.event_name != 'pull_request'
+        env:
+          DIGEST: ${{ steps.push.outputs.digest }}
+          IMAGE_REGISTRY: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_FLAVOR: ${{ env.image_flavor }}
+          FEDORA_VERSION: ${{ matrix.image_version }}
+        run: echo "${IMAGE_REGISTRY}@${DIGEST}" > "${IMAGE_NAME}-${IMAGE_FLAVOR}-${FEDORA_VERSION}.txt"
+
+      - name: Upload artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4
+        with:
+          name: image-${{ env.IMAGE_NAME }}-${{ env.image_flavor }}-${{ matrix.image_version }}
+          retention-days: 1
+          if-no-files-found: error
+          path: |
+            ${{ env.IMAGE_NAME }}-${{ env.image_flavor }}-${{ matrix.image_version }}.txt
+
+  check:
+    name: Check all ${{ inputs.base_name }} ${{ inputs.image_version }} builds successful
+    if: always()
+    runs-on: ubuntu-latest
+    needs: [build_container]
+    outputs:
+      images: ${{ steps.generate-outputs.outputs.images }}
+    steps:
+      - name: Download artifacts
+        if: github.event_name != 'pull_request'
+        id: download-artifacts
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4
+        with:
+          pattern: image-*
+          merge-multiple: true
+
+      - name: Create output
+        if: github.event_name != 'pull_request'
+        id: generate-outputs
+        env:
+          JOBS: ${{ toJson(needs) }}
+          ARTIFACT_PATH: ${{ steps.download-artifacts.outputs.download-path }}
+        run: |
+          # Initialize the array
+          images=()
+
+          # Populate the array with each line from each file in the artifacts directory
+          for file in $ARTIFACT_PATH/*; do
+              while IFS= read -r line; do
+                images+=("$line")
+              done < "$file"
+          done
+
+          # Create the GITHUB_OUTPUT in the format '["image1", "image2", ...]'
+          echo "images=$(printf '%s\n' "${images[@]}" | jq -R -s -c 'split("\n") | .[:-1]')" >> $GITHUB_OUTPUT
+
+      - name: Check Jobs
+        env:
+          JOBS: ${{ toJson(needs) }}
+        run: |
+          echo "Job status:"
+          echo $JOBS | jq -r 'to_entries[] | " - \(.key): \(.value.result)"'
+
+          for i in $(echo $JOBS | jq -r 'to_entries[] | .value.result'); do
+            if [ "$i" != "success" ] && [ "$i" != "skipped" ]; then
+              echo ""
+              echo "Status check not okay!"
+              exit 1
+            fi
+          done
+
