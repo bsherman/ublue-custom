@@ -26,9 +26,11 @@ Based on:
 
 ## Features
 
-In addition to the packages/config provided by base images, this image:
+In addition to the packages/config provided by ublue-os main images, this:
 - Removes from the base image:
   - firefox
+  - gnome-extensions-app (replaced with Gnome Extensions flatpak)
+  - gnome-
 - Adds the following packages to the base image:
   - akmods from[ublue-os/akmods](https://github.com/ublue-os/akmods)
     - openrazer driver
@@ -40,21 +42,20 @@ In addition to the packages/config provided by base images, this image:
   - [ptyxis](https://gitlab.gnome.org/chergert/ptyxis) (pronounced *tik-sys*) is a container oriented terminal
   - [powertop](https://github.com/fenrus75/powertop)
   - [tailscale](https://tailscale.com/) for VPN
-  - [tmux](https://github.com/tmux/tmux)
   - [libvirtd](https://libvirt.org/) and [qemu](https://qemu.org/) backend for running [kvm](https://linux-kvm.org/) VMs
   - [virt-manager](https://virt-manager.org/) UI for managing VMs on libvirtd
   - [waydroid](https://waydro.id/)
   - [wireguard-tools](https://www.wireguard.com/) for more VPN
   - zenity - for UI scripting
   - Only on Silverblue: Gnome specific packages
-    - default font set to Noto Sans
-    - gnome shell extensions (appindicator, dash-to-dock, gsconnect, move-clock, no-overview, notifications-reloaded)
+    - default font set to Inter and monospace font to IBM Plex Mono
+    - gnome shell extensions (appindicator, caffeine, dash-to-dock, gsconnect, no-overview, search-light, tailscale-gnome-qs )
     - gsconnect (plus dependancies)
   - Only on Kinoite: KDE specific packages
     - k3b
     - libadwaita(-qt)
     - skanpage
-- Sets faster timeout on systemd waiting for shutdown
+- Sets faster timeout on systemd waiting for user processes to shutdown
 - Sets gnome's "APP is not responding" check to 30 seconds
 - Sets some custom gnome default settings (see etc/dconf)
 
@@ -83,7 +84,6 @@ Click here to view the Universal Blue just documentation
 Available commands:
  - bios                           # Boot into this device's BIOS/UEFI screen
  - changelogs                     # Show the changelog
- - chsh new_shell                 # Change the user's shell
  - configure-nvidia ACTION="prompt" # Configure the Nvidia driver
  - distrobox-fedora-custom        # Create a Fedora (bsherman custom) container
  - enroll-secure-boot-key         # Enroll Nvidia driver & KMOD signing key for secure boot - Enter password "ublue-os" if prompted
@@ -124,23 +124,33 @@ For the best experience, install from an official Fedora OSTree ISO:
 
 After installation is complete, use the appropriate `rebase` command to install one of these custom images.
 
-*Note: for `IMAGE_NAME` in the commands below, substitute one of these image names:*
+**For `IMAGE_NAME` in the commands below, substitute one of these image names:**
 
 - `silverblue-custom`
 - `silverblue-nvidia-custom`
 - `kinoite-custom`
 - `kinoite-nvidia-custom`
 
+**For `TAG` in the commands below, substitute one of these tags:**
 
-We build `latest` which currently points to Fedora 40 (Fedora 41 will become latest after it releases and related packages have stabilized). Fedora 38 and 39 are no longer built here. You can chose a specific version by using the `40` tag instead of `latest`:
+- `latest` - Fedora 40 with the current released kernnel
+- `stable` - Fedora 40 with the last Fedora CoreOS stable kernel (this delays kernel upgrades a bit to avoid most kernel regressions)
+
+`latest`, which currently points to Fedora 40, will update after our upstreams have tested and I've tested these images out, too.
 
     sudo rpm-ostree rebase \
-        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:latest
+        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:TAG
 
-We build date tags as well, so if you want to rebase to a particular day's release:
+We build date tags as well, so if you want to rebase to a particular day's release, you can.
+
+- `latest` on a given day is referened by Fedora release number, eg `40-20240915`
+- `stable` on a given day is referened with `stable` , eg `stable-20240916`
 
     sudo rpm-ostree rebase \
-        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:39-20240223
+        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:40-20240915
+
+    sudo rpm-ostree rebase \
+        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:stable-20240916
 
 ## Verification
 
@@ -149,7 +159,7 @@ These images are signed with sigstore's [cosign](https://docs.sigstore.dev/cosig
     cosign verify \
         --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
         --certificate-identity-regexp "https://github.com/bsherman/ublue-custom" \
-        ghcr.io/bsherman/IMAGE_NAME
+        ghcr.io/bsherman/IMAGE_NAME:TAG
 
-    cosign verify --key cosign.pub ghcr.io/bsherman/IMAGE_NAME
+    cosign verify --key cosign.pub ghcr.io/bsherman/IMAGE_NAME:TAG
 

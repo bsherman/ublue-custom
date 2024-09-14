@@ -1,0 +1,29 @@
+name: Silverblue Latest
+on:
+  merge_group:
+  pull_request:
+    branches:
+      - main
+      - testing
+    paths-ignore:
+      - '**.md'
+      - 'system_files/kinoite/**'
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - 'system_files/kinoite/**'
+  schedule:
+    - cron: '40 4 * * *'  # 4:40 UTC everyday
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: build
+    uses: ./.github/workflows/reusable-build.yml
+    secrets: inherit
+    with:
+      base_name: silverblue
+      image_version: latest
+

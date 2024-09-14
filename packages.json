@@ -17,7 +17,6 @@
                 "iotop",
                 "ipcalc",
                 "iperf3",
-                "langpacks-en",
                 "libimobiledevice",
                 "libretls",
                 "libvirt-daemon",
@@ -103,36 +102,23 @@
             ]
         },
         "exclude": {
-            "all": [],
-            "kinoite": [
-                "plasma-welcome"
+            "all": [
+                "firefox",
+                "firefox-langpacks"
             ],
+            "kinoite": [],
             "silverblue": [
                 "gnome-extensions-app",
-                "gnome-software-rpm-ostree",
-                "gnome-tour"
+                "gnome-software-rpm-ostree"
             ],
             "sericea": [
                 "sddm-x11"
             ]
         }
     },
-    "39": {
-        "include": {
-            "all": [],
-            "kinoite": [
-                "libadwaita-qt5"
-            ]
-        },
-        "exclude": {
-            "all": []
-        }
-    },
     "40": {
         "include": {
-            "all": [
-                "ptyxis"
-            ],
+            "all": [],
             "kinoite": [
                 "libadwaita-qt5",
                 "libadwaita-qt6"
