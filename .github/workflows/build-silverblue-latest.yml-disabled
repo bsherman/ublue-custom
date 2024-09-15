@@ -8,12 +8,14 @@ on:
     paths-ignore:
       - '**.md'
       - 'system_files/kinoite/**'
+      - '.github/workflows/cleanup**'
   push:
     branches:
       - main
     paths-ignore:
       - '**.md'
       - 'system_files/kinoite/**'
+      - '.github/workflows/cleanup**'
   schedule:
     - cron: '40 4 * * *'  # 4:40 UTC everyday
   workflow_dispatch:

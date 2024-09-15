@@ -1,0 +1,20 @@
+name: Cleanup Old Images
+on:
+#  schedule:
+#    - cron: '15 5 * * 2'  # 5:15 UTC everyday
+  workflow_dispatch:
+
+jobs:
+  delete-old-images:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Delete Old Images
+        uses: dataaxiom/ghcr-cleanup-action@v1.0.11
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          older-than: 90 days
+          keep-n-tagged: 10
+          keep-n-untagged: 10
+          dry-run: true
