@@ -1,4 +1,4 @@
-name: Kinoite Latest
+name: Kinoite Custom - Latest
 on:
   merge_group:
   pull_request:

@@ -1,4 +1,4 @@
-name: Silverblue Latest
+name: Silverblue Custom - Latest
 on:
   merge_group:
   pull_request:

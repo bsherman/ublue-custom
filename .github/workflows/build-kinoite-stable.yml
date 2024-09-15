@@ -1,4 +1,4 @@
-name: Kinoite Stable
+name: Kinoite Custom - Stable
 on:
   merge_group:
   pull_request:
