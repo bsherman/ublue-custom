@@ -396,7 +396,7 @@ jobs:
 
       - name: Sign container image with OIDC
         if: github.event_name != 'pull_request'
-        run: cosign sign -y ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}@${TAGS}
+        run: cosign sign -y ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${{ matrix.image_version }}
 
       - name: Verify OIDC signature
         if: github.event_name != 'pull_request'
