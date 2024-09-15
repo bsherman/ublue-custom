@@ -6,16 +6,16 @@ on:
       - main
       - testing
     paths-ignore:
+      - '.github/workflows/cleanup*.yml'
       - '**.md'
       - 'system_files/kinoite/**'
-      - '.github/workflows/cleanup**'
   push:
     branches:
       - main
     paths-ignore:
+      - '.github/workflows/cleanup*.yml'
       - '**.md'
       - 'system_files/kinoite/**'
-      - '.github/workflows/cleanup**'
   schedule:
     - cron: '15 5 * * 2'  # 5:15 UTC everyday
   workflow_dispatch:
