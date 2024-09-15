@@ -1,6 +1,8 @@
 # ublue-custom
 
-[![build-ublue](https://github.com/bsherman/ublue-custom/actions/workflows/build.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build.yml)
+[![silverblue-custom stable](https://github.com/bsherman/ublue-custom/actions/workflows/build-silverblue-stable.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build-silverblue-stable.yml) [![silverblue-custom latest](https://github.com/bsherman/ublue-custom/actions/workflows/build-silverblue-latest.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build-silverblue-latest.yml)
+[![kinoite-custom stable](https://github.com/bsherman/ublue-custom/actions/workflows/build-kinoite-stable.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build-kinoite-stable.yml) [![kinoite-custom latest](https://github.com/bsherman/ublue-custom/actions/workflows/build-kinoite-latest.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build-kinoite-latest.yml)
+
 
 Custom Fedora immutable desktop images which are mostly stock, plus the few things that are needed to make life good on my family's laptops.
 
