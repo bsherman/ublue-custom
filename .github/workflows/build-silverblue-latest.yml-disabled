@@ -7,6 +7,7 @@ on:
       - testing
     paths-ignore:
       - '.github/workflows/cleanup*.yml'
+      - '.github/workflows/*kinoite*.yml'
       - '**.md'
       - 'system_files/kinoite/**'
   push:
@@ -14,6 +15,7 @@ on:
       - main
     paths-ignore:
       - '.github/workflows/cleanup*.yml'
+      - '.github/workflows/*kinoite*.yml'
       - '**.md'
       - 'system_files/kinoite/**'
   schedule:

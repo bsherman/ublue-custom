@@ -1,4 +1,4 @@
-name: Silverblue Stable
+name: Kinoite Latest
 on:
   merge_group:
   pull_request:
@@ -7,19 +7,19 @@ on:
       - testing
     paths-ignore:
       - '.github/workflows/cleanup*.yml'
-      - '.github/workflows/*kinoite*.yml'
+      - '.github/workflows/*silverblue*.yml'
       - '**.md'
-      - 'system_files/kinoite/**'
+      - 'system_files/silverblue/**'
   push:
     branches:
       - main
     paths-ignore:
       - '.github/workflows/cleanup*.yml'
-      - '.github/workflows/*kinoite*.yml'
+      - '.github/workflows/*silverblue*.yml'
       - '**.md'
-      - 'system_files/kinoite/**'
+      - 'system_files/silverblue/**'
   schedule:
-    - cron: '15 5 * * 2'  # 5:15 UTC everyday
+    - cron: '40 4 * * *'  # 4:40 UTC everyday
   workflow_dispatch:
 
 jobs:
@@ -28,6 +28,6 @@ jobs:
     uses: ./.github/workflows/reusable-build.yml
     secrets: inherit
     with:
-      base_name: silverblue
-      image_version: stable
+      base_name: kinoite
+      image_version: latest
 
