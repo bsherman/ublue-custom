@@ -4,6 +4,9 @@ on:
 #    - cron: '15 5 * * 2'  # 5:15 UTC everyday
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+
 jobs:
   delete-old-images:
     runs-on: ubuntu-latest
