@@ -14,8 +14,8 @@ jobs:
         uses: dataaxiom/ghcr-cleanup-action@v1.0.11
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          older-than: 90 days
+          older-than: 600 days
           packages: silverblue-custom,silverblue-nvidia-custom,kinoite-custom,kinoite-nvidia-custom,sericea-custom,sericea-nvidia-custom
-          keep-n-tagged: 10
-          keep-n-untagged: 10
+          #keep-n-tagged: 10
+          #keep-n-untagged: 10
           dry-run: true
