@@ -30,8 +30,7 @@ install-apps-gnome:
       com.mattjakeman.ExtensionManager \\
       io.github.celluloid_player.Celluloid \\
       it.mijorus.gearlever \\
-      io.missioncenter.MissionCenter \\
-      org.gustavoperedo.FontDownloader
+      io.missioncenter.MissionCenter
 
 # Install typical KDE apps
 install-apps-kde:
