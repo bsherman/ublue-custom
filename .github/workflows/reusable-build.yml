@@ -378,7 +378,7 @@ jobs:
       - uses: sigstore/cosign-installer@4959ce089c160fddf62f7b42464195ba1a56d382 # v3.6.0
         if: github.event_name != 'pull_request'
 
-      - name: Sign container image
+      - name: Sign container image with keypair
         if: github.event_name != 'pull_request'
         run: |
           cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}@${TAGS}
@@ -386,6 +386,25 @@ jobs:
           TAGS: ${{ steps.push.outputs.digest }}
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      - name: Verify keypair signature
+        if: github.event_name != 'pull_request'
+        run: |
+          cosign verify \
+            --key cosign.pub \
+            ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${{ matrix.image_version }}
+
+      - name: Sign container image with OIDC
+        if: github.event_name != 'pull_request'
+        run: cosign sign -y env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}@${TAGS}
+
+      - name: Verify OIDC signature
+        if: github.event_name != 'pull_request'
+        run: |
+          cosign verify \
+            --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+            --certificate-identity-regexp "${{ github.server_url }}/${{ github.repository }}" \
+            ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}:${{ matrix.image_version }}
 
       - name: Generate file containing outputs
         if: github.event_name != 'pull_request'
