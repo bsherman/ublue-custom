@@ -167,7 +167,8 @@ jobs:
             fi
 
       - name: Check just syntax
-        uses: ublue-os/just-action@961e70ef33d8e0ef5ecf19dbb20739f3c0ce873b # v1
+        uses: ublue-os/just-action@v2
+        #uses: ublue-os/just-action@961e70ef33d8e0ef5ecf19dbb20739f3c0ce873b # v1
 
 
       - name: Generate tags
