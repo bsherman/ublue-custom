@@ -134,23 +134,20 @@ After installation is complete, use the appropriate `rebase` command to install 
 **For `TAG` in the commands below, substitute one of these tags:**
 
 - `latest` - Fedora 40 with the current released kernnel
-- `stable` - Fedora 40 with the last Fedora CoreOS stable kernel (this delays kernel upgrades a bit to avoid most kernel regressions)
+    - this currently points to Fedora 40, and will update after upstreams have released and the current image is tested satisfactorily
+- `stable` - Fedora 40 with the last Fedora CoreOS stable kernel
+    - this delays kernel upgrades a bit to avoid kernel regressions
 
-`latest`, which currently points to Fedora 40, will update after our upstreams have tested and I've tested these images out, too.
+We build date tags as well, so for particular day's image, there are:
 
-    sudo rpm-ostree rebase \
-        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:TAG
+- `FR-YYYYMMDD`, eg `40-20240913` - latest is referenced by Fedora release number (FR) and date
+- `stable-YYYYMMDD` , eg `stable-20240914` - stable is referenced by stable and date
 
-We build date tags as well, so if you want to rebase to a particular day's release, you can.
 
-- `latest` on a given day is referened by Fedora release number, eg `40-20240915`
-- `stable` on a given day is referened with `stable` , eg `stable-20240916`
-
-    sudo rpm-ostree rebase \
-        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:40-20240915
-
-    sudo rpm-ostree rebase \
-        ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:stable-20240916
+```bash
+sudo rpm-ostree rebase \
+    ostree-unverified-registry:ghcr.io/bsherman/IMAGE_NAME:TAG
+```
 
 ## Verification
 
