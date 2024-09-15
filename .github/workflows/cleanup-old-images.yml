@@ -15,6 +15,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           older-than: 90 days
+          packages: silverblue-custom,silverblue-nvidia-custom,kinoite-custom,kinoite-nvidia-custom,sericea-custom,sericea-nvidia-custom
           keep-n-tagged: 10
           keep-n-untagged: 10
           dry-run: true
