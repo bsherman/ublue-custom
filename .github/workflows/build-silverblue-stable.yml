@@ -10,14 +10,6 @@ on:
       - '.github/workflows/*kinoite*.yml'
       - '**.md'
       - 'system_files/kinoite/**'
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '.github/workflows/cleanup*.yml'
-      - '.github/workflows/*kinoite*.yml'
-      - '**.md'
-      - 'system_files/kinoite/**'
   schedule:
     - cron: '15 5 * * 2'  # 5:15 UTC everyday
   workflow_dispatch:
