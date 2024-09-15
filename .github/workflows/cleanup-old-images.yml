@@ -1,24 +1,24 @@
 name: Cleanup Old Images
 on:
-#  schedule:
-#    - cron: '15 5 * * 2'  # 5:15 UTC everyday
+  schedule:
+    - cron: '05 7 * * *'  # 7:05 UTC everyday
   workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
 
 jobs:
-  delete-old-images:
+  delete-older-than-90:
     runs-on: ubuntu-latest
     permissions:
       packages: write
     steps:
-      - name: Delete Old Images
+      - name: Delete Images Older Than 90 Days
         uses: dataaxiom/ghcr-cleanup-action@v1.0.11
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           packages: silverblue-custom,silverblue-nvidia-custom,kinoite-custom,kinoite-nvidia-custom,sericea-custom,sericea-nvidia-custom
-          older-than: 93 days
+          older-than: 90 days
           keep-n-tagged: 7
           keep-n-untagged: 7
           #dry-run: true
