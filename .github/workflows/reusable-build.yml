@@ -307,7 +307,7 @@ jobs:
       - name: Remove old images
         shell: bash
         run: |
-          set -euox pipfail
+          set -euox pipefail
           sudo podman image rm ${{ env.UPSTREAM_REGISTRY }}/${{ env.BASE_IMAGE_NAME }}-${{ env.image_flavor }}:${{ env.fedora_version }}
           sudo podman image rm ${{ env.UPSTREAM_REGISTRY }}/akmods:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
           sudo podman image rm ${{ env.UPSTREAM_REGISTRY }}/akmods-nvidia:${{ env.AKMODS_FLAVOR }}-${{ env.fedora_version }}
