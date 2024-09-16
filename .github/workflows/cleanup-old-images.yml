@@ -14,11 +14,12 @@ jobs:
       packages: write
     steps:
       - name: Delete Images Older Than 90 Days
-        uses: dataaxiom/ghcr-cleanup-action@v1.0.12
+        uses: dataaxiom/ghcr-cleanup-action@v1.0.13
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           packages: silverblue-custom,silverblue-nvidia-custom,kinoite-custom,kinoite-nvidia-custom,sericea-custom,sericea-nvidia-custom
           older-than: 90 days
           keep-n-tagged: 7
           keep-n-untagged: 7
+          delete-orphaned-images: true
           #dry-run: true
