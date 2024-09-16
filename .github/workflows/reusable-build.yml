@@ -336,7 +336,7 @@ jobs:
           set -eoux pipefail
           IMAGE=$(podman pull ${{ steps.rechunk.outputs.ref }})
           sudo rm -rf ${{ steps.rechunk.outputs.output }}
-          for tag in ${{ steps.generate-tags.outputs.build_tags }}; do
+          for tag in ${{ steps.generate-tags.outputs.alias_tags }}; do
             podman tag $IMAGE ${{ env.IMAGE_NAME }}:$tag
           done
           podman tag $IMAGE rechunked-img
