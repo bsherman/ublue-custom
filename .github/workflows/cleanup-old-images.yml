@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           packages: silverblue-custom,silverblue-nvidia-custom,kinoite-custom,kinoite-nvidia-custom,sericea-custom,sericea-nvidia-custom
           older-than: 90 days
-          keep-n-tagged: 7
-          keep-n-untagged: 7
           delete-orphaned-images: true
+          #keep-n-tagged: 7
+          #keep-n-untagged: 7
           #dry-run: true
