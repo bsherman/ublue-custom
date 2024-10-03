@@ -71,23 +71,17 @@ jobs:
           # AKMODS_FLAVOR
           if [[ "${{ matrix.image_version }}" =~ stable|gts ]]; then
               echo "AKMODS_FLAVOR=coreos-stable" >> $GITHUB_ENV
-          #elif [[ "${{ matrix.image_version }}" == "latest" ]]; then
-          #    echo "AKMODS_FLAVOR=fsync" >> $GITHUB_ENV
           else
               echo "AKMODS_FLAVOR=main" >> $GITHUB_ENV
           fi
 
           # Env for matrix.image_flavor
-          if [[ "${{ matrix.image_flavor }}" == "nvidia" && \
-                "${{ matrix.image_version }}" != "beta" ]]; then
-                  echo "image_flavor=main" >> $GITHUB_ENV
-                  echo "nvidia_type=nvidia" >> $GITHUB_ENV
-          elif [[ "${{ matrix.image_flavor }}" == "main" && \
-                  "${{ matrix.image_version }}" != "beta" ]]; then
-               echo "image_flavor=${{ matrix.image_flavor }}" >> $GITHUB_ENV
-               echo "nvidia_type=main" >> $GITHUB_ENV
+          if [[ "${{ matrix.image_flavor }}" == "nvidia" ]]; then
+             echo "image_flavor=main" >> $GITHUB_ENV
+             echo "nvidia_type=nvidia" >> $GITHUB_ENV
           else
              echo "image_flavor=${{ matrix.image_flavor }}" >> $GITHUB_ENV
+             echo "nvidia_type=" >> $GITHUB_ENV
           fi
 
       - name: Get Current Fedora Version
