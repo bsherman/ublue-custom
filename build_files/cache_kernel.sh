@@ -2,7 +2,7 @@
 
 set -eoux pipefail
 
-if [[ -n "${NVIDIA_TYPE:-}" ]]; then
+if [[ -n "${NVIDIA_TYPE:-}" && "main" != ${AKMODS_FLAVOR} ]]; then
     rpm-ostree override replace --experimental \
         /tmp/kernel-rpms/kernel-[0-9]*.rpm \
         /tmp/kernel-rpms/kernel-core-*.rpm \
