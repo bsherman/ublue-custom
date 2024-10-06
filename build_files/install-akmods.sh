@@ -19,7 +19,10 @@ rpm-ostree install \
     /tmp/akmods/kmods/*xone*.rpm \
     /tmp/akmods/kmods/*xpadneo*.rpm \
     /tmp/akmods/kmods/*openrazer*.rpm
-#    /tmp/akmods/kmods/*v4l2loopback*.rpm
+
+rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+rpm-ostree install v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm
+rpm-ostree uninstall rpmfusion-free-release
 
 # ZFS for gts/stable
 if [[ ${AKMODS_FLAVOR} =~ "coreos" ]]; then
