@@ -18,6 +18,7 @@
                 "ipcalc",
                 "iperf3",
                 "libimobiledevice",
+                "libpcap-devel",
                 "libretls",
                 "libvirt-daemon",
                 "libvirt-daemon-config-network",
