@@ -11,7 +11,7 @@ on:
       - '**.md'
       - 'system_files/kinoite/**'
   schedule:
-    - cron: '15 5 * * 2'  # 5:15 UTC everyday
+    - cron: '15 5 * * *'  # 5:15 UTC everyday
   workflow_dispatch:
 
 jobs:
