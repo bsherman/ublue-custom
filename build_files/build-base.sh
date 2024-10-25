@@ -16,7 +16,7 @@ rsync -rvK /ctx/system_files/"${BASE_IMAGE_NAME}"/ /
 /ctx/build_files/nvidia.sh
 /ctx/build_files/1password.sh
 /ctx/build_files/docker-ce.sh
-/ctx/build_files/waydroid.sh
+#/ctx/build_files/waydroid.sh
 /ctx/build_files/fetch-install.sh
 /ctx/build_files/image-info.sh
 /ctx/build_files/systemd.sh
