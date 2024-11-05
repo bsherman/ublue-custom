@@ -1,8 +1,19 @@
 # ublue-custom
 
-[![silverblue-custom stable](https://github.com/bsherman/ublue-custom/actions/workflows/build-silverblue-stable.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build-silverblue-stable.yml) [![silverblue-custom latest](https://github.com/bsherman/ublue-custom/actions/workflows/build-silverblue-latest.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build-silverblue-latest.yml)
-[![kinoite-custom stable](https://github.com/bsherman/ublue-custom/actions/workflows/build-kinoite-stable.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build-kinoite-stable.yml) [![kinoite-custom latest](https://github.com/bsherman/ublue-custom/actions/workflows/build-kinoite-latest.yml/badge.svg)](https://github.com/bsherman/ublue-custom/actions/workflows/build-kinoite-latest.yml)
+## Archived
 
+TL;DR [**bOS**](https://github.com/bsherman/bos) is the successor to `ublue-custom`. `ublue-custom` builds have ceased.
+
+Long story:
+After nearly two years of building and using `ublue-custom` on multiple systems, I'm shutting it down. Originally, I really wanted a very personalized custom OS, and [Universal Blue](https://universal-blue.org/) gave me something to build upon. Then, I started contributing to the project, too.
+
+I've continued to be involved and now am very active in helping to maintain Universal Blue's infrastructure, plus [Bluefin](https://projectbluefin.io/) and [uCore](https://projectucore.io/). `ublue-custom` was nearly identical to Bluefin, which means I was making a lot of duplicate effort. So, I wanted to reduce my workload, and make sure the energy I put in benefits the most people.
+
+But this isn't the end! Of course I'm still maintaining the upstream projects linked above, and I still want some extra personalization in my images. So [**bOS**](https://github.com/bsherman/bos) is the successor to `ublue-custom`.
+
+*Apologies in advance KDE and Sway users... I just wasn't using those images so you won't find them in **bOS**.
+
+----------------------------------
 
 Custom Fedora immutable desktop images which are mostly stock, plus the few things that are needed to make life good on my family's laptops.
 
